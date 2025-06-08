@@ -3,6 +3,7 @@ import "../styles/global.css";
 import background from "../assets/bg.svg";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
+const { title } = Astro.props;
 ---
 
 <!doctype html>
@@ -36,9 +37,15 @@ import Footer from "../components/Footer.astro";
     </style>
   </head>
   <body class="flex flex-col bg-neutral-800 text-neutral-50">
-    <img id="background" src={background.src} alt="" fetchpriority="high" class="transition-opacity" />
-    <Header />
-    <main class="flex-1/2">
+    <img
+      id="background"
+      src={background.src}
+      alt=""
+      fetchpriority="high"
+      class="transition-opacity"
+    />
+    <Header title={title} />
+    <main class="flex-1/2 pl-8 pr-8">
       <slot />
     </main>
     <Footer />
