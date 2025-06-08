@@ -3,8 +3,21 @@ const name = "Cheap Nightbot";
 const year = new Date().getFullYear();
 ---
 
-<footer
-  class="flex p-4 items-center justify-center gap-6 text-lg"
->
-  <p>&copy;{year} {name}. All rights reserved.</p>
+<footer class="w-full bg-neutral-900/80 border-t border-neutral-800 p-6 mt-12">
+  <div
+    class="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between px-4 gap-2 text-sm text-neutral-400"
+  >
+    <span>&copy; {year} {name}. All rights reserved.</span>
+    <span>
+      Built with <a
+        href="https://astro.build/"
+        class="text-indigo-400 hover:underline"
+        target="_blank">Astro</a
+      > & <a
+        href="https://tailwindcss.com/"
+        class="text-indigo-400 hover:underline"
+        target="_blank">Tailwind CSS</a
+      >
+    </span>
+  </div>
 </footer>
