@@ -1,5 +1,26 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import CheapNightbot from "../images/Cheap Nightbot.svg";
 ---
 
-<Layout></Layout>
+<Layout>
+
+  <section
+    class="flex flex-col items-center justify-center md:flex-row h-full"
+  >
+    <div>
+      <p class="text-2xl border-l-2 pl-1.5">Yoho, me</p>
+      <h1 class="text-4xl font-bold text-indigo-200">
+        Cheap Nightbot ( ˶ˆᗜˆ˵ ) !
+      </h1>
+      <h2 class="text-2xl">a boiled potato ~</h2>
+    </div>
+    <img
+      src={CheapNightbot.src}
+      alt="Cheap Nightbot"
+      width="432"
+      height="432"
+      class="pointer-events-none p-10 overflow-visible"
+    />
+  </section>
+</Layout>
