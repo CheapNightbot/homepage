@@ -3,17 +3,41 @@ const { project } = Astro.props;
 ---
 
 <div
-  class="border flex items-center gap-8 shadow-2xl rounded-2xl overflow-hidden md:min-w-3xl"
+  class="bg-neutral-900 rounded-2xl shadow-lg overflow-hidden flex flex-col border border-neutral-700 hover:border-indigo-500 transition group"
 >
-  <img
-    src={project.img}
-    alt="yutify logo"
-    width="200"
-    height="200"
-    class="border-r p-4 md:p-6 w-36 h-36 md:w-52 md:h-52"
-  />
-  <div class="mr-4">
-    <h1 class="text-4xl font-bold mb-2">{project.title}</h1>
-    <p>{project.description}</p>
+  <div
+    class="relative h-48 w-full overflow-hidden flex items-center justify-center bg-neutral-800"
+  >
+    <img
+      src={project.image}
+      alt={project.name + " logo"}
+      class="object-contain h-32 w-32 group-hover:scale-105 transition-transform duration-300"
+      loading="lazy"
+    />
+  </div>
+  <div class="flex-1 flex flex-col p-6">
+    <h2
+      class="text-xl font-bold mb-1 text-indigo-200 group-hover:text-indigo-400 transition-colors"
+    >
+      {project.name}
+    </h2>
+    <p class="text-neutral-300 text-sm mb-3">{project.description}</p>
+    <div class="flex flex-wrap gap-2 mb-4">
+      {
+        project.techStack.map((tech: string) => (
+          <span class="bg-indigo-900/40 text-indigo-200 rounded px-2 py-1 text-xs font-mono border border-indigo-700/40">
+            {tech}
+          </span>
+        ))
+      }
+    </div>
+    <a
+      href={project.github}
+      target="_blank"
+      rel="noopener"
+      class="mt-auto inline-block px-4 py-2 rounded bg-indigo-700 text-white font-semibold shadow hover:bg-indigo-800 transition-colors text-center"
+    >
+      View on GitHub
+    </a>
   </div>
 </div>
