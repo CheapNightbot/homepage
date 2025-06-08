@@ -1,29 +1,12 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import ProjectCard from "../components/ProjectCard.astro";
-
-import yutifyLogo from "../images/projects/yutify.svg";
-import yutipyLogo from "../images/projects/yutipy.svg";
-
-const projects = [
-  {
-    img: yutifyLogo.src,
-    title: "yutify",
-    description:
-      "RESTful API for retrieving music info for various streaming platforms.",
-  },
-  {
-    img: yutipyLogo.src,
-    title: "yutipy",
-    description:
-      "A simple Python package to interact with various music platforms APIs.",
-  },
-];
+import projects from "../assets/projects.json";
 ---
 
-<Layout>
+<Layout title="Projects">
   <section
-    class="flex flex-col items-center justify-center py-4 gap-6 2xl:flex-row p-6 h-full"
+    class="mx-auto max-w-5xl px-4 grid gap-12 md:grid-cols-2 lg:grid-cols-3"
   >
     {projects.map((project) => <ProjectCard project={project} />)}
   </section>
