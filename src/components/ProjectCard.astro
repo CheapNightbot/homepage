@@ -1,0 +1,19 @@
+---
+const { project } = Astro.props;
+---
+
+<div
+  class="border flex items-center gap-8 shadow-2xl rounded-2xl overflow-hidden md:min-w-3xl"
+>
+  <img
+    src={project.img}
+    alt="yutify logo"
+    width="200"
+    height="200"
+    class="border-r p-4 md:p-6 w-36 h-36 md:w-52 md:h-52"
+  />
+  <div class="mr-4">
+    <h1 class="text-4xl font-bold mb-2">{project.title}</h1>
+    <p>{project.description}</p>
+  </div>
+</div>
