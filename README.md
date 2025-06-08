@@ -7,6 +7,7 @@ my personal website. it will contain blog, journal and portfolio.
 - [Astro](https://astro.build/) 🚀️
 - [Tailwind CSS](https://tailwindcss.com/) 🎨️
 - [TypeScript](https://www.typescriptlang.org/) 🌀️
+- [JavaScript](https://developer.mozilla.org/ja/docs/Web/JavaScript) 📜️
 - Markdown (for blog/journal) 📝️
 
 ## Features [WIP]
