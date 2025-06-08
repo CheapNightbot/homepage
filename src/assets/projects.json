@@ -1,0 +1,55 @@
+[
+  {
+    "id": "yutify",
+    "name": "yutify",
+    "description": "Simple RESTful API for retrieving music info for various streaming platforms.",
+    "shortDescription": "RESTful API for music info.",
+    "techStack": [
+      "Python",
+      "Flask",
+      "REST API"
+    ],
+    "image": "/imgs/projects/yutify.svg",
+    "featured": true,
+    "github": "https://github.com/CheapNightbot/yutify"
+  },
+  {
+    "id": "yutipy",
+    "name": "yutipy",
+    "description": "A simple Python package to interact with various music platforms APIs.",
+    "shortDescription": "Python package for music APIs.",
+    "techStack": [
+      "Python"
+    ],
+    "image": "/imgs/projects/yutipy.svg",
+    "featured": true,
+    "github": "https://github.com/CheapNightbot/yutipy"
+  },
+  {
+    "id": "soulofswords",
+    "name": "soulofswords",
+    "description": "Static Website for 'soulofswords' aka SOS.",
+    "shortDescription": "Static website for SOS.",
+    "techStack": [
+      "HTML",
+      "CSS",
+      "JavaScript"
+    ],
+    "image": "/imgs/projects/sos.svg",
+    "featured": false,
+    "github": "https://github.com/CheapNightbot/soulofswords"
+  },
+  {
+    "id": "moe",
+    "name": "moe",
+    "description": "Only Discord Bot You Need (i guess...) ~ 萌え萌えキュン ♡ (⸝⸝> ᴗ•⸝⸝)",
+    "shortDescription": "Discord bot for fun and utility.",
+    "techStack": [
+      "Python",
+      "discord.py"
+    ],
+    "image": "/imgs/projects/moe.svg",
+    "featured": false,
+    "github": "https://github.com/CheapNightbot/moe"
+  }
+]
