@@ -1,13 +1,15 @@
 ---
-
+const { title } = Astro.props;
 ---
 
-<nav class="flex p-4 items-center justify-center gap-6 text-lg">
-  <p>⚠️ WORK IN PROGRESS</p>
-  <a href="/">Home</a>
-  <a href="/projects">Projects</a>
-  <a href="/blog">Blog</a>
-  <a href="/about">About</a>
+<nav class="flex p-4 items-center justify-around gap-10 text-lg">
+  <p class="font-bold text-indigo-300 text-2xl">{title}</p>
+  <div class="flex p-4 items-center justify-center gap-6 text-lg">
+    <a href="/">Home</a>
+    <a href="/projects">Projects</a>
+    <a href="/blog">Blog</a>
+    <a href="/about">About</a>
+  </div>
 </nav>
 
 <style>
