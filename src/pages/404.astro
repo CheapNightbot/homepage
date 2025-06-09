@@ -1,0 +1,37 @@
+---
+import Layout from "../layouts/Layout.astro";
+const title = "(⸝⸝๑﹏๑⸝⸝)";
+---
+
+<Layout title={title}>
+  <section
+    class="flex flex-col items-center justify-center min-h-[60vh] gap-4 text-center"
+  >
+    <h1 class="text-6xl font-extrabold text-indigo-300 mb-2">404</h1>
+    <p class="text-2xl font-bold text-indigo-100 mb-2">
+      Page Not Found, 喵~ <span class="ml-1">(=^･ω･^=)</span>
+    </p>
+    <p
+      class="text-lg text-neutral-400 mb-4 min-h-[4.5rem] flex flex-col justify-center"
+    >
+      the page is just being shy today... did yu write the link correctly?<br />
+      (or maybe this page went on a date with a potato!? come back later..)
+    </p>
+    <a
+      href="/"
+      class="inline-block px-6 py-2 rounded bg-indigo-600 text-white font-semibold shadow hover:bg-indigo-700 transition-colors text-center mt-2"
+    >
+      Take me Home
+    </a>
+    <details class="mt-6 w-full max-w-xs mx-auto">
+      <summary class="text-lg text-indigo-200 cursor-pointer select-none"
+        >by the way, yu want a potato QwQ ?</summary
+      >
+      <div
+        class="text-4xl animate-bounce mt-2 min-h-[3.5rem] flex items-center justify-center"
+      >
+        ( ˶&gt; ω &lt;˵ )ノ🥔
+      </div>
+    </details>
+  </section>
+</Layout>
