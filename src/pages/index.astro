@@ -1,6 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import CheapNightbot from "../images/Cheap Nightbot.svg";
+import { Image } from "astro:assets";
 ---
 
 <Layout title="⚠️ WORK IN PROGRESS">
@@ -16,12 +17,13 @@ import CheapNightbot from "../images/Cheap Nightbot.svg";
       </h1>
       <h2 class="sm:text-2xl">a boiled potato ~</h2>
     </div>
-    <img
-      src={CheapNightbot.src}
+    <Image
+      src={CheapNightbot}
       alt="Cheap Nightbot"
-      width="432"
-      height="432"
+      width={432}
+      height={432}
       class="pointer-events-none p-10 overflow-visible"
+      loading="eager"
     />
   </section>
 </Layout>
