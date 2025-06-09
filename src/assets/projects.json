@@ -19,7 +19,7 @@
     "description": "A simple Python package to interact with various music platforms APIs.",
     "shortDescription": "Python package for music APIs.",
     "techStack": [
-      "Python"
+      "Python", "pypi"
     ],
     "image": "/imgs/projects/yutipy.svg",
     "featured": true,
