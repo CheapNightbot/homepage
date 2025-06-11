@@ -2,8 +2,6 @@
 
 my personal website. it will contain blog, journal and portfolio.
 
-> Temporarily deployed on Cloudflare Pages: https://cheapnightbot.pages.dev/
-
 ## Tech Stack
 
 - [Astro](https://astro.build/) 🚀️
