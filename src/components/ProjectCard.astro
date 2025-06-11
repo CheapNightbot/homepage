@@ -12,7 +12,7 @@ const { project } = Astro.props;
     <Image
       src={project.image}
       alt={project.name + " logo"}
-      class="object-contain h-32 w-32 group-hover:scale-105 transition-transform duration-300"
+      class="object-contain h-32 w-32 group-hover:scale-105 transition-transform duration-300 pointer-events-none select-none"
       loading="lazy"
       width="128"
       height="128"
@@ -34,13 +34,39 @@ const { project } = Astro.props;
         ))
       }
     </div>
-    <a
-      href={project.github}
-      target="_blank"
-      rel="noopener"
-      class="mt-auto inline-block px-4 py-2 rounded bg-indigo-700 text-white font-semibold shadow hover:bg-indigo-800 transition-colors text-center"
-    >
-      View on GitHub
-    </a>
+    <div class="grid grid-cols-2 gap-4">
+      {
+        project.live ? (
+          <a
+            href={project.live}
+            target="_blank"
+            rel="noopener"
+            class="mt-auto inline-block px-4 py-2 rounded bg-indigo-700 text-white font-semibold shadow hover:bg-indigo-800 transition-colors text-center"
+          >
+            Visit
+          </a>
+        ) : (
+          <button class="mt-auto inline-block px-4 py-2 rounded bg-indigo-700 text-white font-semibold shadow hover:bg-pink-800 transition-colors text-center">
+            N/A
+          </button>
+        )
+      }
+      {
+        project.github ? (
+          <a
+            href={project.github}
+            target="_blank"
+            rel="noopener"
+            class="mt-auto inline-block px-4 py-2 rounded bg-indigo-700 text-white font-semibold shadow hover:bg-indigo-800 transition-colors text-center"
+          >
+            View on GitHub
+          </a>
+        ) : (
+          <button class="mt-auto inline-block px-4 py-2 rounded bg-indigo-700 text-white font-semibold shadow hover:bg-pink-800 transition-colors text-center">
+            Repo is Private
+          </button>
+        )
+      }
+    </div>
   </div>
 </div>
