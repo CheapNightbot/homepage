@@ -11,7 +11,8 @@
     ],
     "image": "/imgs/projects/yutify.svg",
     "featured": true,
-    "github": "https://github.com/CheapNightbot/yutify"
+    "github": "https://github.com/CheapNightbot/yutify",
+    "live": "https://yutify.onrender.com"
   },
   {
     "id": "yutipy",
@@ -19,11 +20,28 @@
     "description": "A simple Python package to interact with various music platforms APIs.",
     "shortDescription": "Python package for music APIs.",
     "techStack": [
-      "Python", "pypi"
+      "Python",
+      "pypi"
     ],
     "image": "/imgs/projects/yutipy.svg",
     "featured": true,
-    "github": "https://github.com/CheapNightbot/yutipy"
+    "github": "https://github.com/CheapNightbot/yutipy",
+    "live": "https://yutipy.readthedocs.io"
+  },
+  {
+    "id": "nottaki",
+    "name": "notTaki",
+    "description": "Website for musical artist 'notTaki'.",
+    "shortDescription": "A website for 'notTaki'.",
+    "techStack": [
+      "Python",
+      "HTML",
+      "CSS",
+      "JavaScript"
+    ],
+    "image": "/imgs/projects/nottaki.svg",
+    "featured": false,
+    "live": "https://nottaki.onrender.com"
   },
   {
     "id": "soulofswords",
@@ -37,7 +55,8 @@
     ],
     "image": "/imgs/projects/sos.svg",
     "featured": false,
-    "github": "https://github.com/CheapNightbot/soulofswords"
+    "github": "https://github.com/CheapNightbot/soulofswords",
+    "live": "https://soulofswords.github.io"
   },
   {
     "id": "moe",
@@ -46,6 +65,7 @@
     "shortDescription": "Discord bot for fun and utility.",
     "techStack": [
       "Python",
+      "Flask",
       "discord.py"
     ],
     "image": "/imgs/projects/moe.svg",
