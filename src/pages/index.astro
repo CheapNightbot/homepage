@@ -7,11 +7,13 @@ import projects from "../assets/projects.json";
 ---
 
 <Layout title="Home">
-  <section class="min-h-[80vh] px-4 py-8 xl:max-w-1/2 mx-auto content-center">
-    <div class="flex flex-col md:flex-row items-center justify-center gap-8">
-      <div
-        class="flex-1 flex flex-col items-start text-left gap-2 w-full"
-      >
+  <section
+    class="min-h-[90dvh] sm:px-4 xl:max-w-1/2 mx-auto content-center flex flex-col justify-center"
+  >
+    <div
+      class="flex flex-col md:flex-row items-center justify-center gap-8 flex-1/2"
+    >
+      <div class="sm:flex-1 flex flex-col items-start text-left gap-2 w-full">
         <h1
           class="text-2xl sm:text-4xl xl:text-5xl font-bold text-indigo-200 leading-tight"
         >
@@ -173,25 +175,25 @@ import projects from "../assets/projects.json";
         />
       </div>
     </div>
-  </section>
 
-  <div
-    id="scroll-indicator"
-    class="m-auto w-32 text-center opacity-100 transition-opacity duration-500"
-  >
-    <p class="mb-2">scroll down</p>
-    <svg
-      class="m-auto motion-safe:animate-bounce"
-      xmlns="http://www.w3.org/2000/svg"
-      width="26"
-      height="26"
-      viewBox="0 0 256 256"
-      ><path
-        fill="currentColor"
-        d="M144 16h-32a64.07 64.07 0 0 0-64 64v96a64.07 64.07 0 0 0 64 64h32a64.07 64.07 0 0 0 64-64V80a64.07 64.07 0 0 0-64-64m48 160a48.05 48.05 0 0 1-48 48h-32a48.05 48.05 0 0 1-48-48V80a48.05 48.05 0 0 1 48-48h32a48.05 48.05 0 0 1 48 48Zm-56-92.69v89.38l10.34-10.35a8 8 0 0 1 11.32 11.32l-24 24a8 8 0 0 1-11.32 0l-24-24a8 8 0 0 1 11.32-11.32L120 172.69V83.31l-10.34 10.35a8 8 0 0 1-11.32-11.32l24-24a8 8 0 0 1 11.32 0l24 24a8 8 0 0 1-11.32 11.32Z"
-      ></path></svg
+    <div
+      id="scroll-indicator"
+      class="w-full text-center opacity-100 transition-opacity duration-500 mb-4"
     >
-  </div>
+      <p class="mb-2">scroll down</p>
+      <svg
+        class="m-auto motion-safe:animate-bounce"
+        xmlns="http://www.w3.org/2000/svg"
+        width="26"
+        height="26"
+        viewBox="0 0 256 256"
+        ><path
+          fill="currentColor"
+          d="M144 16h-32a64.07 64.07 0 0 0-64 64v96a64.07 64.07 0 0 0 64 64h32a64.07 64.07 0 0 0 64-64V80a64.07 64.07 0 0 0-64-64m48 160a48.05 48.05 0 0 1-48 48h-32a48.05 48.05 0 0 1-48-48V80a48.05 48.05 0 0 1 48-48h32a48.05 48.05 0 0 1 48 48Zm-56-92.69v89.38l10.34-10.35a8 8 0 0 1 11.32 11.32l-24 24a8 8 0 0 1-11.32 0l-24-24a8 8 0 0 1 11.32-11.32L120 172.69V83.31l-10.34 10.35a8 8 0 0 1-11.32-11.32l24-24a8 8 0 0 1 11.32 0l24 24a8 8 0 0 1-11.32 11.32Z"
+        ></path></svg
+      >
+    </div>
+  </section>
 
   <script is:inline>
     const indicator = document.getElementById("scroll-indicator");
@@ -208,11 +210,11 @@ import projects from "../assets/projects.json";
   </script>
 
   <section
-    class="mx-auto mt-10 px-4 min-h-[80vh] py-8 content-center xl:max-w-1/2"
+    class="min-h-screen sm:px-4 xl:max-w-1/2 mx-auto content-center flex flex-col justify-center"
   >
     <h2 class="text-2xl font-bold text-indigo-200 mb-4">Featured Projects</h2>
     <div
-      class="mx-auto max-w-5xl px-4 py-10 grid gap-12 md:grid-cols-2 lg:grid-cols-2"
+      class="mx-auto max-w-5xl md:px-4 py-10 grid gap-12 md:grid-cols-2 content-center xl:max-w-1/2 2xl:max-w-3/4 2xl:grid-cols-2"
     >
       {
         projects
