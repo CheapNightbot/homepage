@@ -2,11 +2,12 @@
   {
     "id": "yutify",
     "name": "yutify",
-    "description": "Simple RESTful API for retrieving music info for various streaming platforms.",
+    "description": "Simple RESTful API and full-stack web application for retrieving music info, streaming links, and user activity from various platforms.",
     "shortDescription": "RESTful API for music info.",
     "techStack": [
       "Python",
       "Flask",
+      "yutipy",
       "REST API"
     ],
     "image": "/imgs/projects/yutify.svg",
