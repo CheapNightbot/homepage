@@ -2,12 +2,24 @@
 import Layout from "../layouts/Layout.astro";
 import ProjectCard from "../components/ProjectCard.astro";
 import projects from "../assets/projects.json";
+
+const title = "Projects";
+const description = "";
 ---
 
-<Layout title="Projects">
-  <section
-    class="mx-auto max-w-5xl md:px-4 py-10 grid gap-12 md:grid-cols-2 content-center xl:max-w-1/2 2xl:max-w-3/4 2xl:grid-cols-3"
-  >
-    {projects.map((project) => <ProjectCard project={project} />)}
+<Layout title={title}>
+  <section class="mx-auto max-w-5xl md:px-4 py-10 xl:max-w-1/2 2xl:max-w-3/4">
+    <p class="mb-14">
+      Throughout my journey, I’ve worked on a lot of projects — both big and
+      small, some for learning and some just for fun! But <span
+        class="border-b border-b-indigo-300">these</span
+      > are the ones that really matter. They <span
+        class="border-b border-b-indigo-300"
+        >solve real problems (for me or my friends)</span
+      >, and I’m super proud of them!
+    </p>
+    <div class="grid gap-12 md:grid-cols-2 2xl:grid-cols-3 content-center">
+      {projects.map((project) => <ProjectCard project={project} />)}
+    </div>
   </section>
 </Layout>
