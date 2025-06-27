@@ -4,9 +4,13 @@ import CheapNightbot from "../images/Cheap Nightbot.svg";
 import { Image } from "astro:assets";
 import ProjectCard from "../components/ProjectCard.astro";
 import projects from "../assets/projects.json";
+
+const title = "Home";
+const description =
+  "yoho, me Cheap Nightbot (づ￣ ³￣)づ — a Full Stack Developer with a passion for backend and automation, Python enthusiast, and proud open source contributor.";
 ---
 
-<Layout title="Home">
+<Layout title={title} description={description}>
   <section
     class="min-h-[90dvh] sm:px-4 xl:max-w-1/2 mx-auto content-center flex flex-col justify-center"
   >
@@ -19,7 +23,7 @@ import projects from "../assets/projects.json";
         >
           Cheap Nightbot
         </h1>
-        <p class="text-xs sm:text-base text-neutral-300 mb-2">
+        <p class="text-sm sm:text-base text-neutral-300 mb-2">
           yoho, me Cheap Nightbot (づ￣ ³￣)づ — a <strong
             class="border-b border-b-indigo-300">Full Stack Developer</strong
           > with a passion for <strong class="border-b border-b-indigo-300"
@@ -29,7 +33,7 @@ import projects from "../assets/projects.json";
           and proud open source contributor. I love solving real-world problems through
           code, building tools that help others, and sharing my work with the community.
         </p>
-        <p class="text-xs sm:text-base">
+        <p class="text-sm sm:text-base">
           — <q>when yu need something, you find it or create it.</q>
         </p>
 
@@ -145,17 +149,20 @@ import projects from "../assets/projects.json";
         </div>
         <p>
           <svg
-            class="inline mr-1"
             xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            viewBox="0 0 16 16"
-            ><path
-              fill="currentColor"
-              fill-rule="evenodd"
-              d="M14.95 3.684L8.637 8.912a1 1 0 0 1-1.276 0l-6.31-5.228A1 1 0 0 0 1 4v8a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4a1 1 0 0 0-.05-.316M2 2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2m-.21 1l5.576 4.603a1 1 0 0 0 1.27.003L14.268 3z"
-            ></path></svg
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="size-6 float-left mr-1"
           >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75"
+            ></path>
+          </svg>
+
           <a
             class="text-indigo-300 hover:underline"
             href="mailto:hi@cheapnightbot.slmail.me"
