@@ -5,31 +5,31 @@ const { mobile = false } = Astro.props;
 <div
   class={mobile
     ? "flex flex-col items-center gap-6 w-full pt-12"
-    : "flex p-4 items-center justify-center gap-6 text-lg"}
+    : "flex p-4 items-center justify-center gap-2 text-lg"}
 >
   <a
     href="/"
     class={mobile
       ? "block w-full text-center py-3 rounded text-lg hover:bg-indigo-900 transition"
-      : undefined}>Home</a
+      : "w-24 text-center"}>Home</a
   >
   <a
     href="/projects"
     class={mobile
       ? "block w-full text-center py-3 rounded text-lg hover:bg-indigo-900 transition"
-      : undefined}>Projects</a
+      : "w-24 text-center"}>Projects</a
   >
   <a
     href="/blog"
     class={mobile
       ? "block w-full text-center py-3 rounded text-lg hover:bg-indigo-900 transition"
-      : undefined}>Blog</a
+      : "w-24 text-center"}>Blog</a
   >
   <a
     href="/about"
     class={mobile
       ? "block w-full text-center py-3 rounded text-lg hover:bg-indigo-900 transition"
-      : undefined}>About</a
+      : "w-24 text-center"}>About</a
   >
 </div>
 
