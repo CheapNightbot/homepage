@@ -4,10 +4,11 @@ import ProjectCard from "../components/ProjectCard.astro";
 import projects from "../assets/projects.json";
 
 const title = "Projects";
-const description = "";
+const description =
+  "Throughout my journey, I’ve worked on a lot of projects — both big and small, some for learning and some just for fun! But these are the ones that really matter. They solve real problems (for me or my friends), and I’m super proud of them!";
 ---
 
-<Layout title={title}>
+<Layout title={title} description={description}>
   <section class="mx-auto max-w-5xl md:px-4 py-10 xl:max-w-1/2 2xl:max-w-3/4">
     <p class="mb-14">
       Throughout my journey, I’ve worked on a lot of projects — both big and
