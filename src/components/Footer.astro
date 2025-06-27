@@ -1,5 +1,5 @@
 ---
-const name = "Cheap Nightbot";
+import { USERNAME } from "../consts";
 const year = new Date().getFullYear();
 ---
 
@@ -9,7 +9,7 @@ const year = new Date().getFullYear();
   <div
     class="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between px-4 gap-2 text-sm"
   >
-    <span>&copy; {year} {name}. All rights reserved.</span>
+    <span>&copy; {year} {USERNAME}. All rights reserved.</span>
     <span>
       Built with <a
         href="https://astro.build/"
