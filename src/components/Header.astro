@@ -1,6 +1,8 @@
 ---
 import Hamburger from "./Hamburger.astro";
 import Navigation from "./Navigation.astro";
+
+const { active } = Astro.props;
 ---
 
 <header
@@ -17,7 +19,7 @@ import Navigation from "./Navigation.astro";
         <Hamburger />
       </div>
       <div class="hidden sm:flex transition-all duration-200">
-        <Navigation />
+        <Navigation active={active} />
       </div>
     </div>
   </nav>
@@ -30,6 +32,6 @@ import Navigation from "./Navigation.astro";
     id="mobile-menu"
     class="sm:hidden fixed top-0 right-0 w-64 h-full bg-neutral-900 border-l border-neutral-800 z-50 translate-x-full transition-transform duration-200 pt-6"
   >
-    <Navigation mobile={true} />
+    <Navigation active={active} mobile={true} />
   </div>
 </header>

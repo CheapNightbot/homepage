@@ -1,5 +1,5 @@
 ---
-const { mobile = false } = Astro.props;
+const { mobile = false, active } = Astro.props;
 ---
 
 <div
@@ -11,25 +11,33 @@ const { mobile = false } = Astro.props;
     href="/"
     class={mobile
       ? "block w-full text-center py-3 rounded text-lg hover:bg-indigo-900 transition"
-      : "w-24 text-center"}>Home</a
+      : active === "home"
+        ? "bg-indigo-600 w-24 text-center transition"
+        : "w-24 text-center transition"}>Home</a
   >
   <a
     href="/projects"
     class={mobile
       ? "block w-full text-center py-3 rounded text-lg hover:bg-indigo-900 transition"
-      : "w-24 text-center"}>Projects</a
+      : active === "projects"
+        ? "bg-indigo-600 w-24 text-center transition"
+        : "w-24 text-center transition"}>Projects</a
   >
   <a
     href="/blog"
     class={mobile
       ? "block w-full text-center py-3 rounded text-lg hover:bg-indigo-900 transition"
-      : "w-24 text-center"}>Blog</a
+      : active === "blog"
+        ? "bg-indigo-600 w-24 text-center transition"
+        : "w-24 text-center transition"}>Blog</a
   >
   <a
     href="/about"
     class={mobile
       ? "block w-full text-center py-3 rounded text-lg hover:bg-indigo-900 transition"
-      : "w-24 text-center"}>About</a
+      : active === "about"
+        ? "bg-indigo-600 w-24 text-center transition"
+        : "w-24 text-center transition"}>About</a
   >
 </div>
 
