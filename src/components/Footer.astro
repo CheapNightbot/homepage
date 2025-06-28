@@ -7,19 +7,34 @@ const year = new Date().getFullYear();
   class="bg-gradient-to-b from-transparent to-neutral-700 px-6 pt-12 pb-6"
 >
   <div
-    class="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between px-4 gap-2 text-sm"
+    class="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between px-4 gap-2 text-sm sm:text-base"
   >
-    <span>&copy; {year} {USERNAME}. All rights reserved.</span>
-    <span>
-      Built with <a
-        href="https://astro.build/"
-        class="text-indigo-400 hover:underline"
-        target="_blank">Astro</a
-      > & <a
-        href="https://tailwindcss.com/"
-        class="text-indigo-400 hover:underline"
-        target="_blank">Tailwind CSS</a
+    <p>&copy; {year} {USERNAME}. All rights reserved.</p>
+    <p id="scroll-top" class="cursor-pointer flex justify-center items-center">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+        class="size-4 mr-1"
       >
-    </span>
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M4.5 10.5 12 3m0 0 7.5 7.5M12 3v18"></path>
+      </svg>
+      Back to top
+    </p>
   </div>
 </footer>
+
+<script type="module" is:inline>
+  const scrollTop = document.getElementById("scroll-top");
+  scrollTop.addEventListener("click", () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  });
+</script>
