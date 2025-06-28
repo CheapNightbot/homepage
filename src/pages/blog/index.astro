@@ -1,0 +1,82 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { getCollection } from "astro:content";
+import FormattedDate from "../../components/FormattedDate.astro";
+import { Image } from "astro:assets";
+
+const posts = (await getCollection("blog")).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+
+const title = "Blog";
+const description = "heyo, welcome to my blog ~ me will be writing / sharing a lot of stuff here...";
+---
+
+<Layout title={title} description={description}>
+  <section
+    class="flex flex-col gap-12 min-h-[80vh] py-6 mx-auto max-w-sm sm:max-w-4/5 md:max-w-full lg:max-w-11/12 xl:max-w-3/4 2xl:max-w-3/5"
+  >
+    <h2>{description}</h2>
+    <div class="grid grid-cols-1 gap-6">
+      {
+        posts.map((post) => (
+          <div class="relative isolate flex flex-col md:flex-row lg:flex-row min-h-[24rem] md:min-h-[initial] lg:gap-4 nth-[2]:rotate-2 nth-[5]:-rotate-6 lg:nth-[2]:flex-row-reverse bg-neutral-800/69 rounded overflow-clip">
+            <Image
+              class="md:w-84 md:h-52"
+              width={720}
+              height={360}
+              src={post.data.heroImage.url}
+              alt={post.data.heroImage.alt}
+              loading={"eager"}
+            />
+            <div class="flex flex-col flex-1/2 p-4 gap-6 md:gap-0">
+              <p class="text-sm text-neutral-200/60 md:mb-3">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="size-5 float-left mr-1"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5m-9-6h.008v.008H12v-.008ZM12 15h.008v.008H12V15Zm0 2.25h.008v.008H12v-.008ZM9.75 15h.008v.008H9.75V15Zm0 2.25h.008v.008H9.75v-.008ZM7.5 15h.008v.008H7.5V15Zm0 2.25h.008v.008H7.5v-.008Zm6.75-4.5h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V15Zm0 2.25h.008v.008h-.008v-.008Zm2.25-4.5h.008v.008H16.5v-.008Zm0 2.25h.008v.008H16.5V15Z"
+                  />
+                </svg>
+
+                <FormattedDate date={post.data.pubDate} />
+              </p>
+
+              <div class="flex-1">
+                <h3 class="text-lg sm:text-xl font-bold mb-0.5">
+                  <a
+                    href={`/blog/${post.data.title
+                      .toLowerCase()
+                      .replace(/[^a-z0-9]+/g, "-")
+                      .replace(/(^-|-$)+/g, "")}/`}
+                  >
+                    <span class="absolute inset-0 z-10 hover:bg-indigo-200/3 transition-colors" />
+                    {post.data.title}
+                  </a>
+                </h3>
+                <p class="text-sm line-clamp-3 sm:text-base md:line-clamp-2">
+                  {post.data.description}
+                </p>
+              </div>
+
+              <div class="flex flex-wrap gap-2">
+                {post.data.tags.map((tag: string) => (
+                  <p class="border border-indigo-200 text-white bg-indigo-400/80 text-sm py-0.5 px-1 rounded-sm min-w-14 text-center">
+                    {tag}
+                  </p>
+                ))}
+              </div>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+</Layout>
