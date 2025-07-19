@@ -30,21 +30,6 @@
     "live": "https://yutipy.readthedocs.io"
   },
   {
-    "id": "nottaki",
-    "name": "notTaki",
-    "description": "Website for musical artist 'notTaki'.",
-    "shortDescription": "A website for 'notTaki'.",
-    "techStack": [
-      "Python",
-      "HTML",
-      "CSS",
-      "JavaScript"
-    ],
-    "image": "/imgs/projects/nottaki.svg",
-    "featured": false,
-    "live": "https://nottaki.onrender.com"
-  },
-  {
     "id": "soulofswords",
     "name": "soulofswords",
     "description": "Static Website for VTuber 'soulofswords' aka SOS.",
