@@ -41,7 +41,7 @@ export default function Shelf() {
           <span tabIndex={0} className="sr-only">Prevent auto focus</span>
           <SheetHeader>
             {/* Search Bar */}
-            <SheetTitle className="flex gap-2 relative">
+            <SheetTitle className="flex gap-2 relative mt-1">
               <span className="sr-only">Search</span>
               <Search className="size-4 absolute left-0 top-0 translate-x-2.5 translate-y-2.5" />
               <Input id="search" placeholder="Searching for apps & projects..." className="pl-8 focus-visible:ring-0" />
@@ -50,7 +50,7 @@ export default function Shelf() {
           </SheetHeader>
 
           {/* App List // Search Result Container */}
-          <ScrollArea scrollbarVisible={false} className="flex-1 flex-wrap h-full mx-6 my-6">
+          <ScrollArea scrollbarVisible={false} className="flex-1 flex-wrap h-full mx-6 my-4">
             <AppList />
           </ScrollArea>
 
