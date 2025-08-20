@@ -36,5 +36,4 @@ function AppList() {
   );
 }
 
-
 export { AppList }
