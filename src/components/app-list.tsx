@@ -19,18 +19,19 @@ function AppIcon({ id, icon, name }: { id: number; icon?: string; name: string; 
 }
 
 function AppList() {
+  let idx = projects.length;
 
   return (
     <section className="mb-4">
-      <div className="grid grid-cols-6 gap-4">
+      <div className="grid grid-cols-5 gap-5">
         {projects.map((project) => {
           return (
             <AppIcon id={project.id} icon={project.image} name={project.name} />
           );
         })}
-        <AppIcon id={4} name="Blog" />
-        <AppIcon id={4} name="Journal" />
-        <AppIcon id={4} name="Journal" />
+        <AppIcon id={idx++} name="Blog" />
+        <AppIcon id={idx++} name="Journal" />
+        <AppIcon id={idx++} name="Contact" />
       </div>
     </section>
   );
