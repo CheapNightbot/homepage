@@ -20,23 +20,26 @@ import { AppList } from "@/components/app-list"
 
 
 export default function Shelf() {
-  const [isSheetOpen, setIsSheetOpen] = useState(false);
-  const toggleSheet = () => setIsSheetOpen(!isSheetOpen);
+  const [isLauncherOpen, setIsLauncherOpen] = useState(false);
+  const [isDatetimeOpen, setIsDatetimeOpen] = useState(false);
+
+  const toggleAppLauncher = () => setIsLauncherOpen(!isLauncherOpen);
+  const toggleDatetimeMenu = () => setIsDatetimeOpen(!isDatetimeOpen);
 
   return (
     // Shelf
     <div className="flex items-center justify-between px-4 fixed bottom-0 w-full h-16 bg-background border-t border-x rounded-t-4xl">
       {/*  Launcher */}
-      <Sheet modal={false} onOpenChange={toggleSheet}>
+      <Sheet modal={false} onOpenChange={toggleAppLauncher}>
         <SheetTrigger>
           {/*  Launcher Button */}
           <Button asChild={true} className="rounded-full p-6" variant="ghost">
             <span>
-              <Circle className="size-6" /><CircleSmall className={cn("absolute fade-in-15 transition-all duration-200 ease-in-out", isSheetOpen && "fill-primary")} />
+              <Circle className="size-6" /><CircleSmall className={cn("absolute fade-in-15 transition-all duration-200 ease-in-out", isLauncherOpen && "fill-primary")} />
             </span>
           </Button>
         </SheetTrigger>
-        <SheetContent showClose={false} showOverlay={false} side="bottom" className="border w-2xl h-[672px] fixed bottom-20 left-2 rounded-3xl flex flex-col justify-between px-1 pt-2 pb-4 -z-10 focus:outline-none">
+        <SheetContent showClose={false} showOverlay={false} side="bottom" className="border w-xl h-[672px] fixed bottom-20 left-2 rounded-3xl flex flex-col justify-between px-1 pt-2 pb-4 -z-10 focus:outline-none">
           {/* Hidden element to prevent auto-focus on the Input */}
           <span tabIndex={0} className="sr-only">Prevent auto focus</span>
           <SheetHeader>
@@ -69,7 +72,27 @@ export default function Shelf() {
       </Sheet>
 
       {/* Date-time and other stuff in the shelf ~ right side */}
-
+      <Sheet modal={false} onOpenChange={toggleDatetimeMenu}>
+        <SheetTrigger>
+          {/* Datetime menu open button */}
+          <Button asChild={true} className={cn("rounded-full p-4", isDatetimeOpen && "bg-accent")} variant="ghost">
+            <span>
+              Date & Time
+            </span>
+          </Button>
+        </SheetTrigger>
+        <SheetContent showClose={false} showOverlay={false} side="bottom" className="border w-2xs h-96 fixed bottom-20 left-auto right-2 rounded-3xl flex flex-col justify-between px-1 pt-2 pb-4 -z-10 focus:outline-none">
+          <SheetHeader>
+            <SheetTitle className="flex gap-2 relative mt-1">
+              Date & Time
+            </SheetTitle>
+            <SheetDescription>This will show date & time here...</SheetDescription>
+          </SheetHeader>
+          <SheetFooter className="flex justify-between px-4">
+            Time will be here !
+          </SheetFooter>
+        </SheetContent>
+      </Sheet>
     </div>
   );
 }
