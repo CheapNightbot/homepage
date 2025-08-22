@@ -93,20 +93,20 @@ export default function Shelf() {
             </span>
           </Button>
         </SheetTrigger>
-        <SheetContent showClose={false} showOverlay={false} side="bottom" className="border-none w-2xs h-[484px] fixed bottom-20 left-auto right-2 rounded-3xl flex flex-col justify-end items-center gap-0 -z-10 focus:outline-none">
+        <SheetContent showClose={false} showOverlay={false} side="bottom" className="border-none shadow-none w-2xs h-[484px] fixed bottom-20 left-auto right-2 rounded-3xl flex flex-col justify-end items-center gap-0 -z-10 focus:outline-none">
           <SheetHeader>
             <SheetTitle className="flex gap-2 relative mt-1">
               <Calendar
                 mode="single"
                 selected={date}
                 onSelect={setDate}
-                className="rounded-lg border"
+                className="rounded-lg border shadow-lg"
               />
             </SheetTitle>
             <SheetDescription className="sr-only">Calender and Time</SheetDescription>
           </SheetHeader>
           <SheetFooter className="flex justify-between px-4">
-            <Clock className="border w-[250px] py-2 rounded-lg" />
+            <Clock className="border w-[250px] py-2 rounded-lg shadow-lg bg-background" />
           </SheetFooter>
         </SheetContent>
       </Sheet>
