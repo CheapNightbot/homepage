@@ -19,6 +19,11 @@ import { Circle, CircleSmall, Search } from "lucide-react"
 import { useState } from "react"
 import { AppList } from "@/components/app-list"
 import { Calendar } from "@/components/ui/calendar"
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card"
 
 export default function Shelf() {
   const [isLauncherOpen, setIsLauncherOpen] = useState(false);
@@ -70,13 +75,31 @@ export default function Shelf() {
 
           {/* User Profile and Theme Toggle Button */}
           <SheetFooter className="flex justify-between px-4">
-            <div className="flex items-center gap-2 select-none">
-              <Avatar>
-                <AvatarImage src={CheapNightbot} />
-                <AvatarFallback>CN</AvatarFallback>
-              </Avatar>
-              <p className="text-sm">Cheap Nightbot</p>
-            </div>
+            <HoverCard>
+              <HoverCardTrigger>
+                <div className="flex items-center gap-2 select-none">
+                  <Avatar>
+                    <AvatarImage src={CheapNightbot} alt="Cheap Nightbot" />
+                    <AvatarFallback>CN</AvatarFallback>
+                  </Avatar>
+                  <p className="text-sm">Cheap Nightbot</p>
+                </div>
+              </HoverCardTrigger>
+              <HoverCardContent align="start" sideOffset={12} className="w-80">
+                <div className="flex justify-between items-center gap-4">
+                  <Avatar className="size-14">
+                    <AvatarImage src={CheapNightbot} alt="Cheap Nightbot" />
+                    <AvatarFallback>CN</AvatarFallback>
+                  </Avatar>
+                  <div className="space-y-1">
+                    <h4 className="font-semibold">Cheap Nightbot</h4>
+                    <p className="text-xs">
+                      yohoi, me a boiled potato ~ Do you want da hug? (づ￣ ³￣)づ
+                    </p>
+                  </div>
+                </div>
+              </HoverCardContent>
+            </HoverCard>
             <ModeToggle />
           </SheetFooter>
         </SheetContent>
