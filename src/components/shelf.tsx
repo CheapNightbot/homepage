@@ -88,7 +88,7 @@ export default function Shelf() {
               <HoverCardContent align="start" sideOffset={12} className="w-80">
                 <div className="flex justify-between items-center gap-4">
                   <Avatar className="size-14">
-                    <AvatarImage src={CheapNightbot} alt="Cheap Nightbot" />
+                    <AvatarImage src={CheapNightbot} alt="Cheap Nightbot" className="select-none pointer-events-none" />
                     <AvatarFallback>CN</AvatarFallback>
                   </Avatar>
                   <div className="space-y-1">
