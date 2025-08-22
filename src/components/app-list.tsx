@@ -2,10 +2,9 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { projects } from "@/lib/projects";
 
-function AppIcon({ id, icon, name }: { id: number; icon?: string; name: string; }) {
+function AppIcon({ icon, name }: { icon?: string; name: string; }) {
   return (
     <Button
-      key={id}
       className="size-18 flex flex-col gap-0 pb-4 hover:!bg-transparent items-center justify-center text-primary/70 hover:text-primary"
       variant="ghost"
     >
@@ -26,12 +25,12 @@ function AppList() {
       <div className="grid grid-cols-5 gap-5">
         {projects.map((project) => {
           return (
-            <AppIcon id={project.id} icon={project.image} name={project.name} />
+            <AppIcon key={project.id} icon={project.image} name={project.name} />
           );
         })}
-        <AppIcon id={idx++} name="Blog" />
-        <AppIcon id={idx++} name="Journal" />
-        <AppIcon id={idx++} name="Contact" />
+        <AppIcon key={idx++} name="Blog" />
+        <AppIcon key={idx++} name="Journal" />
+        <AppIcon key={idx++} name="Contact" />
       </div>
     </section>
   );
