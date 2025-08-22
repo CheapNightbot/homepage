@@ -4,6 +4,7 @@ import { ModeToggle } from "@/components/mode-toggle"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Input } from "@/components/ui/input"
 import { ScrollArea } from "@/components/ui/scroll-area"
+import Clock from "@/components/clock"
 import {
   Sheet,
   SheetContent,
@@ -17,14 +18,24 @@ import { cn } from "@/lib/utils"
 import { Circle, CircleSmall, Search } from "lucide-react"
 import { useState } from "react"
 import { AppList } from "@/components/app-list"
-
+import { Calendar } from "@/components/ui/calendar"
 
 export default function Shelf() {
   const [isLauncherOpen, setIsLauncherOpen] = useState(false);
   const [isDatetimeOpen, setIsDatetimeOpen] = useState(false);
+  const [date, setDate] = useState<Date | undefined>(new Date());
 
   const toggleAppLauncher = () => setIsLauncherOpen(!isLauncherOpen);
   const toggleDatetimeMenu = () => setIsDatetimeOpen(!isDatetimeOpen);
+
+  const formatMonthDay = (d?: Date) => {
+    if (!d) return '';
+
+    return new Intl.DateTimeFormat("en-US", {
+      month: "short",
+      day: "numeric",
+    }).format(d);
+  };
 
   return (
     // Shelf
@@ -76,20 +87,26 @@ export default function Shelf() {
         <SheetTrigger>
           {/* Datetime menu open button */}
           <Button asChild={true} className={cn("rounded-full p-4", isDatetimeOpen && "bg-accent")} variant="ghost">
-            <span>
-              Date & Time
+            <span className="">
+              <p>{formatMonthDay(date)},</p>
+              <Clock showTimezone={false} showSeconds={false} timeClassName="text-sm" />
             </span>
           </Button>
         </SheetTrigger>
-        <SheetContent showClose={false} showOverlay={false} side="bottom" className="border w-2xs h-96 fixed bottom-20 left-auto right-2 rounded-3xl flex flex-col justify-between px-1 pt-2 pb-4 -z-10 focus:outline-none">
+        <SheetContent showClose={false} showOverlay={false} side="bottom" className="border-none w-2xs h-[484px] fixed bottom-20 left-auto right-2 rounded-3xl flex flex-col justify-end items-center gap-0 -z-10 focus:outline-none">
           <SheetHeader>
             <SheetTitle className="flex gap-2 relative mt-1">
-              Date & Time
+              <Calendar
+                mode="single"
+                selected={date}
+                onSelect={setDate}
+                className="rounded-lg border"
+              />
             </SheetTitle>
-            <SheetDescription>This will show date & time here...</SheetDescription>
+            <SheetDescription className="sr-only">Calender and Time</SheetDescription>
           </SheetHeader>
           <SheetFooter className="flex justify-between px-4">
-            Time will be here !
+            <Clock className="border w-[250px] py-2 rounded-lg" />
           </SheetFooter>
         </SheetContent>
       </Sheet>
