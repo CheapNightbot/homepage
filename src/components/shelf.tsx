@@ -112,7 +112,7 @@ export default function Shelf() {
           <Button asChild={true} className={cn("rounded-full p-4", isDatetimeOpen && "bg-accent")} variant="ghost">
             <span className="">
               <p>{formatMonthDay(date)},</p>
-              <Clock showTimezone={false} showSeconds={false} timeClassName="text-sm" />
+              <Clock showTimezone={false} showSeconds={false} allowHourToggle={false} timeClassName="text-sm" />
             </span>
           </Button>
         </SheetTrigger>
