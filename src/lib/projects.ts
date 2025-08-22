@@ -15,7 +15,6 @@ export const projects = [
       "REST API"
     ],
     "image": yutify,
-    "featured": true,
     "github": "https://github.com/CheapNightbot/yutify",
     "live": "https://yutify.cheapnightbot.me"
   },
@@ -29,7 +28,6 @@ export const projects = [
       "pypi"
     ],
     "image": yutipy,
-    "featured": true,
     "github": "https://github.com/CheapNightbot/yutipy",
     "live": "https://yutipy.readthedocs.io"
   },
@@ -44,7 +42,6 @@ export const projects = [
       "JavaScript"
     ],
     "image": sos,
-    "featured": false,
     "github": "https://github.com/CheapNightbot/soulofswords",
     "live": "https://soulofswords.github.io"
   }
