@@ -20,22 +20,21 @@ export default function Window({ windowTitle = "Window", children, className }: 
         if (maximized) {
             setWindowSize({ width: window.innerWidth, height: window.innerHeight });
         } else {
-            setWindowSize({ width: 400, height: 200 });
+            setWindowSize({ width: 612, height: 364 });
         }
     }, [maximized]);
 
     return (
         <Rnd
             default={{
-                x: window.innerWidth / 2 - 200,
-                y: window.innerHeight / 2 - 100,
+                x: window.innerWidth / 2 - 300,
+                y: window.innerHeight / 2 - 200,
                 width: 400,
                 height: 200,
             }}
             minWidth={windowSize.width}
             minHeight={windowSize.height}
             enableResizing={!maximized}
-            disableDragging={maximized}
             className={cn("!cursor-default shadow-lg backdrop-blur-lg", className)}
         >
             {/* Title bar */}
@@ -49,7 +48,7 @@ export default function Window({ windowTitle = "Window", children, className }: 
             </div>
 
             {/* Window content */}
-            <div className="border bg-background/60 backdrop-blur-xl h-[calc(100%-38px)]">
+            <div className="border bg-accent/20 backdrop-brightness-50 h-[calc(100%-38px)]">
                 {children}
             </div>
         </Rnd>
