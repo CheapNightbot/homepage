@@ -67,6 +67,7 @@ function App() {
                         <Window
                             key={windowState.id}
                             windowTitle={windowState.app.name}
+                            windowAbout={windowState.app.description}
                             windowIcon={windowState.app.image}
                             isMinimized={windowState.isMinimized}
                             isMaximized={windowState.isMaximized}
@@ -84,7 +85,7 @@ function App() {
                             onFocus={() => handleWindowFocus(windowState.id)}
                         >
                             <div className="w-full h-full">
-                                <iframe className="w-full h-full bg-white" src={windowState.app.live}></iframe>
+                                <iframe className="w-full h-full" src={windowState.app.live}></iframe>
                             </div>
                         </Window>
                     )
