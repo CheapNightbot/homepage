@@ -24,8 +24,9 @@ import {
 import { cn } from "@/lib/utils"
 import { Circle, CircleSmall, Search } from "lucide-react"
 import { useEffect, useState } from "react"
+import type { AppListProps } from "./app-list"
 
-export default function Shelf() {
+export default function Shelf({ appList }: { appList: AppListProps[] }) {
   const [isLauncherOpen, setIsLauncherOpen] = useState(false);
   const [isDatetimeOpen, setIsDatetimeOpen] = useState(false);
   const [date, setDate] = useState<Date | undefined>(new Date());
@@ -82,7 +83,7 @@ export default function Shelf() {
 
           {/* App List // Search Result Container */}
           <ScrollArea scrollbarVisible={false} className="flex-1 flex-wrap h-full mx-6 my-4">
-            <AppList />
+            <AppList appList={appList} />
           </ScrollArea>
 
           {/* User Profile and Theme Toggle Button */}
