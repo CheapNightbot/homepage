@@ -23,15 +23,15 @@ import {
 } from "@/components/ui/sheet"
 import { cn } from "@/lib/utils"
 import { Circle, CircleSmall, Search } from "lucide-react"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 export default function Shelf() {
   const [isLauncherOpen, setIsLauncherOpen] = useState(false);
   const [isDatetimeOpen, setIsDatetimeOpen] = useState(false);
   const [date, setDate] = useState<Date | undefined>(new Date());
 
-  const toggleAppLauncher = () => setIsLauncherOpen(!isLauncherOpen);
-  const toggleDatetimeMenu = () => setIsDatetimeOpen(!isDatetimeOpen);
+  const toggleAppLauncher = () => setIsLauncherOpen((prev) => !prev);
+  const toggleDatetimeMenu = () => setIsDatetimeOpen((prev) => !prev);
 
   const formatMonthDay = (d?: Date) => {
     if (!d) return '';
@@ -42,11 +42,23 @@ export default function Shelf() {
     }).format(d);
   };
 
+  useEffect(() => {
+    const down = (e: KeyboardEvent) => {
+      if (e.key === "a" && (e.ctrlKey)) {
+        e.preventDefault()
+        setIsLauncherOpen((prev) => !prev)
+      }
+    }
+
+    document.addEventListener("keydown", down)
+    return () => document.removeEventListener("keydown", down)
+  }, [])
+
   return (
     // Shelf
     <div className="flex items-center justify-between px-4 fixed bottom-0 w-full h-16 bg-background border-t border-x rounded-t-4xl">
       {/*  Launcher */}
-      <Sheet modal={false} onOpenChange={toggleAppLauncher}>
+      <Sheet open={isLauncherOpen} modal={false} onOpenChange={toggleAppLauncher}>
         <SheetTrigger>
           {/*  Launcher Button */}
           <Button asChild={true} className="rounded-full p-6" variant="ghost">
