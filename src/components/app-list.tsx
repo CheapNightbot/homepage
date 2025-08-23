@@ -1,10 +1,16 @@
-import { apps } from "@/lib/apps";
-import { projects } from "@/lib/projects";
-
 import AppIcon from "@/components/app-icon";
 
-function AppList() {
-  const appList = [...projects, ...apps]
+export type AppListProps = {
+  id: string;
+  name: string;
+  description: string;
+  techStack: string[];
+  image: string;
+  github: string;
+  live: string;
+}
+
+function AppList({ appList }: { appList: AppListProps[] }) {
 
   return (
     <section className="mb-4">
