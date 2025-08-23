@@ -1,10 +1,17 @@
 import CheapNightbot from "@/assets/imgs/Cheap Nightbot.svg"
-import { Button } from "@/components/ui/button"
+import { AppList } from "@/components/app-list"
+import Clock from "@/components/clock"
 import { ModeToggle } from "@/components/mode-toggle"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Button } from "@/components/ui/button"
+import { Calendar } from "@/components/ui/calendar"
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card"
 import { Input } from "@/components/ui/input"
 import { ScrollArea } from "@/components/ui/scroll-area"
-import Clock from "@/components/clock"
 import {
   Sheet,
   SheetContent,
@@ -17,13 +24,6 @@ import {
 import { cn } from "@/lib/utils"
 import { Circle, CircleSmall, Search } from "lucide-react"
 import { useState } from "react"
-import { AppList } from "@/components/app-list"
-import { Calendar } from "@/components/ui/calendar"
-import {
-  HoverCard,
-  HoverCardContent,
-  HoverCardTrigger,
-} from "@/components/ui/hover-card"
 
 export default function Shelf() {
   const [isLauncherOpen, setIsLauncherOpen] = useState(false);
