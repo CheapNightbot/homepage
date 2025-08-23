@@ -4,11 +4,11 @@ my personal website. it will contain blog, journal and portfolio.
 
 ## Tech Stack
 
-- [Astro](https://astro.build/) 🚀️
-- [Tailwind CSS](https://tailwindcss.com/) 🎨️
-- [TypeScript](https://www.typescriptlang.org/) 🌀️
-- [JavaScript](https://developer.mozilla.org/ja/docs/Web/JavaScript) 📜️
-- Markdown (for blog/journal) 📝️
+- Vite + React
+- Typescript
+- Shadcn UI
+- Tailwindcss
+- Cloudflare Workers
 
 ## Features [WIP]
 
