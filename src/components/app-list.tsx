@@ -1,5 +1,6 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
+import { apps } from "@/lib/apps";
 import { projects } from "@/lib/projects";
 
 function AppIcon({ icon, name }: { icon?: string; name: string; }) {
@@ -18,19 +19,16 @@ function AppIcon({ icon, name }: { icon?: string; name: string; }) {
 }
 
 function AppList() {
-  let idx = projects.length;
+  const appList = [...projects, ...apps]
 
   return (
     <section className="mb-4">
       <div className="grid grid-cols-5 gap-5">
-        {projects.map((project) => {
+        {appList.map((app) => {
           return (
-            <AppIcon key={project.id} icon={project.image} name={project.name} />
+            <AppIcon key={app.id} icon={app.image} name={app.name} />
           );
         })}
-        <AppIcon key={idx++} name="Blog" />
-        <AppIcon key={idx++} name="Journal" />
-        <AppIcon key={idx++} name="Contact" />
       </div>
     </section>
   );
