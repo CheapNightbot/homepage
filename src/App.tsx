@@ -68,6 +68,8 @@ function App() {
                             key={windowState.id}
                             windowTitle={windowState.app.name}
                             windowAbout={windowState.app.description}
+                            appLink={windowState.app.live}
+                            appSourceCode={windowState.app.github}
                             windowIcon={windowState.app.image}
                             isMinimized={windowState.isMinimized}
                             isMaximized={windowState.isMaximized}

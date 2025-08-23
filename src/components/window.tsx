@@ -1,14 +1,23 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
+import {
+    ContextMenu,
+    ContextMenuContent,
+    ContextMenuItem,
+    ContextMenuTrigger,
+} from "@/components/ui/context-menu";
 import { cn } from "@/lib/utils";
-import { AppWindow, Minimize, Minus, Square, X, ExternalLink } from "lucide-react";
+import { AppWindow, ExternalLink, FileCode2, Minimize, Minus, Square, X } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
 import { Rnd } from "react-rnd";
+
 
 type WindowProps = {
     windowTitle?: string;
     windowAbout?: string;
     windowIcon?: string;
+    appLink?: string;
+    appSourceCode?: string;
     children?: React.ReactNode;
     onClose?: () => void;
     onMinimize?: () => void;
@@ -25,6 +34,8 @@ export default function Window(
         windowTitle = "Window",
         windowAbout,
         windowIcon,
+        appLink,
+        appSourceCode,
         children,
         onClose,
         onMinimize,
@@ -149,46 +160,80 @@ export default function Window(
             bounds="window"
         >
             {/* Title bar */}
-            <div
-                className={cn("bg-card flex items-center justify-between border pl-1 draggable", !isMaximized && "rounded-t-lg")}
-                onClick={handleFocus}
-                onDoubleClick={handleMaximize}
-            >
-                <p className="text-sm flex items-center gap-2">
-                    {windowIcon ?
-                        <Avatar className="p-1 w-6 h-6">
-                            <AvatarImage src={windowIcon} alt={windowTitle} />
-                            <AvatarFallback>{windowTitle.charAt(0)}</AvatarFallback>
-                        </Avatar> :
-                        <AppWindow className="inline p-1 w-6 h-6" />
-                    }
-                    {windowTitle}
-                </p>
-                <div className="flex items-center justify-center">
-                    <Button variant="ghost" size="sm" onClick={(e) => { e.stopPropagation(); handleMinimize(); }}>
-                        <Minus className="size-4" />
-                    </Button>
-                    <Button variant="ghost" size="sm" onClick={(e) => { e.stopPropagation(); handleMaximize(); }}>
-                        {isMaximized ? <Minimize className="size-3.5 w-3.5" /> : <Square className="size-3 w-3.5" />}
-                    </Button>
-                    <Button variant="ghost" size="sm" onClick={(e) => { e.stopPropagation(); onClose?.(); }}>
-                        <X className="size-4" />
-                    </Button>
-                </div>
-            </div>
+            <ContextMenu>
+                <ContextMenuTrigger>
+                    <div
+                        className={cn("bg-card flex items-center justify-between border pl-1 draggable", !isMaximized && "rounded-t-lg")}
+                        onClick={handleFocus}
+                        onDoubleClick={handleMaximize}
+                    >
+                        <p className="text-sm flex items-center gap-2">
+                            {windowIcon ?
+                                <Avatar className="p-1 w-6 h-6">
+                                    <AvatarImage src={windowIcon} alt={windowTitle} />
+                                    <AvatarFallback>{windowTitle.charAt(0)}</AvatarFallback>
+                                </Avatar> :
+                                <AppWindow className="inline p-1 w-6 h-6" />
+                            }
+                            {windowTitle}
+                        </p>
+                        <div className="flex items-center justify-center">
+                            <Button variant="ghost" size="sm" onClick={(e) => { e.stopPropagation(); handleMinimize(); }}>
+                                <Minus className="size-4" />
+                            </Button>
+                            <Button variant="ghost" size="sm" onClick={(e) => { e.stopPropagation(); handleMaximize(); }}>
+                                {isMaximized ? <Minimize className="size-3.5 w-3.5" /> : <Square className="size-3 w-3.5" />}
+                            </Button>
+                            <Button variant="ghost" size="sm" onClick={(e) => { e.stopPropagation(); onClose?.(); }}>
+                                <X className="size-4" />
+                            </Button>
+                        </div>
+                    </div>
+                </ContextMenuTrigger>
+                <ContextMenuContent>
+                    <ContextMenuItem>
+                        <a className="flex items-center min-w-fit" href={appSourceCode} target="_blank" rel="noopener noreferrer">
+                            <FileCode2 className="inline-block mr-1" size={14} />
+                            Source Code
+                        </a>
+                    </ContextMenuItem>
+                    <ContextMenuItem>
+                        <a className="flex items-center min-w-fit" href={appLink} target="_blank" rel="noopener noreferrer">
+                            <ExternalLink className="inline-block mr-1" size={14} />
+                            Open in new tab
+                        </a>
+                    </ContextMenuItem>
+                </ContextMenuContent>
+            </ContextMenu>
 
             {/* Window content */}
             <div className={cn("border bg-accent/20 backdrop-brightness-50 h-[calc(100%-62px)]", !isMaximized && "rounded-b-lg")}>
                 {children}
             </div>
 
-            <footer className="w-full h-6 bg-accent text-sm flex items-center justify-between p-4">
-                <p title={windowAbout} className="line-clamp-1 max-w-4/5">{windowAbout}</p>
-                <a className="flex items-center min-w-fit" href="#" target="_blank" rel="noopener noreferrer">
-                    <ExternalLink className="inline-block mr-1" size={14} />
-                    Open in new tab
-                </a>
-            </footer>
-        </Rnd>
+            {/* Footer about section */}
+            <ContextMenu>
+                <ContextMenuTrigger>
+                    <footer className="w-full h-6 bg-accent text-sm flex items-center justify-between p-4">
+                        <p title={windowAbout} className="line-clamp-1">{windowAbout}</p>
+                    </footer>
+                </ContextMenuTrigger>
+                <ContextMenuContent>
+                    <ContextMenuItem>
+                        <a className="flex items-center min-w-fit" href={appSourceCode} target="_blank" rel="noopener noreferrer">
+                            <FileCode2 className="inline-block mr-1" size={14} />
+                            Source Code
+                        </a>
+                    </ContextMenuItem>
+                    <ContextMenuItem>
+                        <a className="flex items-center min-w-fit" href={appLink} target="_blank" rel="noopener noreferrer">
+                            <ExternalLink className="inline-block mr-1" size={14} />
+                            Open in new tab
+                        </a>
+                    </ContextMenuItem>
+                </ContextMenuContent>
+            </ContextMenu>
+
+        </Rnd >
     );
 }
