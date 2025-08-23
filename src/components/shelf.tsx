@@ -1,5 +1,4 @@
 import CheapNightbot from "@/assets/imgs/Cheap Nightbot.svg"
-import { AppList } from "@/components/app-list"
 import Clock from "@/components/clock"
 import { ModeToggle } from "@/components/mode-toggle"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
@@ -23,10 +22,23 @@ import {
 } from "@/components/ui/sheet"
 import { cn } from "@/lib/utils"
 import { Circle, CircleSmall, Search } from "lucide-react"
-import { useEffect, useState } from "react"
+import { useState } from "react"
+import AppIcon from "./app-icon"
 import type { AppListProps } from "./app-list"
 
-export default function Shelf({ appList }: { appList: AppListProps[] }) {
+export default function Shelf({
+  appList,
+  onOpenApp,
+  openWindows = [],
+  maximizedWindows = [],
+  onRestoreWindow
+}: {
+  appList: AppListProps[];
+  onOpenApp?: (app: AppListProps) => void;
+  openWindows?: any[];
+  maximizedWindows?: any[];
+  onRestoreWindow?: (windowId: string) => void;
+}) {
   const [isLauncherOpen, setIsLauncherOpen] = useState(false);
   const [isDatetimeOpen, setIsDatetimeOpen] = useState(false);
   const [date, setDate] = useState<Date | undefined>(new Date());
@@ -43,32 +55,28 @@ export default function Shelf({ appList }: { appList: AppListProps[] }) {
     }).format(d);
   };
 
-  useEffect(() => {
-    const down = (e: KeyboardEvent) => {
-      if (e.key === "a" && (e.ctrlKey)) {
-        e.preventDefault()
-        setIsLauncherOpen((prev) => !prev)
-      }
-    }
-
-    document.addEventListener("keydown", down)
-    return () => document.removeEventListener("keydown", down)
-  }, [])
-
   return (
     // Shelf
-    <div className="z-[999] flex items-center justify-between px-4 fixed bottom-0 w-full h-16 bg-background/50 shadow backdrop-blur-xl border-t border-x rounded-t-4xl">
-      {/*  Launcher */}
+    <div className={cn(
+      "z-[999] flex items-center justify-between px-4 fixed bottom-0 w-full h-16 bg-background/50 shadow backdrop-blur-xl border-t border-x transition-all duration-200 ease-in-out",
+      maximizedWindows.length === 0 && "rounded-t-4xl"
+    )}>
+      {/* Launcher */}
       <Sheet open={isLauncherOpen} modal={false} onOpenChange={toggleAppLauncher}>
         <SheetTrigger>
-          {/*  Launcher Button */}
+          {/* Launcher Button */}
           <Button asChild={true} className="rounded-full p-6" variant="ghost">
             <span>
               <Circle className="size-6" /><CircleSmall className={cn("absolute fade-in-15 transition-all duration-200 ease-in-out", isLauncherOpen && "fill-primary")} />
             </span>
           </Button>
         </SheetTrigger>
-        <SheetContent showClose={false} showOverlay={false} side="bottom" className="bg-background/50 shadow backdrop-blur-xl border w-xl h-[672px] fixed bottom-20 left-2 rounded-3xl flex flex-col justify-between px-1 pt-2 pb-4 focus:outline-none">
+        <SheetContent
+          showClose={false}
+          showOverlay={false}
+          side="bottom"
+          className="bg-background/50 shadow backdrop-blur-xl border w-xl h-[672px] fixed bottom-20 left-2 rounded-3xl flex flex-col justify-between px-1 pt-2 pb-4 focus:outline-none"
+        >
           {/* Hidden element to prevent auto-focus on the Input */}
           <span tabIndex={0} className="sr-only">Prevent auto focus</span>
           <SheetHeader>
@@ -83,7 +91,24 @@ export default function Shelf({ appList }: { appList: AppListProps[] }) {
 
           {/* App List // Search Result Container */}
           <ScrollArea scrollbarVisible={false} className="flex-1 flex-wrap h-full mx-6 my-4">
-            <AppList appList={appList} />
+            <section className="mb-4">
+              <div className="grid grid-cols-5 gap-5">
+                {appList.map((app) => {
+                  return (
+                    <div
+                      key={app.id}
+                      onClick={() => {
+                        onOpenApp?.(app);
+                        setIsLauncherOpen(false);
+                      }}
+                      className="cursor-pointer"
+                    >
+                      <AppIcon icon={app.image} name={app.name} />
+                    </div>
+                  );
+                })}
+              </div>
+            </section>
           </ScrollArea>
 
           {/* User Profile and Theme Toggle Button */}
@@ -118,6 +143,23 @@ export default function Shelf({ appList }: { appList: AppListProps[] }) {
         </SheetContent>
       </Sheet>
 
+      {/* Minimized windows */}
+      <div className="flex items-center gap-1">
+        {openWindows.map(window => (
+          <Button
+            key={window.id}
+            variant="ghost"
+            className="rounded-full w-fit h-fit p-2"
+            onClick={() => onRestoreWindow?.(window.id)}
+          >
+            <Avatar>
+              <AvatarImage src={window.app.image} alt={window.app.name} />
+              <AvatarFallback>{window.app.name.charAt(0)}</AvatarFallback>
+            </Avatar>
+          </Button>
+        ))}
+      </div>
+
       {/* Date-time and other stuff in the shelf ~ right side */}
       <Sheet modal={false} onOpenChange={toggleDatetimeMenu}>
         <SheetTrigger>
@@ -129,7 +171,12 @@ export default function Shelf({ appList }: { appList: AppListProps[] }) {
             </span>
           </Button>
         </SheetTrigger>
-        <SheetContent showClose={false} showOverlay={false} side="bottom" className="border-none shadow-none w-2xs h-[484px] fixed bottom-20 left-auto right-2 rounded-3xl flex flex-col justify-end items-center gap-0 -z-10 focus:outline-none">
+        <SheetContent
+          showClose={false}
+          showOverlay={false}
+          side="bottom"
+          className="border-none shadow-none w-2xs h-[484px] fixed bottom-20 left-auto right-2 rounded-3xl flex flex-col justify-end items-center gap-0 -z-10 focus:outline-none"
+        >
           <SheetHeader>
             <SheetTitle className="flex gap-2 relative mt-1">
               <Calendar
