@@ -1,83 +1,183 @@
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { AppWindow, Minimize, Minus, Square, X } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Rnd } from "react-rnd";
 
 type WindowProps = {
     windowTitle?: string;
-    windowIcon?: React.ReactNode;
-    className?: string;
+    windowIcon?: string;
     children?: React.ReactNode;
     onClose?: () => void;
+    onMinimize?: () => void;
+    onMaximize?: () => void;
+    onFocus?: () => void;
+    isMinimized?: boolean;
+    isMaximized?: boolean;
+    zIndex?: number;
+    isFocused?: boolean;
 };
 
-export default function Window({ windowTitle = "Window", windowIcon, children, className, onClose }: WindowProps) {
-    const [maximized, setMaximized] = useState(false);
-    const [minimized, setMinimized] = useState(false);
-    const [size, updateSize] = useState({ width: "600", height: "400" });
-    const [position, updatePosition] = useState({ x: window.innerWidth / 2 - 300, y: window.innerHeight / 2 - 200 });
+export default function Window(
+    {
+        windowTitle = "Window",
+        windowIcon,
+        children,
+        onClose,
+        onMinimize,
+        onMaximize,
+        onFocus,
+        isMinimized = false,
+        isMaximized = false,
+        zIndex = 10,
+        isFocused = false
+    }: WindowProps) {
+    const [size, updateSize] = useState({ width: "800", height: "600" });
+    const [position, updatePosition] = useState({ x: window.innerWidth / 2 - 400, y: window.innerHeight / 2 - 300 });
+    const [originalSize, setOriginalSize] = useState({ width: "800", height: "600" });
+    const [originalPosition, setOriginalPosition] = useState({ x: window.innerWidth / 2 - 400, y: window.innerHeight / 2 - 300 });
+    const [isDraggingOrResizing, setIsDraggingOrResizing] = useState(false); // Add this
 
-    const toggleMax = () => {
-        if (!maximized) {
+    const handleMaximize = useCallback(() => {
+        if (!isMaximized) {
+            setOriginalSize({ ...size });
+            setOriginalPosition({ ...position });
             updateSize({ width: "100%", height: "100%" });
             updatePosition({ x: 0, y: 0 });
         } else {
-            updateSize({ width: "600", height: "400" });
-            updatePosition({ x: window.innerWidth / 2 - 300, y: window.innerHeight / 2 - 200 });
+            updateSize({ ...originalSize });
+            updatePosition({ ...originalPosition });
         }
-        setMaximized(!maximized);
-    };
+        onMaximize?.();
+    }, [isMaximized, size, position, originalSize, originalPosition, onMaximize]);
 
-    const toggleMin = () => {
-        setMinimized(!minimized);
-    }
+    const handleMinimize = useCallback(() => {
+        onMinimize?.();
+    }, [onMinimize]);
+
+    const handleFocus = useCallback((e: React.MouseEvent) => {
+        e.stopPropagation();
+        onFocus?.();
+    }, [onFocus]);
+
+    // Handle drag start
+    const handleDragStart = useCallback(() => {
+        setIsDraggingOrResizing(true);
+    }, []);
+
+    // Handle drag stop with boundary constraints
+    const handleDragStop = useCallback((_: any, d: { x: number; y: number }) => {
+        // Constrain position within viewport
+        const maxX = window.innerWidth - 800; // minWidth
+        const maxY = window.innerHeight - 600; // minHeight
+        const constrainedX = Math.max(0, Math.min(d.x, maxX));
+        const constrainedY = Math.max(0, Math.min(d.y, maxY));
+
+        updatePosition({ x: constrainedX, y: constrainedY });
+        setOriginalPosition({ x: constrainedX, y: constrainedY });
+        setIsDraggingOrResizing(false);
+    }, []);
+
+    // Handle resize start
+    const handleResizeStart = useCallback(() => {
+        setIsDraggingOrResizing(true);
+    }, []);
+
+    // Handle resize stop with boundary constraints
+    const handleResizeStop = useCallback((_: any, __: any, ref: HTMLElement, ___: any, position: { x: number; y: number }) => {
+        // Constrain position during resize
+        const maxX = window.innerWidth - ref.offsetWidth;
+        const maxY = window.innerHeight - ref.offsetHeight;
+        const constrainedX = Math.max(0, Math.min(position.x, maxX));
+        const constrainedY = Math.max(0, Math.min(position.y, maxY));
+
+        const newSize = {
+            width: ref.style.width,
+            height: ref.style.height,
+        };
+        updateSize(newSize);
+        setOriginalSize(newSize);
+        updatePosition({ x: constrainedX, y: constrainedY });
+        setOriginalPosition({ x: constrainedX, y: constrainedY });
+        setIsDraggingOrResizing(false);
+    }, []);
 
     useEffect(() => {
         const handleResize = () => {
-            if (!maximized) {
-                updatePosition({ x: window.innerWidth / 2 - 300, y: window.innerHeight / 2 - 200 });
+            if (!isMaximized) {
+                const newX = window.innerWidth / 2 - 400;
+                const newY = window.innerHeight / 2 - 300;
+                updatePosition({ x: newX, y: newY });
+                setOriginalPosition({ x: newX, y: newY });
             }
         };
 
         window.addEventListener("resize", handleResize);
         return () => window.removeEventListener("resize", handleResize);
-    }, [maximized]);
+    }, [isMaximized]);
+
+    if (isMinimized) {
+        return null;
+    }
 
     return (
         <Rnd
-            size={size}
+            size={{ width: size.width, height: size.height }}
             position={position}
-            minWidth={600}
-            minHeight={400}
-            enableResizing={!maximized}
-            onDragStop={(_, d) => updatePosition({ x: d.x, y: d.y })}
-            onResizeStop={(_, __, ref, ___, position) => {
-                updateSize({
-                    width: ref.style.width,
-                    height: ref.style.height,
-                });
-                updatePosition(position);
+            minWidth={800}
+            minHeight={600}
+            enableResizing={!isMaximized}
+            disableDragging={isMaximized}
+            dragHandleClassName="draggable"
+            onDragStart={handleDragStart}
+            onDragStop={handleDragStop}
+            onResizeStart={handleResizeStart}
+            onResizeStop={handleResizeStop}
+            className={cn(
+                "!cursor-default shadow-lg backdrop-blur-lg",
+                !isDraggingOrResizing && "transition-all duration-200 ease-in-out",
+                !isFocused && "brightness-75",
+            )}
+            style={{
+                zIndex: zIndex,
+                display: isMinimized ? 'none' : 'block'
             }}
-            className={cn("!cursor-default shadow-lg backdrop-blur-lg", className)}
+            onClick={handleFocus}
+            bounds="window"
         >
             {/* Title bar */}
-            <div className="bg-card flex items-center justify-between border pl-4">
+            <div
+                className={cn("bg-card flex items-center justify-between border pl-1 draggable", !isMaximized && "rounded-t-lg")}
+                onClick={handleFocus}
+                onDoubleClick={handleMaximize}
+            >
                 <p className="text-sm flex items-center gap-2">
-                    {windowIcon || <AppWindow className="inline" size={18} />}
+                    {windowIcon ?
+                        <Avatar className="p-1 w-6 h-6">
+                            <AvatarImage src={windowIcon} alt={windowTitle} />
+                            <AvatarFallback>{windowTitle.charAt(0)}</AvatarFallback>
+                        </Avatar> :
+                        <AppWindow className="inline p-1 w-6 h-6" />
+                    }
                     {windowTitle}
                 </p>
                 <div className="flex items-center justify-center">
-                    <Button variant="ghost" onClick={toggleMin}><Minus className="size-4" /></Button>
-                    <Button variant="ghost" onClick={toggleMax}>{maximized ? <Minimize className="size-3.5 w-3.5" /> : <Square className="size-3 w-3.5" />}</Button>
-                    <Button variant="ghost" onClick={onClose}><X className="size-4" /></Button>
+                    <Button variant="ghost" size="sm" onClick={(e) => { e.stopPropagation(); handleMinimize(); }}>
+                        <Minus className="size-4" />
+                    </Button>
+                    <Button variant="ghost" size="sm" onClick={(e) => { e.stopPropagation(); handleMaximize(); }}>
+                        {isMaximized ? <Minimize className="size-3.5 w-3.5" /> : <Square className="size-3 w-3.5" />}
+                    </Button>
+                    <Button variant="ghost" size="sm" onClick={(e) => { e.stopPropagation(); onClose?.(); }}>
+                        <X className="size-4" />
+                    </Button>
                 </div>
             </div>
 
             {/* Window content */}
-            <div className="border bg-accent/20 backdrop-brightness-50 h-[calc(100%-38px)]">
+            <div className={cn("border bg-accent/20 backdrop-brightness-50 h-[calc(100%-38px)]", !isMaximized && "rounded-b-lg")}>
                 {children}
-                {minimized && <div className="p-4">Window is minimized</div>}
             </div>
         </Rnd>
     );
