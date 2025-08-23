@@ -207,14 +207,14 @@ export default function Window(
             </ContextMenu>
 
             {/* Window content */}
-            <div className={cn("border bg-accent/20 backdrop-brightness-50 h-[calc(100%-62px)]", !isMaximized && "rounded-b-lg")}>
+            <div className="border bg-accent/20 backdrop-brightness-50 h-[calc(100%-62px)]">
                 {children}
             </div>
 
             {/* Footer about section */}
             <ContextMenu>
                 <ContextMenuTrigger>
-                    <footer className="w-full h-6 bg-accent text-sm flex items-center justify-between p-4">
+                    <footer className={cn("w-full h-6 bg-accent text-sm flex items-center justify-between p-4", !isMaximized && "rounded-b-lg")}>
                         <p title={windowAbout} className="line-clamp-1">{windowAbout}</p>
                     </footer>
                 </ContextMenuTrigger>
