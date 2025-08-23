@@ -1,3 +1,4 @@
+import journal from "@/assets/imgs/apps/cat-paw.gif"
 
 export const apps = [
     {
@@ -25,7 +26,7 @@ export const apps = [
             "CSS",
             "zola"
         ],
-        image: "",
+        image: journal,
         github: "https://github.com/CheapNightbot/Journal",
         live: "https://journal.cheapnightbot.me"
     },
