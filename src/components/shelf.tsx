@@ -56,7 +56,7 @@ export default function Shelf() {
 
   return (
     // Shelf
-    <div className="flex items-center justify-between px-4 fixed bottom-0 w-full h-16 bg-background border-t border-x rounded-t-4xl">
+    <div className="z-[999] flex items-center justify-between px-4 fixed bottom-0 w-full h-16 bg-background/50 shadow backdrop-blur-xl border-t border-x rounded-t-4xl">
       {/*  Launcher */}
       <Sheet open={isLauncherOpen} modal={false} onOpenChange={toggleAppLauncher}>
         <SheetTrigger>
@@ -67,7 +67,7 @@ export default function Shelf() {
             </span>
           </Button>
         </SheetTrigger>
-        <SheetContent showClose={false} showOverlay={false} side="bottom" className="border w-xl h-[672px] fixed bottom-20 left-2 rounded-3xl flex flex-col justify-between px-1 pt-2 pb-4 -z-10 focus:outline-none">
+        <SheetContent showClose={false} showOverlay={false} side="bottom" className="bg-background/50 shadow backdrop-blur-xl border w-xl h-[672px] fixed bottom-20 left-2 rounded-3xl flex flex-col justify-between px-1 pt-2 pb-4 focus:outline-none">
           {/* Hidden element to prevent auto-focus on the Input */}
           <span tabIndex={0} className="sr-only">Prevent auto focus</span>
           <SheetHeader>
