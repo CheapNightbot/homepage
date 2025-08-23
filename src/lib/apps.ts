@@ -13,7 +13,7 @@ export const apps = [
         ],
         image: "",
         github: "https://github.com/CheapNightbot/homepage",
-        live: "https://yutify.cheapnightbot.me/blog"
+        live: "/blog"
     },
     {
         id: "1b166866-80b5-5a9f-a272-2c559186fe0c",
