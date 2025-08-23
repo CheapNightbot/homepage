@@ -1,12 +1,13 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { AppWindow, Minimize, Minus, Square, X } from "lucide-react";
+import { AppWindow, Minimize, Minus, Square, X, ExternalLink } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
 import { Rnd } from "react-rnd";
 
 type WindowProps = {
     windowTitle?: string;
+    windowAbout?: string;
     windowIcon?: string;
     children?: React.ReactNode;
     onClose?: () => void;
@@ -22,6 +23,7 @@ type WindowProps = {
 export default function Window(
     {
         windowTitle = "Window",
+        windowAbout,
         windowIcon,
         children,
         onClose,
@@ -176,9 +178,17 @@ export default function Window(
             </div>
 
             {/* Window content */}
-            <div className={cn("border bg-accent/20 backdrop-brightness-50 h-[calc(100%-38px)]", !isMaximized && "rounded-b-lg")}>
+            <div className={cn("border bg-accent/20 backdrop-brightness-50 h-[calc(100%-62px)]", !isMaximized && "rounded-b-lg")}>
                 {children}
             </div>
+
+            <footer className="w-full h-6 bg-accent text-sm flex items-center justify-between p-4">
+                <p title={windowAbout} className="line-clamp-1 max-w-4/5">{windowAbout}</p>
+                <a className="flex items-center min-w-fit" href="#" target="_blank" rel="noopener noreferrer">
+                    <ExternalLink className="inline-block mr-1" size={14} />
+                    Open in new tab
+                </a>
+            </footer>
         </Rnd>
     );
 }
