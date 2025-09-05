@@ -163,6 +163,6 @@ body {
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground min-h-screen max-h-screen min-w-screen max-w-screen overflow-clip;
   }
 }
