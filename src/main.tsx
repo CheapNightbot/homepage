@@ -15,7 +15,6 @@ createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <ContextMenu>
       <ContextMenuTrigger>
-        <div className="min-h-screen bg-cover bg-center bg-no-repeat relative overflow-hidden bg-[url('/src/assets/imgs/background.jpg')] animate-in fade-in zoom-in-105 scale-110 duration-1000 ease-in-out"></div>
         <App />
       </ContextMenuTrigger>
       <ContextMenuContent>
