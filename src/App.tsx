@@ -19,13 +19,15 @@ function App() {
             const background = new Image();
             background.src = "/src/assets/imgs/background.jpg";
 
-            setTimeout(() => {
-                setLoading(false);
+            background.onload = () => {
                 setTimeout(() => {
-                    setShowContent(true);
-                    window.sessionStorage.setItem("hasShownLoading", "true");
-                });
-            }, 1000);
+                    setLoading(false);
+                    setTimeout(() => {
+                        setShowContent(true);
+                        window.sessionStorage.setItem("hasShownLoading", "true");
+                    });
+                }, 1000);
+            };
         };
 
         if (document.readyState === "complete") {
