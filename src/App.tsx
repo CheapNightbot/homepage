@@ -6,7 +6,7 @@ function App() {
 
     return (
         <ThemeProvider defaultTheme="dark" storageKey="potato-ui-theme">
-            <main>
+            <main className="w-screen h-screen">
                 <TopBar />
                 <Shelf />
             </main>
