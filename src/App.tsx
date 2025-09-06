@@ -1,12 +1,10 @@
 import Shelf from "@/components/shelf";
-import TopBar from "@/components/top-bar";
 import { ThemeProvider } from "@/components/theme-provider";
+import TopBar from "@/components/top-bar";
 import { useEffect, useState } from "react";
 import LoadingScreen from "./components/loading-screen";
-import { preload } from "react-dom";
 
 function App() {
-    preload("/background.jpg", { as: "image" });
     const [loading, setLoading] = useState(true);
     const [showContent, setShowContent] = useState(false);
 
@@ -42,7 +40,7 @@ function App() {
             {
                 showContent &&
                 <>
-                    <div className="min-h-screen bg-cover bg-center bg-no-repeat relative overflow-hidden bg-[url('/background.jpg')] animate-in fade-in zoom-in-105 scale-110 duration-1000 ease-in-out"></div>
+                    <div className="min-h-screen bg-cover bg-center bg-no-repeat relative overflow-hidden bg-[url('/src/assets/imgs/background.jpg')] animate-in fade-in zoom-in-105 scale-110 duration-1000 ease-in-out"></div>
                     <main className="w-screen h-screen">
                         <TopBar />
                         <Shelf />

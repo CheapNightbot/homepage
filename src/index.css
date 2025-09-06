@@ -159,15 +159,15 @@ body {
 }
 
 * {
-  cursor: url('/cursor/default.svg'), auto;
+  cursor: url('/src//assets/cursor/default.svg'), auto;
 }
 
 *:active {
-  cursor: url('/cursor/click.svg'), auto;
+  cursor: url('/src/assets/cursor/click.svg'), auto;
 }
 
 .not-allowed {
-  cursor: url('/cursor/not-allowed.svg'), auto;
+  cursor: url('/src/assets/cursor/not-allowed.svg'), auto;
 }
 
 /* Ripple */
