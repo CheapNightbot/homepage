@@ -3,8 +3,10 @@ import TopBar from "@/components/top-bar";
 import { ThemeProvider } from "@/components/theme-provider";
 import { useEffect, useState } from "react";
 import LoadingScreen from "./components/loading-screen";
+import { preload } from "react-dom";
 
 function App() {
+    preload("/background.jpg", { as: "image" });
     const [loading, setLoading] = useState(true);
     const [showContent, setShowContent] = useState(false);
 
@@ -16,14 +18,13 @@ function App() {
                 return;
             }
 
-            const background = new Image();
-            background.src = "/background.jpg";
-
-            background.onload = () => {
+            setTimeout(() => {
                 setLoading(false);
-                setShowContent(true);
-                window.sessionStorage.setItem("hasShownLoading", "true");
-            };
+                setTimeout(() => {
+                    setShowContent(true);
+                    window.sessionStorage.setItem("hasShownLoading", "true");
+                });
+            }, 1000);
         };
 
         if (document.readyState === "complete") {
