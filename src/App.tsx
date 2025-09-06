@@ -20,13 +20,9 @@ function App() {
             background.src = "/background.jpg";
 
             background.onload = () => {
-                setTimeout(() => {
-                    setLoading(false);
-                    setTimeout(() => {
-                        setShowContent(true);
-                        window.sessionStorage.setItem("hasShownLoading", "true");
-                    });
-                }, 1000);
+                setLoading(false);
+                setShowContent(true);
+                window.sessionStorage.setItem("hasShownLoading", "true");
             };
         };
 
