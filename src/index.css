@@ -157,6 +157,18 @@ body {
   letter-spacing: var(--tracking-normal);
 }
 
+* {
+  cursor: url('/cursor/default.svg'), auto;
+}
+
+*:active {
+  cursor: url('/cursor/click.svg'), auto;
+}
+
+.not-allowed {
+  cursor: url('/cursor/not-allowed.svg'), auto;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50 scrollbar-none;
