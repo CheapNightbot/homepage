@@ -46,16 +46,6 @@ function Shelf() {
             <App name="Contact">
                 <MessageCircle className="size-full p-2" />
             </App>
-            {/* <Button size="icon" variant="outline" className="hover:scale-110 size-11 rounded-xl active:scale-100"><FolderCode className="size-full p-2" /></Button> */}
-            {/* <Button size="icon" variant="outline" className="hover:scale-110 size-11 rounded-xl active:scale-100"><User className="size-full p-2" /></Button> */}
-            {/* <Tooltip disableHoverableContent>
-                <TooltipTrigger asChild>
-                    <Button size="icon" variant="outline" className="hover:scale-110 size-11 rounded-xl active:scale-100"><User className="size-full p-2" /></Button>
-                </TooltipTrigger>
-                <TooltipContent sideOffset={10} arrowVisible={false} className="pointer-events-none select-none">
-                    <p>Profile</p>
-                </TooltipContent>
-            </Tooltip> */}
         </div>
     );
 }
