@@ -51,6 +51,7 @@
   --shadow-2xl: 1px 2px 5px 1px hsl(0 0% 0% / 0.15);
   --tracking-normal: 0em;
   --spacing: 0.25rem;
+  --ripple: #b79dff;
 }
 
 .dark {
@@ -167,6 +168,43 @@ body {
 
 .not-allowed {
   cursor: url('/cursor/not-allowed.svg'), auto;
+}
+
+/* Ripple */
+/* thank yu, src: https://codepen.io/CalculateQuick/pen/azvvjGv !!! */
+.ripple {
+  width: 60px;
+  height: 60px;
+  position: relative;
+}
+
+.ripple-circle {
+  position: absolute;
+  inset: 0;
+  border: 2px solid var(--ripple);
+  border-radius: 50%;
+  opacity: 0;
+  animation: ripple 2s ease-out infinite;
+}
+
+.ripple-circle:nth-child(2) {
+  animation-delay: 0.5s;
+}
+
+.ripple-circle:nth-child(3) {
+  animation-delay: 1s;
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(0.3);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
 }
 
 @layer base {

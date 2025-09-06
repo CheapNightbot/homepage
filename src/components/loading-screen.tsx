@@ -1,5 +1,3 @@
-import { Loader2 } from "lucide-react";
-
 function LoadingScreen() {
     return (
         <div className="w-screen h-screen fixed top-0 left-0 bg-[#fefcff] flex items-center justify-center z-50">
@@ -12,7 +10,12 @@ function LoadingScreen() {
                 }}
             />
             <div className="animate-in zoom-in-50 duration-200 ease-in-out">
-                <Loader2 size={32} className="text-secondary animate-spin" />
+                {/* thank yu, src: https://codepen.io/CalculateQuick/pen/azvvjGv !!! */}
+                <div className="ripple">
+                    <div className="ripple-circle"></div>
+                    <div className="ripple-circle"></div>
+                    <div className="ripple-circle"></div>
+                </div>
             </div>
         </div>
     );
