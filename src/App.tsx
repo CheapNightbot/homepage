@@ -16,6 +16,9 @@ function App() {
                 return;
             }
 
+            const background = new Image();
+            background.src = "/src/assets/imgs/background.jpg";
+
             setTimeout(() => {
                 setLoading(false);
                 setTimeout(() => {
