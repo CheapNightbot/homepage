@@ -25,12 +25,7 @@ function App() {
             }, 1000);
         };
 
-        if (document.readyState === "complete") {
-            handleLoad();
-        } else {
-            window.addEventListener("load", handleLoad);
-        }
-
+        window.addEventListener("load", handleLoad);
         return () => { window.removeEventListener("load", handleLoad) };
     }, []);
 
