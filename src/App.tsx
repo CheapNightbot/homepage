@@ -16,10 +16,13 @@ function App() {
     return (
         <ThemeProvider defaultTheme="dark" storageKey="potato-ui-theme">
             {loading && <LoadingScreen />}
-            <main className="w-screen h-screen">
-                <TopBar />
-                <Shelf />
-            </main>
+            {
+                !loading &&
+                <main className="w-screen h-screen">
+                    <TopBar />
+                    <Shelf />
+                </main>
+            }
         </ThemeProvider>
     );
 }
