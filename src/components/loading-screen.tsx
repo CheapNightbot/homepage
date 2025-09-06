@@ -11,7 +11,7 @@ function LoadingScreen() {
                     radial-gradient(circle at 70% 30%, rgba(255, 182, 193, 0.4), transparent 60%)`,
                 }}
             />
-            <div className="animate-in zoom-in duration-300 ease-in-out">
+            <div className="animate-in zoom-in-50 duration-200 ease-in-out">
                 <Loader2 size={32} className="text-secondary animate-spin" />
             </div>
         </div>
