@@ -22,7 +22,7 @@ function App() {
                     setShowContent(true);
                     window.sessionStorage.setItem("hasShownLoading", "true");
                 });
-            }, 1000);
+            }, 2000);
         };
 
         window.addEventListener("load", handleLoad);
