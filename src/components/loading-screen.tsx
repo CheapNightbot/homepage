@@ -1,6 +1,6 @@
 function LoadingScreen() {
     return (
-        <div className="w-screen h-screen fixed top-0 left-0 bg-[#fefcff] flex items-center justify-center z-50  animate-out fade-out delay-700 duration-1000 ease-out">
+        <div className="w-screen h-screen fixed top-0 left-0 bg-[#fefcff] flex items-center justify-center z-50 animate-out fade-out delay-1000 duration-1500 ease-out">
             <div
                 className="absolute inset-0 z-0"
                 style={{
