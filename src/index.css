@@ -197,7 +197,7 @@ body {
 
 .wallpaper {
   background-image: url('/background.jpg');
-  @apply min-h-screen bg-cover bg-center bg-no-repeat relative overflow-hidden animate-in fade-in zoom-in-105 scale-110 duration-1000 ease-in-out
+  @apply min-h-screen min-w-screen bg-cover bg-center bg-no-repeat absolute overflow-hidden animate-in fade-in zoom-in-105 scale-110 duration-1000 ease-in-out;
 }
 
 @keyframes ripple {
