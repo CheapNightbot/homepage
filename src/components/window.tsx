@@ -64,6 +64,8 @@ function Window({ title, children, className }: WindowProps) {
                 height: winHeight,
             }}
             dragHandleClassName='nav-bar'
+            disableDragging={maximized}
+            enableResizing={!maximized}
             onResizeStart={() => setAllowTransitions(false)}
             onResizeStop={(_, __, ___, delta, ____) => {
                 if (!maximized) {
@@ -85,7 +87,7 @@ function Window({ title, children, className }: WindowProps) {
             position={{ x: posX, y: posY }}
             size={{ width: winWidth, height: winHeight }}
         >
-            <header onContextMenu={(uwu) => uwu.preventDefault()} onDoubleClick={handleMaximize} className='nav-bar bg-card px-4 h-8 flex justify-between items-center'>
+            <header onContextMenu={(uwu) => uwu.preventDefault()} onDoubleClick={handleMaximize} className='nav-bar bg-card px-4 h-8 flex justify-between items-center select-none'>
                 <h2 className='text-sm'>{title || 'Title'}</h2>
                 <nav className='actions group flex items-center gap-2 text-background'>
                     {/* maximize button */}
@@ -105,7 +107,7 @@ function Window({ title, children, className }: WindowProps) {
                     </Button>
                 </nav>
             </header>
-            <div onContextMenu={(uwu) => uwu.preventDefault()} className={cn('w-full h-full border p-12 bg-card/50 text-card-foreground backdrop-blur-3xl', className)}>
+            <div onContextMenu={(uwu) => uwu.preventDefault()} className={cn('w-full h-[calc(100%-32px)] rounded-b-2xl p-12 bg-card/50 text-card-foreground backdrop-blur-3xl', className)}>
                 {children}
             </div>
         </Rnd>
