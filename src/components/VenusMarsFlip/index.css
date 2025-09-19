@@ -1,0 +1,38 @@
+@keyframes spinY {
+    from {
+        transform: rotateY(0deg);
+    }
+
+    to {
+        transform: rotateY(360deg);
+    }
+}
+
+.flip-scene {
+    perspective: 1000px;
+}
+
+.flip-card {
+    position: relative;
+    width: 50px;
+    height: 50px;
+    transform-style: preserve-3d;
+    animation: spinY 3s linear infinite;
+}
+
+.flip-card:hover {
+    animation-play-state: paused;
+}
+
+.flip-face {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backface-visibility: hidden;
+}
+
+.flip-back {
+    transform: rotateY(180deg);
+}
