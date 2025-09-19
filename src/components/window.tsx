@@ -7,14 +7,15 @@ import { Button } from './ui/button';
 interface WindowProps {
     title: string,
     children: any,
-    className: string
+    className?: string,
+    contentClassName?: string
 };
 
 const BOTTOM_PADDING = 160;
 const INIT_WIDTH = 460;
 const INIT_HEIGHT = 540;
 
-function Window({ title, children, className }: WindowProps) {
+function Window({ title, children, className = "", contentClassName = "" }: WindowProps) {
     const mainElm = document.getElementById('main');
 
     const [winWidth, setWinWidth] = useState(INIT_WIDTH);
@@ -56,7 +57,7 @@ function Window({ title, children, className }: WindowProps) {
         <Rnd
             bounds="parent"
             cancel='.actions'
-            className={cn('overflow-clip flex flex-col rounded-2xl', allowTransitions && 'transition-all duration-300 ease-in-out')}
+            className={cn('overflow-clip flex flex-col rounded-2xl', allowTransitions && 'transition-all duration-300 ease-in-out', className)}
             default={{
                 x: posX,
                 y: posY,
@@ -107,7 +108,7 @@ function Window({ title, children, className }: WindowProps) {
                     </Button>
                 </nav>
             </header>
-            <div onContextMenu={(uwu) => uwu.preventDefault()} className={cn('w-full h-[calc(100%-32px)] rounded-b-2xl p-12 bg-card/50 text-card-foreground backdrop-blur-3xl', className)}>
+            <div onContextMenu={(uwu) => uwu.preventDefault()} className={cn('w-full h-[calc(100%-32px)] rounded-b-2xl p-12 bg-card/50 text-card-foreground backdrop-blur-3xl', contentClassName)}>
                 {children}
             </div>
         </Rnd>
