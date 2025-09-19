@@ -7,7 +7,7 @@ function ProfileAvatar() {
     const [showIcon, setShowIcon] = useState(false);
 
     return (
-        <Avatar onClick={() => setShowIcon(!showIcon)} className="size-26 transition-all duration-300 ease-in-out active:scale-95">
+        <Avatar onClick={() => setShowIcon(!showIcon)} className="select-none size-26 transition-all duration-300 ease-in-out active:scale-95">
             {
                 showIcon ?
                     <div className="bg-gradient-to-b from-[#55CDFC] via-[#FFFFFF] to-[#F7A8B8] flex size-full items-center justify-center rounded-full animate-in blur-in-md duration-200">
