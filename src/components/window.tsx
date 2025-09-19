@@ -100,9 +100,7 @@ function Window({ title, children, className = "", contentClassName = "", contex
                 {
                     contextMenu &&
                     <ContextMenu >
-                        <ContextMenuTrigger className='flex-1 h-full'>
-
-                        </ContextMenuTrigger>
+                        <ContextMenuTrigger className='flex-1 h-full' />
                         <ContextMenuContent>
                             <ContextMenuItem onClick={() => window.open("https://github.com/CheapNightbot/#", "_blank")}>
                                 <FileCode />
