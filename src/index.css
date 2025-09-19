@@ -214,7 +214,7 @@ body {
 
 @layer base {
   * {
-    @apply border-border outline-ring/50 scrollbar-none;
+    @apply border-border outline-ring/50 scrollbar-none selection:bg-[#F7A8B8] selection:text-white;
   }
 
   body {
