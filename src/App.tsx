@@ -45,7 +45,7 @@ function App() {
                     <TopBar />
                     <Toaster position="top-center" />
                     <main id="main" className="w-screen h-[calc(100dvh-140px)]">
-                        <Window title={"About"} contentClassName="flex flex-col items-center gap-4">
+                        <Window title={"About"} contentClassName="flex flex-col items-center gap-4 p-12">
                             <section className="flex flex-col items-center gap-6">
                                 <ProfileAvatar />
                                 <div className="flex-1 flex flex-col items-center">
