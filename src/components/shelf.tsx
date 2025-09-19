@@ -9,7 +9,9 @@ import {
     MessageCircle,
     User,
     NotebookPen,
-    Shell
+    Shell,
+    Users
+
 } from "lucide-react";
 
 function App({ name, children }: { name: string, children: any }) {
@@ -42,6 +44,9 @@ function Shelf() {
             </App>
             <App name="Journal">
                 <Shell className="size-full p-2" />
+            </App>
+            <App name="Friends">
+                <Users className="size-full p-2" />
             </App>
             <App name="Contact">
                 <MessageCircle className="size-full p-2" />
