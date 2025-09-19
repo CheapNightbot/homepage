@@ -2,6 +2,11 @@ import { Progress } from "@/components/ui/progress";
 import { cn } from "@/lib/utils";
 import { Loader2 } from "lucide-react";
 import { useEffect, useState } from "react";
+import Window from "@/components/window";
+
+interface AppWindowIframeProps {
+    info: { id: string, name: string, source: string, live: string }
+}
 
 function AppIframe({ src }: { src: string }) {
     const [loadingIframe, setLoadingIframe] = useState(true);
@@ -38,4 +43,12 @@ function AppIframe({ src }: { src: string }) {
     );
 }
 
-export default AppIframe;
+function AppWindowIframe({ info }: AppWindowIframeProps) {
+    return (
+        <Window title={info.name} contextMenu={{ source: info.source, live: info.live }}>
+            <AppIframe src={info.live} />
+        </Window>
+    );
+}
+
+export { AppIframe, AppWindowIframe };
