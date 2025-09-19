@@ -10,18 +10,17 @@ interface WindowProps {
     className: string
 };
 
-// 32px - the height of top bar !
-// 80px - the height of shelf at bottom !
-// 32 + 80 = 112 + 44 = 144
-const BOTTOM_PADDING = 156;
+const BOTTOM_PADDING = 160;
 const INIT_WIDTH = 480;
 const INIT_HEIGHT = 540;
 
 function Window({ title, children, className }: WindowProps) {
+    const mainElm = document.getElementById('main');
+
     const [winWidth, setWinWidth] = useState(INIT_WIDTH);
     const [winHeight, setWinHeight] = useState(INIT_HEIGHT);
     const [posX, setPosX] = useState((window.innerWidth - winWidth) / 2);
-    const [posY, setPosY] = useState((window.innerHeight - (winHeight + 120)) / 2);
+    const [posY, setPosY] = useState((window.innerHeight - (winHeight + 140)) / 2);
 
     const [maximized, setMaximized] = useState(false);
     const [allowTransitions, setAllowTransitions] = useState(true);
@@ -29,15 +28,15 @@ function Window({ title, children, className }: WindowProps) {
     const handleMaximize = () => {
         setAllowTransitions(true);
         if (!maximized) {
-            setWinWidth(window.innerWidth - 32);
-            setWinHeight(window.innerHeight - BOTTOM_PADDING);
+            setWinWidth(mainElm ? mainElm.clientWidth - 32 : window.innerWidth - 32);
+            setWinHeight(mainElm ? mainElm.clientHeight - 22 : window.innerHeight - BOTTOM_PADDING);
             setPosX(16);
             setPosY(16);
         } else {
             setWinWidth(INIT_WIDTH);
             setWinHeight(INIT_HEIGHT);
-            setPosX((window.innerWidth - INIT_WIDTH) / 2);
-            setPosY((window.innerHeight - (INIT_HEIGHT + 120)) / 2);
+            setPosX(mainElm ? (mainElm.clientWidth - INIT_WIDTH) / 2 : (window.innerWidth - INIT_WIDTH) / 2);
+            setPosY(mainElm ? (mainElm.clientHeight - INIT_HEIGHT) / 2 : (window.innerHeight - INIT_HEIGHT) / 2);
         }
         setMaximized(!maximized);
     }

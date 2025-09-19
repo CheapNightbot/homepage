@@ -44,7 +44,7 @@ function App() {
                     <div className="wallpaper"></div>
                     <TopBar />
                     <Toaster position="top-center" />
-                    <main className="w-screen h-screen">
+                    <main id="main" className="w-screen h-[calc(100dvh-140px)]">
                         <Window title={"About"} className="flex flex-col items-center gap-4">
                             <section className="flex flex-col items-center gap-6">
                                 <ProfileAvatar />
