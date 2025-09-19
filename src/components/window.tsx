@@ -15,7 +15,7 @@ interface WindowProps {
     children?: any;
     className?: string;
     contentClassName?: string;
-    contextMenu?: boolean;
+    contextMenu?: {source: string, live: string};
 };
 
 const BOTTOM_PADDING = 160;
@@ -102,11 +102,11 @@ function Window({ title, children, className = "", contentClassName = "", contex
                     <ContextMenu >
                         <ContextMenuTrigger className='flex-1 h-full' />
                         <ContextMenuContent>
-                            <ContextMenuItem onClick={() => window.open("https://github.com/CheapNightbot/#", "_blank")}>
+                            <ContextMenuItem onClick={() => window.open(contextMenu.source, "_blank")}>
                                 <FileCode />
                                 Source Code
                             </ContextMenuItem>
-                            <ContextMenuItem onClick={() => window.open("https://github.com/CheapNightbot/#", "_blank")}>
+                            <ContextMenuItem onClick={() => window.open(contextMenu.live, "_blank")}>
                                 <SquareArrowOutUpRight />
                                 Open in New Tab
                             </ContextMenuItem>
