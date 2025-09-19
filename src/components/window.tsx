@@ -43,14 +43,14 @@ function Window({ title, children, className }: WindowProps) {
 
     const handleBrowserResize = () => {
         const mainElment = document.getElementById('main');
-        setPosX(mainElment ? (mainElment.clientWidth - INIT_WIDTH) / 2 : (window.innerWidth - INIT_WIDTH) / 2);
-        setPosY(mainElment ? (mainElment.clientHeight - INIT_HEIGHT) / 2 : (window.innerHeight - INIT_HEIGHT) / 2);
+        setPosX(mainElment ? (mainElment.clientWidth - winWidth) / 2 : (window.innerWidth - winWidth) / 2);
+        setPosY(mainElment ? (mainElment.clientHeight - winHeight) / 2 : (window.innerHeight - winHeight) / 2);
     }
 
     useEffect(() => {
         window.addEventListener("resize", handleBrowserResize);
         return () => { window.removeEventListener("resize", handleBrowserResize) };
-    }, []);
+    }, [winWidth, winHeight]);
 
     return (
         <Rnd
