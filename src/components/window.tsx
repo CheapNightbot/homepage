@@ -6,7 +6,7 @@ import { Button } from './ui/button';
 
 interface WindowProps {
     title: string,
-    children: any,
+    children?: any,
     className?: string,
     contentClassName?: string
 };
@@ -108,7 +108,7 @@ function Window({ title, children, className = "", contentClassName = "" }: Wind
                     </Button>
                 </nav>
             </header>
-            <div onContextMenu={(uwu) => uwu.preventDefault()} className={cn('w-full h-[calc(100%-32px)] rounded-b-2xl p-12 bg-card/50 text-card-foreground backdrop-blur-3xl', contentClassName)}>
+            <div onContextMenu={(uwu) => uwu.preventDefault()} className={cn('w-full h-[calc(100%-32px)] rounded-b-2xl bg-card/50 text-card-foreground backdrop-blur-3xl', contentClassName)}>
                 {children}
             </div>
         </Rnd>
