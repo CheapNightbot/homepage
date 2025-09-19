@@ -8,7 +8,7 @@ import Window from "@/components/window";
 import { useEffect, useState } from "react";
 import { Bluesky, Discord, Github, Mastodon, TwitterX } from "./components/icons";
 import ProfileAvatar from "./components/profile-avatar";
-import { copyToClipboard } from "./lib/utils";
+import { cn, copyToClipboard } from "./lib/utils";
 
 function App() {
     const [loading, setLoading] = useState(true);
@@ -41,7 +41,7 @@ function App() {
             {
                 showContent &&
                 <>
-                    <div className="wallpaper"></div>
+                    <div className={cn("wallpaper", !loading && "!transition-none")}></div>
                     <TopBar />
                     <Toaster position="top-center" />
                     <main id="main" className="w-screen h-[calc(100dvh-140px)]">
