@@ -16,7 +16,7 @@ function App({ name, children }: { name: string, children: any }) {
     return (
         <Tooltip disableHoverableContent>
             <TooltipTrigger asChild>
-                <Button size="icon" variant="outline" className="hover:scale-110 size-11 rounded-xl border-none active:scale-100">
+                <Button onClick={() => console.log("lazy potato didn't implement it yet ~")} size="icon" variant="outline" className="hover:scale-110 size-11 rounded-xl border-none active:scale-100">
                     {children}
                 </Button>
             </TooltipTrigger>
