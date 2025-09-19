@@ -1,8 +1,8 @@
+import { cn } from '@/lib/utils';
 import { Circle, Minus, Plus, X } from 'lucide-react';
+import { useEffect, useState } from 'react';
 import { Rnd } from 'react-rnd';
 import { Button } from './ui/button';
-import { useState } from 'react';
-import { cn } from '@/lib/utils';
 
 interface WindowProps {
     title: string,
@@ -40,6 +40,17 @@ function Window({ title, children, className }: WindowProps) {
         }
         setMaximized(!maximized);
     }
+
+    const handleBrowserResize = () => {
+        const mainElment = document.getElementById('main');
+        setPosX(mainElment ? (mainElment.clientWidth - INIT_WIDTH) / 2 : (window.innerWidth - INIT_WIDTH) / 2);
+        setPosY(mainElment ? (mainElment.clientHeight - INIT_HEIGHT) / 2 : (window.innerHeight - INIT_HEIGHT) / 2);
+    }
+
+    useEffect(() => {
+        window.addEventListener("resize", handleBrowserResize);
+        return () => { window.removeEventListener("resize", handleBrowserResize) };
+    }, []);
 
     return (
         <Rnd
