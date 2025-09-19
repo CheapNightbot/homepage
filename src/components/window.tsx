@@ -11,7 +11,7 @@ interface WindowProps {
 };
 
 const BOTTOM_PADDING = 160;
-const INIT_WIDTH = 480;
+const INIT_WIDTH = 460;
 const INIT_HEIGHT = 540;
 
 function Window({ title, children, className }: WindowProps) {
