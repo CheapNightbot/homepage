@@ -1,21 +1,28 @@
 import { cn } from '@/lib/utils';
-import { Circle, Minus, Plus, X } from 'lucide-react';
+import { Circle, FileCode, Minus, Plus, SquareArrowOutUpRight, X } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { Rnd } from 'react-rnd';
 import { Button } from './ui/button';
+import {
+    ContextMenu,
+    ContextMenuContent,
+    ContextMenuItem,
+    ContextMenuTrigger,
+} from "@/components/ui/context-menu"
 
 interface WindowProps {
-    title: string,
-    children?: any,
-    className?: string,
-    contentClassName?: string
+    title: string;
+    children?: any;
+    className?: string;
+    contentClassName?: string;
+    contextMenu?: boolean;
 };
 
 const BOTTOM_PADDING = 160;
 const INIT_WIDTH = 460;
 const INIT_HEIGHT = 540;
 
-function Window({ title, children, className = "", contentClassName = "" }: WindowProps) {
+function Window({ title, children, className = "", contentClassName = "", contextMenu }: WindowProps) {
     const mainElm = document.getElementById('main');
 
     const [winWidth, setWinWidth] = useState(INIT_WIDTH);
@@ -88,8 +95,26 @@ function Window({ title, children, className = "", contentClassName = "" }: Wind
             position={{ x: posX, y: posY }}
             size={{ width: winWidth, height: winHeight }}
         >
-            <header onContextMenu={(uwu) => uwu.preventDefault()} onDoubleClick={handleMaximize} className='nav-bar bg-card px-4 h-8 flex justify-between items-center select-none'>
+            <header onContextMenu={(uwu) => uwu.preventDefault()} onDoubleClick={handleMaximize} className='nav-bar bg-card px-4 h-8 flex justify-between items-center select-none gap-2'>
                 <h2 className='text-sm'>{title || 'Title'}</h2>
+                {
+                    contextMenu &&
+                    <ContextMenu >
+                        <ContextMenuTrigger className='flex-1 h-full'>
+
+                        </ContextMenuTrigger>
+                        <ContextMenuContent>
+                            <ContextMenuItem onClick={() => window.open("https://github.com/CheapNightbot/#", "_blank")}>
+                                <FileCode />
+                                Source Code
+                            </ContextMenuItem>
+                            <ContextMenuItem onClick={() => window.open("https://github.com/CheapNightbot/#", "_blank")}>
+                                <SquareArrowOutUpRight />
+                                Open in New Tab
+                            </ContextMenuItem>
+                        </ContextMenuContent>
+                    </ContextMenu>
+                }
                 <nav className='actions group flex items-center gap-2 text-background'>
                     {/* maximize button */}
                     <Button onClick={handleMaximize} variant="ghost" size="icon" className='relative rounded-full size-4 active:scale-95'>
