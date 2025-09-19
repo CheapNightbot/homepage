@@ -30,7 +30,7 @@ function App({ name, children }: { name: string, children: any }) {
 
 function Shelf() {
     return (
-        <div className="fixed flex items-center justify-center px-6 space-x-4 z-10 bottom-0 -translate-y-1/4 -translate-x-1/2 left-1/2 w-fit h-20 border rounded-3xl bg-card/20 backdrop-blur-md overflow-clip animate-in slide-in-from-bottom-25 zoom-in-25 duration-700 ease-in-out">
+        <div className="fixed flex items-center justify-center px-6 space-x-4 z-10 bottom-0 -translate-y-1/6 -translate-x-1/2 left-1/2 w-fit h-20 border rounded-3xl bg-card/20 backdrop-blur-md overflow-clip animate-in slide-in-from-bottom-25 zoom-in-25 duration-700 ease-in-out">
             <App name="About">
                 <User className="size-full p-2" />
             </App>
