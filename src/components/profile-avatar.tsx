@@ -13,9 +13,12 @@ function ProfileAvatar() {
                     <div className="bg-gradient-to-b from-[#55CDFC] via-[#FFFFFF] to-[#F7A8B8] flex size-full items-center justify-center rounded-full animate-in blur-in-md duration-200">
                         <VenusMarsFlip size={50} />
                     </div>
-                    : <AvatarImage src={CheapNightbot} alt="Cheap Nightbot" />
+                    : <AvatarImage src={CheapNightbot} alt="Cheap Nightbot" className="animate-in fade-in duration-300 ease-in-out" />
             }
-            <AvatarFallback className="text-lg">/ᐠ - ˕ -マ</AvatarFallback>
+            {
+                !showIcon &&
+                <AvatarFallback className="text-lg animate-in fade-in duration-300 ease-in-out">/ᐠ - ˕ -マ</AvatarFallback>
+            }
         </Avatar>
     );
 }
