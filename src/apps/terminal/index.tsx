@@ -53,7 +53,10 @@ export default function Terminal() {
                 output = cmdHandler.execute(args, env);
             }
         } else {
-            output = `( ,,⩌'︿'⩌,,) zsh-chan: command not found: ${command}`;
+            output = [
+                `( ,,⩌'︿'⩌,,) zsh-chan: command not found: ${command}`,
+                "Run `help` to see available commands! (˶˃ᆺ˂˶)"
+            ];
             code = -1;
         }
 
