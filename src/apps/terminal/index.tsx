@@ -25,6 +25,7 @@ export default function Terminal() {
 
     const CMD_LIST = getCommandList(COMMAND_NAMES);
 
+    // Handles the terminal prompt input ~
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const isCmd = cmd.trim().length > 0;
@@ -49,6 +50,14 @@ export default function Terminal() {
                 } else {
                     output = cmdHistory;
                 }
+            } else if (command === "cd") {
+                try {
+                    const newDir = cmdHandler.execute(args, env);
+                    setEnv({ ...env, PWD: newDir as string });
+                } catch (error: any) {
+                    output = error.message;
+                    code = -1;
+                }
             } else {
                 output = cmdHandler.execute(args, env);
             }
@@ -66,7 +75,9 @@ export default function Terminal() {
     }
 
     const handleCmdHistoryNav = (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === "ArrowUp") {
+        if (e.key === "Tab") {
+            e.preventDefault();
+        } else if (e.key === "ArrowUp") {
             e.preventDefault();
             if (cmdHistory.length > 0) {
                 const newIndex = historyIndex === -1 ? cmdHistory.length - 1 : Math.max(0, historyIndex - 1);
