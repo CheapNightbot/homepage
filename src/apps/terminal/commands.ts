@@ -35,7 +35,9 @@ const handleCat = (args: string[], env: Record<string, string>) => {
         return '/ᐠ ¬`‸´¬ マ cat: missing file operand';
     }
 
-    const fileName = args[0];
+    let fileName = args[0];
+    if (fileName.startsWith("~")) fileName = `${env.HOME}/${fileName.split("/")[1]}`;
+
     const filePath = resolvePath(env.PWD, fileName);
     const content = getContentAtPath(filePath);
 
@@ -54,7 +56,7 @@ const handleCd = (args: string[], env: Record<string, string>): string => {
 
     let newPath: string;
     if (target === '~') {
-        newPath = '/home/user';
+        newPath = env.HOME;
     } else if (target === '..') {
         const currentParts = env.PWD.split('/').filter(p => p);
         currentParts.pop();
