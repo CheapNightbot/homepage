@@ -85,8 +85,13 @@ const handleDate = (): string => {
 }
 
 // `echo` command
-const handleEcho = (args: string[]): string => {
-    return parseArgs(args);
+const handleEcho = (args: string[], env: Record<string, string>): string => {
+    const parsedArgs = parseArgs(args)
+    if (parsedArgs === "$SHELL" || parsedArgs === "$0") {
+        return env.SHELL;
+    }
+
+    return parsedArgs;
 }
 
 // `env` command
@@ -172,7 +177,7 @@ export const getCommandList = (allCommands: string[]): CommandHandler[] => [
     { name: "cd", execute: (args, env) => handleCd(args, env) },
     { name: "clear", execute: handleClear },
     { name: "date", execute: () => handleDate() },
-    { name: "echo", execute: (args) => handleEcho(args) },
+    { name: "echo", execute: (args, env) => handleEcho(args, env) },
     { name: "env", execute: (_, env) => handleEnv(env) },
     { name: "help", execute: () => handleHelp(allCommands) },
     { name: "history", execute: handleHistory },
