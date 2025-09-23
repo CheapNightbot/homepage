@@ -52,8 +52,8 @@ export const handlePwd = (env: Record<string, string>): string => {
 }
 
 // `whoami` command
-export const handleWhoami = (): string => {
-    return "potato";
+export const handleWhoami = (env: Record<string, string>): string => {
+    return env.USER;
 }
 
 // `clear` command - special case, returns null
@@ -69,7 +69,7 @@ export const getCommandList = (allCommands: string[]): CommandHandler[] => [
     { name: "help", execute: () => handleHelp(allCommands) },
     { name: "ls", execute: (args) => handleLs(args) },
     { name: "pwd", execute: (_, env) => handlePwd(env) },
-    { name: "whoami", execute: () => handleWhoami() },
+    { name: "whoami", execute: (_, env) => handleWhoami(env) },
 ];
 
 export const COMMAND_NAMES = [
