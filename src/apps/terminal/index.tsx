@@ -79,6 +79,7 @@ export default function Terminal() {
         if (e.key === "Tab") {
             e.preventDefault();
             const partialCmd = e.currentTarget.value;
+            if (partialCmd.length === 0) return;
             const matchedCmd = COMMAND_NAMES.find((command) => command.startsWith(partialCmd));
             if (matchedCmd) setCmd(matchedCmd);
         } else if (e.key === "ArrowUp") {
