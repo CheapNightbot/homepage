@@ -109,3 +109,19 @@ export function resolvePath(currentPath: string, targetPath: string): string {
         return '/' + currentParts.join('/');
     }
 }
+
+// Helper function to get file content at a path
+export function getContentAtPath(path: string): string | "directory" | null {
+    const parts = path.split('/').filter(p => p);
+    let current: FilesystemEntry | undefined = FILESYSTEM['/'];
+
+    for (const part of parts) {
+        if (current?.type === 'directory' && current.children) {
+            current = current.children[part];
+        } else {
+            return null
+        }
+    }
+
+    return current?.type === 'file' ? current.content || '' : current?.type === 'directory' ? 'directory' : null;
+}

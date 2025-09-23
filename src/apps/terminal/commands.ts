@@ -1,4 +1,4 @@
-import { getDirectoryAtPath, resolvePath } from "./filesystem";
+import { getContentAtPath, getDirectoryAtPath, resolvePath } from "./filesystem";
 
 interface CommandHandler {
     name: string;
@@ -26,6 +26,26 @@ export function parseArgs(args: string[]): string {
 const handleAlert = (args: string[]): null => {
     alert(parseArgs(args));
     return null;
+}
+
+// `cat` command
+// -- ᓚ₍⑅^..^₎♡ 貓
+const handleCat = (args: string[], env: Record<string, string>) => {
+    if (args.length === 0) {
+        return '/ᐠ ¬`‸´¬ マ cat: missing file operand';
+    }
+
+    const fileName = args[0];
+    const filePath = resolvePath(env.PWD, fileName);
+    const content = getContentAtPath(filePath);
+
+    if (content === null) {
+        return `/ᐠﹷ ‸ ﹷ ᐟ\ﾉ cat: ${fileName}: No such file or directory`;
+    } else if (content === 'directory') {
+        return `/ᐠﹷ ‸ ﹷ ᐟ\ﾉ cat: ${fileName}: Is a directory`;
+    }
+
+    return content.split('\n');
 }
 
 // `cd` command
@@ -77,7 +97,6 @@ const handleHelp = (allCommands: string[]): string => {
     return `Available commands: ${allCommands.join(', ')}`;
 }
 
-// `ls` command
 // `ls` command
 const handleLs = (args: string[], env: Record<string, string>) => {
     let path = env.PWD;
@@ -145,6 +164,7 @@ const handleHistory = (): null => {
 
 export const getCommandList = (allCommands: string[]): CommandHandler[] => [
     { name: "alert", execute: (args) => handleAlert(args) },
+    { name: "cat", execute: (args, env) => handleCat(args, env) },
     { name: "cd", execute: (args, env) => handleCd(args, env) },
     { name: "clear", execute: handleClear },
     { name: "date", execute: () => handleDate() },
@@ -159,6 +179,7 @@ export const getCommandList = (allCommands: string[]): CommandHandler[] => [
 
 export const COMMAND_NAMES = [
     "alert",
+    "cat",
     "cd",
     "clear",
     "date",
