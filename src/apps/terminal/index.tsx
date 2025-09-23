@@ -4,10 +4,11 @@ import Window from "@/components/window";
 import { cn } from "@/lib/utils";
 import { ChevronsRight } from "lucide-react";
 import { useState } from "react";
+import { getCommandList, COMMAND_NAMES } from "./commands";
 
 interface CommandHistory {
     command: string;
-    output: string | null;
+    output: string | string[] | null;
     code: number;
 }
 
@@ -16,29 +17,13 @@ export default function Terminal() {
     const [cmdHistory, setCmdHistory] = useState<string[]>([]);
     const [terminalHistory, setTerminalHistory] = useState<CommandHistory[]>([]);
     const [historyIndex, setHistoryIndex] = useState(-1);
+    const [env, setEnv] = useState({
+        USER: "guest",
+        PWD: "/home/user",
+        SHELL: "zsh-chan"
+    });
 
-    // ------- Terminal Command Handlers ---------
-    // `clear` command
-    const handleClear = (): null => {
-        setTerminalHistory([]);
-        return null;
-    }
-
-    // `echo` command
-    const handleEcho = (args: string[]): string => {
-        const fullArgs = args.join(' ');
-        const match = fullArgs.match(/"([^"]*)"|'([^']*)'|(\S+)/);
-        const text = match?.[1] || match?.[2] || match?.[3] || '';
-        return text;
-    }
-
-    // `help` command
-    const handleHelp = (): string => {
-        const commands = CMD_LIST.map(c => c.name).join(', ');
-        return `Available commands: ${commands}`;
-    }
-
-    // --------------------------------------------
+    const CMD_LIST = getCommandList(COMMAND_NAMES);
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -54,15 +39,19 @@ export default function Terminal() {
         const [command, ...args] = cmd.trim().split(' ');
         const cmdHandler = CMD_LIST.find((c) => c.name === command);
 
-        let output: string | null = null;
+        let output: string | string[] | null = null;
         if (cmdHandler) {
-            output = cmdHandler.cmd(args);
-            cmd !== "clear" && setTerminalHistory((prev) => [...prev, { command: cmd, output: output, code: 0 }]);
+            output = cmdHandler.execute(args, env);
+            if (command !== "clear") {
+                setTerminalHistory((prev) => [...prev, { command: cmd, output: output, code: 0 }]);
+            } else {
+                setTerminalHistory([]);
+            }
         } else {
             output = `( ,,⩌'︿'⩌,,) zsh-chan: command not found: ${command}`;
-            cmd.trim().length > 0 && setTerminalHistory(prev => [...prev, { command: cmd, output: output, code: -1 }]);
+            setTerminalHistory(prev => [...prev, { command: cmd, output: output, code: -1 }]);
         }
-        setHistoryIndex(-1);
+        setHistoryIndex(-1); // reset history index to the last command ~
         setCmd("");
     }
 
@@ -84,12 +73,6 @@ export default function Terminal() {
         }
     }
 
-    const CMD_LIST = [
-        { name: "clear", cmd: handleClear },
-        { name: "echo", cmd: handleEcho },
-        { name: "help", cmd: handleHelp },
-    ]
-
     return (
         <Window title="Terminal" width={800} height={400} contentClassName="p-2">
             <ScrollArea
@@ -102,13 +85,21 @@ export default function Terminal() {
                                 <div key={i}>
                                     <p className="text-foreground/60 flex items-center gap-0.5">
                                         <ChevronsRight />
-                                        <span className={cn(history.code === 0 ? "text-emerald-400" : "text-rose-400")}>{history.command}</span>
+                                        <span className={cn(history.code === 0 ? "text-emerald-400" : "text-rose-400")}>
+                                            {history.command}
+                                        </span>
                                     </p>
-                                    {history.output &&
+                                    {history.output && Array.isArray(history.output) ? (
+                                        history.output.map((line, j) => (
+                                            <p key={j} className="text-chart-5 flex items-center gap-0.5">
+                                                {line}
+                                            </p>
+                                        ))
+                                    ) : history.output && (
                                         <p className="text-chart-5 flex items-center gap-0.5">
                                             {history.output}
                                         </p>
-                                    }
+                                    )}
                                 </div>
                             );
                         })}
@@ -125,7 +116,7 @@ export default function Terminal() {
                             value={cmd}
                             onChange={(e) => setCmd(e.currentTarget.value)}
                             autoFocus
-                            className="!bg-transparent !shadow-none border-none h-6 p-0 focus-visible:ring-0" />
+                            className="!bg-transparent !shadow-none border-none !text-base h-6 p-0 focus-visible:ring-0" />
                     </fieldset>
                 </form>
             </ScrollArea>
