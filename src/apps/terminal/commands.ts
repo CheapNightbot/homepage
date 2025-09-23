@@ -56,13 +56,13 @@ const handleHelp = (allCommands: string[]): string => {
 const handleLs = (args: string[]) => {
     if (args.includes('-l')) {
         return [
-            "total 3",
             "-rw-r--r-- 1 user user 1024 Jan 1 12:00 file1.txt",
             "-rw-r--r-- 1 user user 2048 Jan 2 13:00 file2.js",
-            "drwxr-xr-x 2 user user 4096 Jan 3 14:00 folder/"
+            "drwxr-xr-x 2 user user 4096 Jan 3 14:00 folder/",
+            "⤷ total 3",
         ];
     } else {
-        return "file1.txt  file2.js  folder/";
+        return "file1.txt file2.js folder/";
     }
 }
 
