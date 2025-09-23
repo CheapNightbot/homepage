@@ -10,7 +10,8 @@ import {
     User,
     NotebookPen,
     Shell,
-    Users
+    Users,
+    Terminal
 
 } from "lucide-react";
 
@@ -52,6 +53,9 @@ function Shelf() {
             </App>
             <App name="Friends">
                 <Users className="size-full p-2" />
+            </App>
+            <App name="Terminal">
+                <Terminal className="size-full p-2" />
             </App>
             <App name="Contact">
                 <MessageCircle className="size-full p-2" />
