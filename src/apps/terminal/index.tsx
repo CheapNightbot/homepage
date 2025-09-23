@@ -4,7 +4,7 @@ import Window from "@/components/window";
 import { cn } from "@/lib/utils";
 import { ChevronsRight } from "lucide-react";
 import { useState } from "react";
-import { getCommandList, COMMAND_NAMES } from "./commands";
+import { getCommandList, COMMAND_NAMES, parseArgs } from "./commands";
 
 interface CommandHistory {
     command: string;
@@ -44,7 +44,11 @@ export default function Terminal() {
 
         if (cmdHandler) {
             if (command === "history") {
-                output = cmdHistory;
+                if (parseArgs(args) === "-c") {
+                    setCmdHistory([]);
+                } else {
+                    output = cmdHistory;
+                }
             } else {
                 output = cmdHandler.execute(args, env);
             }
