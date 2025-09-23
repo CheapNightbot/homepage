@@ -1,18 +1,11 @@
-export interface CommandHandler {
+interface CommandHandler {
     name: string;
     execute: (args: string[], env: Record<string, string>) => string | string[] | null;
 }
 
-// `echo` command
-export const handleEcho = (args: string[]): string => {
-    const fullArgs = args.join(' ');
-    const match = fullArgs.match(/"([^"]*)"|'([^']*)'|(\S+)/);
-    const text = match?.[1] || match?.[2] || match?.[3] || '';
-    return text;
-}
 
 // `date` command
-export const handleDate = (): string => {
+const handleDate = (): string => {
     return Intl.DateTimeFormat("en-US",
         {
             year: "numeric",
@@ -22,18 +15,26 @@ export const handleDate = (): string => {
     ).format(new Date());
 }
 
+// `echo` command
+const handleEcho = (args: string[]): string => {
+    const fullArgs = args.join(' ');
+    const match = fullArgs.match(/"([^"]*)"|'([^']*)'|(\S+)/);
+    const text = match?.[1] || match?.[2] || match?.[3] || '';
+    return text;
+}
+
 // `env` command
-export const handleEnv = (env: Record<string, string>) => {
+const handleEnv = (env: Record<string, string>) => {
     return Object.entries(env).map(([key, value]) => `${key}=${value}`);
 }
 
 // `help` command
-export const handleHelp = (allCommands: string[]): string => {
+const handleHelp = (allCommands: string[]): string => {
     return `Available commands: ${allCommands.join(', ')}`;
 }
 
 // `ls` command
-export const handleLs = (args: string[]) => {
+const handleLs = (args: string[]) => {
     if (args.includes('-l')) {
         return [
             "total 3",
@@ -47,26 +48,34 @@ export const handleLs = (args: string[]) => {
 }
 
 // `pwd` command
-export const handlePwd = (env: Record<string, string>): string => {
+const handlePwd = (env: Record<string, string>): string => {
     return env.PWD;
 }
 
 // `whoami` command
-export const handleWhoami = (env: Record<string, string>): string => {
+const handleWhoami = (env: Record<string, string>): string => {
     return env.USER;
 }
 
 // `clear` command - special case, returns null
-export const handleClear = (): null => {
+const handleClear = (): null => {
+    return null;
+}
+
+// `history` command - for now, return null
+// but later can accept options maybe ?
+// like `-c` to delete command history ~
+const handleHistory = (): null => {
     return null;
 }
 
 export const getCommandList = (allCommands: string[]): CommandHandler[] => [
     { name: "clear", execute: handleClear },
-    { name: "echo", execute: (args) => handleEcho(args) },
     { name: "date", execute: () => handleDate() },
+    { name: "echo", execute: (args) => handleEcho(args) },
     { name: "env", execute: (_, env) => handleEnv(env) },
     { name: "help", execute: () => handleHelp(allCommands) },
+    { name: "history", execute: handleHistory },
     { name: "ls", execute: (args) => handleLs(args) },
     { name: "pwd", execute: (_, env) => handlePwd(env) },
     { name: "whoami", execute: (_, env) => handleWhoami(env) },
@@ -74,10 +83,11 @@ export const getCommandList = (allCommands: string[]): CommandHandler[] => [
 
 export const COMMAND_NAMES = [
     "clear",
-    "echo",
     "date",
+    "echo",
     "env",
     "help",
+    "history",
     "ls",
     "pwd",
     "whoami"
