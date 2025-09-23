@@ -15,18 +15,28 @@ interface WindowProps {
     children?: any;
     className?: string;
     contentClassName?: string;
-    contextMenu?: {source: string, live: string};
+    contextMenu?: { source: string, live: string };
+    width?: number;
+    height?: number;
 };
 
 const BOTTOM_PADDING = 160;
 const INIT_WIDTH = 460;
 const INIT_HEIGHT = 540;
 
-function Window({ title, children, className = "", contentClassName = "", contextMenu }: WindowProps) {
+function Window({
+    title,
+    children,
+    className = "",
+    contentClassName = "",
+    contextMenu,
+    width = INIT_WIDTH,
+    height = INIT_HEIGHT
+}: WindowProps) {
     const mainElm = document.getElementById('main');
 
-    const [winWidth, setWinWidth] = useState(INIT_WIDTH);
-    const [winHeight, setWinHeight] = useState(INIT_HEIGHT);
+    const [winWidth, setWinWidth] = useState(width);
+    const [winHeight, setWinHeight] = useState(height);
     const [posX, setPosX] = useState((window.innerWidth - winWidth) / 2);
     const [posY, setPosY] = useState((window.innerHeight - (winHeight + 140)) / 2);
 
@@ -41,10 +51,10 @@ function Window({ title, children, className = "", contentClassName = "", contex
             setPosX(16);
             setPosY(16);
         } else {
-            setWinWidth(INIT_WIDTH);
-            setWinHeight(INIT_HEIGHT);
-            setPosX(mainElm ? (mainElm.clientWidth - INIT_WIDTH) / 2 : (window.innerWidth - INIT_WIDTH) / 2);
-            setPosY(mainElm ? (mainElm.clientHeight - INIT_HEIGHT) / 2 : (window.innerHeight - INIT_HEIGHT) / 2);
+            setWinWidth(width);
+            setWinHeight(height);
+            setPosX(mainElm ? (mainElm.clientWidth - width) / 2 : (window.innerWidth - width) / 2);
+            setPosY(mainElm ? (mainElm.clientHeight - height) / 2 : (window.innerHeight - height) / 2);
         }
         setMaximized(!maximized);
     }
