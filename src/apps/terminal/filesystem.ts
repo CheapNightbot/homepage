@@ -1,4 +1,3 @@
-// terminal/filesystem.ts
 export interface FilesystemEntry {
     name: string;
     type: 'file' | 'directory';
@@ -16,25 +15,25 @@ export const FILESYSTEM: Record<string, FilesystemEntry> = {
         modified: new Date(),
         children: {
             home: {
-                name: 'home',
+                name: 'home/',
                 type: 'directory',
                 size: 0,
                 modified: new Date(),
                 children: {
                     user: {
-                        name: 'user',
+                        name: 'user/',
                         type: 'directory',
                         size: 0,
                         modified: new Date(),
                         children: {
                             projects: {
-                                name: 'projects',
+                                name: 'projects/',
                                 type: 'directory',
                                 size: 0,
                                 modified: new Date(),
                             },
                             documents: {
-                                name: 'documents',
+                                name: 'documents/',
                                 type: 'directory',
                                 size: 0,
                                 modified: new Date(),
@@ -51,19 +50,19 @@ export const FILESYSTEM: Record<string, FilesystemEntry> = {
                 }
             },
             bin: {
-                name: 'bin',
+                name: 'bin/',
                 type: 'directory',
                 size: 0,
                 modified: new Date(),
             },
             etc: {
-                name: 'etc',
+                name: 'etc/',
                 type: 'directory',
                 size: 0,
                 modified: new Date(),
             },
             var: {
-                name: 'var',
+                name: 'var/',
                 type: 'directory',
                 size: 0,
                 modified: new Date(),
