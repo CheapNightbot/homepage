@@ -3,6 +3,18 @@ interface CommandHandler {
     execute: (args: string[], env: Record<string, string>) => string | string[] | null;
 }
 
+function parseArgs(args: string[]): string {
+    const fullArgs = args.join(' ');
+    const match = fullArgs.match(/"([^"]*)"|'([^']*)'|(\S+)/);
+    const text = match?.[1] || match?.[2] || match?.[3] || '';
+    return text;
+}
+
+// `alert` command
+const handleAlert = (args: string[]): null => {
+    alert(parseArgs(args));
+    return null;
+}
 
 // `date` command
 const handleDate = (): string => {
@@ -17,10 +29,7 @@ const handleDate = (): string => {
 
 // `echo` command
 const handleEcho = (args: string[]): string => {
-    const fullArgs = args.join(' ');
-    const match = fullArgs.match(/"([^"]*)"|'([^']*)'|(\S+)/);
-    const text = match?.[1] || match?.[2] || match?.[3] || '';
-    return text;
+    return parseArgs(args);
 }
 
 // `env` command
@@ -70,6 +79,7 @@ const handleHistory = (): null => {
 }
 
 export const getCommandList = (allCommands: string[]): CommandHandler[] => [
+    { name: "alert", execute: (args) => handleAlert(args) },
     { name: "clear", execute: handleClear },
     { name: "date", execute: () => handleDate() },
     { name: "echo", execute: (args) => handleEcho(args) },
@@ -82,6 +92,7 @@ export const getCommandList = (allCommands: string[]): CommandHandler[] => [
 ];
 
 export const COMMAND_NAMES = [
+    "alert",
     "clear",
     "date",
     "echo",
