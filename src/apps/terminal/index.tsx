@@ -40,17 +40,20 @@ export default function Terminal() {
         const cmdHandler = CMD_LIST.find((c) => c.name === command);
 
         let output: string | string[] | null = null;
+        let code: number = 0;
+
         if (cmdHandler) {
-            output = cmdHandler.execute(args, env);
-            if (command !== "clear") {
-                setTerminalHistory((prev) => [...prev, { command: cmd, output: output, code: 0 }]);
+            if (command === "history") {
+                output = cmdHistory;
             } else {
-                setTerminalHistory([]);
+                output = cmdHandler.execute(args, env);
             }
         } else {
             output = `( ,,⩌'︿'⩌,,) zsh-chan: command not found: ${command}`;
-            setTerminalHistory(prev => [...prev, { command: cmd, output: output, code: -1 }]);
+            code = -1;
         }
+
+        command === "clear" ? setTerminalHistory([]) : setTerminalHistory(prev => [...prev, { command: cmd, output: output, code: code }]);
         setHistoryIndex(-1); // reset history index to the last command ~
         setCmd("");
     }
