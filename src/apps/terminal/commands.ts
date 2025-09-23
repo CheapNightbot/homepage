@@ -6,9 +6,18 @@ interface CommandHandler {
 // Utility function to parse args from commands ~
 export function parseArgs(args: string[]): string {
     const fullArgs = args.join(' ');
-    const match = fullArgs.match(/"([^"]*)"|'([^']*)'|(\S+)/);
-    const text = match?.[1] || match?.[2] || match?.[3] || '';
-    return text;
+    const matches = fullArgs.match(/"([^"]*)"|'([^']*)'|(\S+)/g);
+    if (matches) {
+        return matches.map(match => {
+            const trimmed = match.trim();
+            if ((trimmed.startsWith('"') && trimmed.endsWith('"')) ||
+                (trimmed.startsWith("'") && trimmed.endsWith("'"))) {
+                return trimmed.slice(1, -1); // Remove quotes
+            }
+            return trimmed;
+        }).join(' ');
+    }
+    return fullArgs;
 }
 
 // `alert` command
