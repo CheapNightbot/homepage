@@ -18,7 +18,7 @@ export default function Terminal() {
     const [terminalHistory, setTerminalHistory] = useState<CommandHistory[]>([]);
     const [historyIndex, setHistoryIndex] = useState(-1);
     const [env, setEnv] = useState({
-        USER: "guest",
+        USER: "user",
         PWD: "/home/user",
         SHELL: "zsh-chan"
     });
