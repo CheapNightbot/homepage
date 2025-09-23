@@ -1,3 +1,5 @@
+import { getDirectoryAtPath, resolvePath } from "./filesystem";
+
 interface CommandHandler {
     name: string;
     execute: (args: string[], env: Record<string, string>) => string | string[] | null;
@@ -26,6 +28,29 @@ const handleAlert = (args: string[]): null => {
     return null;
 }
 
+// `cd` command
+const handleCd = (args: string[], env: Record<string, string>): string => {
+    const target = args[0] || '~'; // Default to home if no argument
+
+    let newPath: string;
+    if (target === '~') {
+        newPath = '/home/user';
+    } else if (target === '..') {
+        const currentParts = env.PWD.split('/').filter(p => p);
+        currentParts.pop();
+        newPath = '/' + currentParts.join('/');
+    } else {
+        newPath = resolvePath(env.PWD, target);
+    }
+
+    const dir = getDirectoryAtPath(newPath);
+    if (!dir || dir.type !== 'directory') {
+        throw new Error(`cd: cannot access '${target}': No such directory`);
+    }
+
+    return newPath;
+};
+
 // `date` command
 const handleDate = (): string => {
     return Intl.DateTimeFormat("en-US",
@@ -53,18 +78,47 @@ const handleHelp = (allCommands: string[]): string => {
 }
 
 // `ls` command
-const handleLs = (args: string[]) => {
-    if (args.includes('-l')) {
-        return [
-            "-rw-r--r-- 1 user user 1024 Jan 1 12:00 file1.txt",
-            "-rw-r--r-- 1 user user 2048 Jan 2 13:00 file2.js",
-            "drwxr-xr-x 2 user user 4096 Jan 3 14:00 folder/",
-            "⤷ total 3",
-        ];
-    } else {
-        return "file1.txt file2.js folder/";
+// `ls` command
+const handleLs = (args: string[], env: Record<string, string>) => {
+    let path = env.PWD;
+
+    // If there's an argument, use that as the path
+    if (args.length > 0 && !args.includes('-l')) {
+        path = resolvePath(env.PWD, args[0]);
     }
-}
+
+    const entry = getDirectoryAtPath(path);
+
+    if (!entry || entry.type !== 'directory') {
+        return `ls: cannot access '${path}': No such file or directory`;
+    }
+
+    if (args.includes('-l')) {
+        if (!entry.children) {
+            return [`⤷ total 0`];
+        }
+
+        const files = Object.values(entry.children).map(child => {
+            const perms = child.type === 'directory' ? 'drwxr-xr-x' : '-rw-r--r--';
+            const size = child.size;
+            const date = child.modified.toLocaleDateString('en-US', {
+                month: 'short',
+                day: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+            return `${perms} 1 ${env.USER} ${env.USER} ${size} ${date} ${child.name}`;
+        });
+
+        const total = entry.children ? Object.keys(entry.children).length : 0;
+        return [...files, `⤷ total ${total}`];
+    } else {
+        if (!entry.children) {
+            return '';
+        }
+        return Object.values(entry.children).map(child => child.name).join(' ');
+    }
+};
 
 // `pwd` command
 const handlePwd = (env: Record<string, string>): string => {
@@ -76,31 +130,36 @@ const handleWhoami = (env: Record<string, string>): string => {
     return env.USER;
 }
 
-// `clear` command - special case, returns null
+
+// --- Special case commands ----
+// `clear` command
 const handleClear = (): null => {
     return null;
 }
 
-// `history` command - special case, returns null
+// `history` command
 const handleHistory = (): null => {
     return null;
 }
+// ------------------------------
 
 export const getCommandList = (allCommands: string[]): CommandHandler[] => [
     { name: "alert", execute: (args) => handleAlert(args) },
+    { name: "cd", execute: (args, env) => handleCd(args, env) },
     { name: "clear", execute: handleClear },
     { name: "date", execute: () => handleDate() },
     { name: "echo", execute: (args) => handleEcho(args) },
     { name: "env", execute: (_, env) => handleEnv(env) },
     { name: "help", execute: () => handleHelp(allCommands) },
     { name: "history", execute: handleHistory },
-    { name: "ls", execute: (args) => handleLs(args) },
+    { name: "ls", execute: (args, env) => handleLs(args, env) },
     { name: "pwd", execute: (_, env) => handlePwd(env) },
     { name: "whoami", execute: (_, env) => handleWhoami(env) },
 ];
 
 export const COMMAND_NAMES = [
     "alert",
+    "cd",
     "clear",
     "date",
     "echo",
