@@ -3,7 +3,8 @@ interface CommandHandler {
     execute: (args: string[], env: Record<string, string>) => string | string[] | null;
 }
 
-function parseArgs(args: string[]): string {
+// Utility function to parse args from commands ~
+export function parseArgs(args: string[]): string {
     const fullArgs = args.join(' ');
     const match = fullArgs.match(/"([^"]*)"|'([^']*)'|(\S+)/);
     const text = match?.[1] || match?.[2] || match?.[3] || '';
@@ -71,9 +72,7 @@ const handleClear = (): null => {
     return null;
 }
 
-// `history` command - for now, return null
-// but later can accept options maybe ?
-// like `-c` to delete command history ~
+// `history` command - special case, returns null
 const handleHistory = (): null => {
     return null;
 }
