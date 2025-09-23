@@ -36,7 +36,7 @@ const handleCat = (args: string[], env: Record<string, string>) => {
     }
 
     let fileName = args[0];
-    if (fileName.startsWith("~")) fileName = `${env.HOME}/${fileName.split("/")[1]}`;
+    if (fileName.startsWith("~")) fileName = `${env.HOME}/${fileName.slice(1)}`;
 
     const filePath = resolvePath(env.PWD, fileName);
     const content = getContentAtPath(filePath);
@@ -105,7 +105,9 @@ const handleLs = (args: string[], env: Record<string, string>) => {
 
     // If there's an argument, use that as the path
     if (args.length > 0 && !args.includes('-l')) {
-        path = resolvePath(env.PWD, args[0]);
+        let target = args[0];
+        if (target.startsWith("~")) target = `${env.HOME}/${target.slice(1)}`;
+        path = resolvePath(env.PWD, target);
     }
 
     const entry = getDirectoryAtPath(path);
