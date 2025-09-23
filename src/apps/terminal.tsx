@@ -1,12 +1,14 @@
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import Window from "@/components/window";
+import { cn } from "@/lib/utils";
 import { ChevronsRight } from "lucide-react";
 import { useState } from "react";
 
 interface CommandHistory {
     command: string;
     output: string | null;
+    code: number;
 }
 
 export default function Terminal() {
@@ -42,8 +44,10 @@ export default function Terminal() {
         e.preventDefault();
         const isCmd = cmd.trim().length > 0;
         isCmd && setCmdHistory((prev) => [...prev, cmd]);
+
+        // Empty string, still want to add to terminal history for new line !!
         if (!isCmd) {
-            setTerminalHistory((prev) => [...prev, { command: cmd, output: null }]);
+            setTerminalHistory((prev) => [...prev, { command: cmd, output: null, code: 0 }]);
             return;
         }
 
@@ -53,10 +57,10 @@ export default function Terminal() {
         let output: string | null = null;
         if (cmdHandler) {
             output = cmdHandler.cmd(args);
-            cmd !== "clear" && setTerminalHistory((prev) => [...prev, { command: cmd, output: output }]);
+            cmd !== "clear" && setTerminalHistory((prev) => [...prev, { command: cmd, output: output, code: 0 }]);
         } else {
             output = `( ,,⩌'︿'⩌,,) zsh-chan: command not found: ${command}`;
-            cmd.trim().length > 0 && setTerminalHistory(prev => [...prev, { command: cmd, output: output }]);
+            cmd.trim().length > 0 && setTerminalHistory(prev => [...prev, { command: cmd, output: output, code: -1 }]);
         }
         setHistoryIndex(-1);
         setCmd("");
@@ -98,10 +102,10 @@ export default function Terminal() {
                                 <div key={i}>
                                     <p className="text-foreground/60 flex items-center gap-0.5">
                                         <ChevronsRight />
-                                        {history.command}
+                                        <span className={cn(history.code === 0 ? "text-emerald-400" : "text-rose-400")}>{history.command}</span>
                                     </p>
                                     {history.output &&
-                                        <p className="text-foreground/60 flex items-center gap-0.5">
+                                        <p className="text-chart-5 flex items-center gap-0.5">
                                             {history.output}
                                         </p>
                                     }
