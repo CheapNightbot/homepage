@@ -4,47 +4,59 @@ import Window from "@/components/window";
 import { ChevronsRight } from "lucide-react";
 import { useState } from "react";
 
+interface CommandHistory {
+    command: string;
+    output: string | null;
+}
+
 export default function Terminal() {
     const [cmd, setCmd] = useState("");
     const [cmdHistory, setCmdHistory] = useState<string[]>([]);
-    const [terminalHistory, setTerminalHistory] = useState<string[]>([]);
+    const [terminalHistory, setTerminalHistory] = useState<CommandHistory[]>([]);
     const [historyIndex, setHistoryIndex] = useState(-1);
 
     // ------- Terminal Command Handlers ---------
     // `clear` command
-    const handleClear = () => {
+    const handleClear = (): null => {
         setTerminalHistory([]);
+        return null;
     }
 
     // `echo` command
-    const handleEcho = (args: string[]) => {
+    const handleEcho = (args: string[]): string => {
         const fullArgs = args.join(' ');
         const match = fullArgs.match(/"([^"]*)"|'([^']*)'|(\S+)/);
         const text = match?.[1] || match?.[2] || match?.[3] || '';
-        // setTerminalHistory(prev => [...prev, text]);
-        alert(text);
+        return text;
     }
 
     // `help` command
-    const handleHelp = () => {
+    const handleHelp = (): string => {
         const commands = CMD_LIST.map(c => c.name).join(', ');
-        setTerminalHistory(prev => [...prev, `Available commands: ${commands}`]);
+        return `Available commands: ${commands}`;
     }
 
     // --------------------------------------------
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        cmd.trim().length > 0 && setCmdHistory((prev) => [...prev, cmd]);
-        setTerminalHistory((prev) => [...prev, cmd]);
+        const isCmd = cmd.trim().length > 0;
+        isCmd && setCmdHistory((prev) => [...prev, cmd]);
+        if (!isCmd) {
+            setTerminalHistory((prev) => [...prev, { command: cmd, output: null }]);
+            return;
+        }
 
         const [command, ...args] = cmd.trim().split(' ');
         const cmdHandler = CMD_LIST.find((c) => c.name === command);
 
+        let output: string | null = null;
         if (cmdHandler) {
-            cmdHandler.cmd(args);
+            output = cmdHandler.cmd(args);
+            cmd !== "clear" && setTerminalHistory((prev) => [...prev, { command: cmd, output: output }]);
         } else {
-            cmd.trim().length > 0 && setTerminalHistory(prev => [...prev, `( ,,⩌'︿'⩌,,) zsh-chan: command not found: ${command}`]);
+            output = `( ,,⩌'︿'⩌,,) zsh-chan: command not found: ${command}`;
+            cmd.trim().length > 0 && setTerminalHistory(prev => [...prev, { command: cmd, output: output }]);
         }
         setHistoryIndex(-1);
         setCmd("");
@@ -83,10 +95,17 @@ export default function Terminal() {
                     <section>
                         {terminalHistory.map((history, i) => {
                             return (
-                                <p className="text-foreground/60 flex items-center gap-0.5" key={i}>
-                                    <ChevronsRight />
-                                    {history}
-                                </p>
+                                <div key={i}>
+                                    <p className="text-foreground/60 flex items-center gap-0.5">
+                                        <ChevronsRight />
+                                        {history.command}
+                                    </p>
+                                    {history.output &&
+                                        <p className="text-foreground/60 flex items-center gap-0.5">
+                                            {history.output}
+                                        </p>
+                                    }
+                                </div>
                             );
                         })}
                     </section>
