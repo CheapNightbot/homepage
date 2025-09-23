@@ -78,6 +78,9 @@ export default function Terminal() {
     const handleCmdHistoryNav = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === "Tab") {
             e.preventDefault();
+            const partialCmd = e.currentTarget.value;
+            const matchedCmd = COMMAND_NAMES.find((command) => command.startsWith(partialCmd));
+            if (matchedCmd) setCmd(matchedCmd);
         } else if (e.key === "ArrowUp") {
             e.preventDefault();
             if (cmdHistory.length > 0) {
