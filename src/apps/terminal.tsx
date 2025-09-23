@@ -21,7 +21,7 @@ export default function Terminal() {
     }
 
     return (
-        <Window title="Terminal" contentClassName="p-2">
+        <Window title="Terminal" contentClassName="px-2">
             <ScrollArea
                 onClick={() => document.getElementById("cmd-inpt")?.focus()}
                 className="w-full h-full">
