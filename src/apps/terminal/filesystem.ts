@@ -43,7 +43,7 @@ export const FILESYSTEM: Record<string, FilesystemEntry> = {
                                 type: 'file',
                                 size: 1024,
                                 modified: new Date(),
-                                content: 'Welcome to my terminal!\nThis is a sample file.'
+                                content: 'yoho user-chan!\nDo you want da hug? (づ￣ ³￣)づ'
                             }
                         }
                     }
