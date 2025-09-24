@@ -20,7 +20,7 @@ interface WindowProps {
     height?: number;
 };
 
-const BOTTOM_PADDING = 160;
+const BOTTOM_OFFSET = 160;
 const INIT_WIDTH = 460;
 const INIT_HEIGHT = 540;
 
@@ -47,7 +47,7 @@ function Window({
         setAllowTransitions(true);
         if (!maximized) {
             setWinWidth(mainElm ? mainElm.clientWidth - 32 : window.innerWidth - 32);
-            setWinHeight(mainElm ? mainElm.clientHeight - 22 : window.innerHeight - BOTTOM_PADDING);
+            setWinHeight(mainElm ? mainElm.clientHeight - 22 : window.innerHeight - BOTTOM_OFFSET);
             setPosX(16);
             setPosY(16);
         } else {
