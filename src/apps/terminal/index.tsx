@@ -102,7 +102,12 @@ export default function Terminal() {
     return (
         <Window title="Terminal" width={800} height={400} contentClassName="p-2">
             <ScrollArea
-                onClick={() => document.getElementById("cmd-inpt")?.focus()}
+                onClick={() => {
+                    // Only focus if no text is being selected
+                    if (!window.getSelection()?.toString()) {
+                        document.getElementById("cmd-inpt")?.focus();
+                    }
+                }}
                 className="w-full h-full">
                 {terminalHistory &&
                     <section>
