@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
-import { Maximize2, Minimize2 } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { Expand, Shrink } from "lucide-react";
 import { useEffect, useState } from "react";
 
 export function FullScreenToggle() {
@@ -29,9 +30,9 @@ export function FullScreenToggle() {
             onClick={handleToggleFullscreen}
             variant="default"
             size="icon"
-            className="text-white/85 hover:text-white !bg-transparent w-fit h-fit active:scale-105">
+            className={cn("text-white/85 hover:text-white !bg-transparent w-fit h-fit", isFullscreen ? "active:scale-95" : "active:scale-105")}>
             {
-                isFullscreen ? <Minimize2 className="transition-all" /> : <Maximize2 className="transition-all" />
+                isFullscreen ? <Shrink className="transition-all" /> : <Expand className="transition-all" />
             }
             <span className="sr-only">Toggle full screen</span>
         </Button>
