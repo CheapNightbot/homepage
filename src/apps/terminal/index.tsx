@@ -26,13 +26,12 @@ export default function Terminal() {
 
     // Refs for auto-scrolling
     const scrollAreaRef = useRef<HTMLDivElement>(null);
-    const formRef = useRef<HTMLFormElement>(null);
 
     // Auto-scroll to bottom when terminal history changes
     useEffect(() => {
         if (scrollAreaRef.current) {
             const scrollableElement = scrollAreaRef.current.querySelector('[data-radix-scroll-area-viewport]') || scrollAreaRef.current;
-            scrollableElement.scrollTop = scrollableElement.scrollHeight;
+            scrollableElement.scrollTo({ top: scrollableElement.scrollHeight, behavior: "smooth" });
         }
     }, [terminalHistory]); // Only run when terminalHistory changes
 
@@ -150,7 +149,6 @@ export default function Terminal() {
                     </section>
                 }
                 <form
-                    ref={formRef}
                     onSubmit={(e) => handleSubmit(e)}
                 >
                     <fieldset className="flex items-center gap-0.5">
