@@ -1,14 +1,14 @@
-import { cn } from '@/lib/utils';
-import { Circle, FileCode, Minus, Plus, SquareArrowOutUpRight, X } from 'lucide-react';
-import { useEffect, useState } from 'react';
-import { Rnd } from 'react-rnd';
-import { Button } from './ui/button';
 import {
     ContextMenu,
     ContextMenuContent,
     ContextMenuItem,
     ContextMenuTrigger,
-} from "@/components/ui/context-menu"
+} from "@/components/ui/context-menu";
+import { cn } from '@/lib/utils';
+import { Circle, FileCode, Minus, Plus, SquareArrowOutUpRight, X } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { Rnd } from 'react-rnd';
+import { Button } from './ui/button';
 
 interface WindowProps {
     title: string;
