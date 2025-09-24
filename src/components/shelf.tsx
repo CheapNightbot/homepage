@@ -5,13 +5,13 @@ import {
     TooltipTrigger,
 } from "@/components/ui/tooltip";
 import {
-    FolderCode,
-    MessageCircle,
-    User,
-    NotebookPen,
-    Shell,
-    Users,
-    Terminal
+    FolderCodeIcon,
+    MessageCircleIcon,
+    UserIcon,
+    NotebookPenIcon,
+    ShellIcon,
+    UsersIcon,
+    TerminalIcon
 
 } from "lucide-react";
 
@@ -40,25 +40,25 @@ function Shelf() {
     return (
         <div className="fixed flex items-center justify-center px-6 space-x-4 z-10 bottom-0 -translate-y-1/6 -translate-x-1/2 left-1/2 w-fit h-20 border rounded-3xl bg-card/20 backdrop-blur-md overflow-clip animate-in slide-in-from-bottom-25 zoom-in-25 duration-700 ease-in-out">
             <App name="About" isOpen={true}>
-                <User className="size-full p-2" />
+                <UserIcon className="size-full p-2" />
             </App>
             <App name="Projects">
-                <FolderCode className="size-full p-2" />
+                <FolderCodeIcon className="size-full p-2" />
             </App>
             <App name="Blog">
-                <NotebookPen className="size-full p-2" />
+                <NotebookPenIcon className="size-full p-2" />
             </App>
             <App name="Journal">
-                <Shell className="size-full p-2" />
+                <ShellIcon className="size-full p-2" />
             </App>
             <App name="Friends">
-                <Users className="size-full p-2" />
+                <UsersIcon className="size-full p-2" />
             </App>
             <App name="Terminal">
-                <Terminal className="size-full p-2" />
+                <TerminalIcon className="size-full p-2" />
             </App>
             <App name="Contact">
-                <MessageCircle className="size-full p-2" />
+                <MessageCircleIcon className="size-full p-2" />
             </App>
         </div>
     );
