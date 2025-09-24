@@ -101,7 +101,7 @@ const handleEnv = (env: Record<string, string>) => {
 
 // `help` command
 const handleHelp = (allCommands: string[]): string => {
-    return `Available commands: ${allCommands.join(', ')}`;
+    return `Available Commands: ${allCommands.join(', ')}`;
 }
 
 // `ls` command
