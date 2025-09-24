@@ -38,8 +38,8 @@ export const FILESYSTEM: Record<string, FilesystemEntry> = {
                                 size: 0,
                                 modified: new Date(),
                             },
-                            'notes.txt': {
-                                name: 'notes.txt',
+                            'message.txt': {
+                                name: 'message.txt',
                                 type: 'file',
                                 size: 1024,
                                 modified: new Date(),
