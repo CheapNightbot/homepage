@@ -8,7 +8,7 @@ import {
     FolderCodeIcon,
     MessageCircleIcon,
     NotebookPenIcon,
-    ShellIcon,
+    NotepadTextIcon,
     TerminalIcon,
     UserIcon,
     UsersIcon
@@ -55,7 +55,7 @@ function Shelf() {
         { name: "About", icon: UserIcon },
         { name: "Projects", icon: FolderCodeIcon },
         { name: "Blog", icon: NotebookPenIcon },
-        { name: "Journal", icon: ShellIcon },
+        { name: "Journal", icon: NotepadTextIcon },
         { name: "Friends", icon: UsersIcon },
         { name: "Terminal", icon: TerminalIcon },
         { name: "Contact", icon: MessageCircleIcon },
