@@ -135,7 +135,7 @@ const handleLs = (args: string[], env: Record<string, string>) => {
                 hour: '2-digit',
                 minute: '2-digit'
             });
-            return `${perms} 1 ${env.USER} ${env.USER} ${size} ${date} ${child.name}`;
+            return `${perms} 1 ${env.USER} ${env.USER} ${size}KiB ${date} ${child.name}`;
         });
 
         const total = entry.children ? Object.keys(entry.children).length : 0;
