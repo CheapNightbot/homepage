@@ -1,4 +1,5 @@
 import { getContentAtPath, getDirectoryAtPath, resolvePath } from "./filesystem";
+import { toast } from "sonner";
 
 interface CommandHandler {
     name: string;
@@ -24,7 +25,7 @@ export function parseArgs(args: string[]): string {
 
 // `alert` command
 const handleAlert = (args: string[]): null => {
-    alert(parseArgs(args));
+    toast(parseArgs(args));
     return null;
 }
 
