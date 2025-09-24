@@ -107,6 +107,9 @@ export default function Terminal() {
                 setHistoryIndex(newIndex >= cmdHistory.length ? -1 : newIndex);
                 setCmd(newIndex >= cmdHistory.length ? "" : cmdHistory[newIndex]);
             }
+        } else if (e.ctrlKey && e.key === 'l') {
+            e.preventDefault();
+            setTerminalHistory([]);
         }
     }
 
