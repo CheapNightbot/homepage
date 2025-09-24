@@ -7,20 +7,34 @@ import {
 import {
     FolderCodeIcon,
     MessageCircleIcon,
-    UserIcon,
     NotebookPenIcon,
     ShellIcon,
-    UsersIcon,
-    TerminalIcon
-
+    TerminalIcon,
+    UserIcon,
+    UsersIcon
 } from "lucide-react";
 
-function App({ name, children, isOpen }: { name: string, children: any, isOpen?: boolean }) {
+function App({
+    name,
+    icon: Icon,
+    isOpen,
+    onClick
+}: {
+    name: string,
+    icon: React.ComponentType<any>,
+    isOpen?: boolean,
+    onClick: () => void
+}) {
     return (
         <Tooltip disableHoverableContent>
             <TooltipTrigger asChild className="relative group">
-                <Button onClick={() => console.log("lazy potato didn't implement it yet ~")} size="icon" variant="outline" className="hover:scale-110 size-11 rounded-xl border-none active:scale-100">
-                    {children}
+                <Button
+                    onClick={onClick}
+                    size="icon"
+                    variant="outline"
+                    className="hover:scale-110 size-11 rounded-xl border-none active:scale-100"
+                >
+                    <Icon className="size-full p-2" />
                     {
                         isOpen
                         &&
@@ -37,29 +51,31 @@ function App({ name, children, isOpen }: { name: string, children: any, isOpen?:
 
 
 function Shelf() {
+    const apps = [
+        { name: "About", icon: UserIcon },
+        { name: "Projects", icon: FolderCodeIcon },
+        { name: "Blog", icon: NotebookPenIcon },
+        { name: "Journal", icon: ShellIcon },
+        { name: "Friends", icon: UsersIcon },
+        { name: "Terminal", icon: TerminalIcon },
+        { name: "Contact", icon: MessageCircleIcon },
+    ];
+
+    const handleAppClick = (appName: string) => {
+        console.log(`Opening ${appName}`);
+    }
+
     return (
         <div className="fixed flex items-center justify-center px-6 space-x-4 z-10 bottom-0 -translate-y-1/6 -translate-x-1/2 left-1/2 w-fit h-20 border rounded-3xl bg-card/20 backdrop-blur-md overflow-clip animate-in slide-in-from-bottom-25 zoom-in-25 duration-700 ease-in-out">
-            <App name="About" isOpen={true}>
-                <UserIcon className="size-full p-2" />
-            </App>
-            <App name="Projects">
-                <FolderCodeIcon className="size-full p-2" />
-            </App>
-            <App name="Blog">
-                <NotebookPenIcon className="size-full p-2" />
-            </App>
-            <App name="Journal">
-                <ShellIcon className="size-full p-2" />
-            </App>
-            <App name="Friends">
-                <UsersIcon className="size-full p-2" />
-            </App>
-            <App name="Terminal">
-                <TerminalIcon className="size-full p-2" />
-            </App>
-            <App name="Contact">
-                <MessageCircleIcon className="size-full p-2" />
-            </App>
+            {apps.map((app) => (
+                <App
+                    key={app.name}
+                    name={app.name}
+                    icon={app.icon}
+                    isOpen={false}
+                    onClick={() => handleAppClick(app.name)}
+                />
+            ))}
         </div>
     );
 }
