@@ -3,7 +3,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import Window from "@/components/window";
 import { cn } from "@/lib/utils";
 import { ChevronsRight } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { getCommandList, COMMAND_NAMES, parseArgs } from "./commands";
 
 interface CommandHistory {
@@ -23,6 +23,18 @@ export default function Terminal() {
         PWD: "/home/user",
         SHELL: "zsh-chan"
     });
+
+    // Refs for auto-scrolling
+    const scrollAreaRef = useRef<HTMLDivElement>(null);
+    const formRef = useRef<HTMLFormElement>(null);
+
+    // Auto-scroll to bottom when terminal history changes
+    useEffect(() => {
+        if (scrollAreaRef.current) {
+            const scrollableElement = scrollAreaRef.current.querySelector('[data-radix-scroll-area-viewport]') || scrollAreaRef.current;
+            scrollableElement.scrollTop = scrollableElement.scrollHeight;
+        }
+    }, [terminalHistory]); // Only run when terminalHistory changes
 
     const CMD_LIST = getCommandList(COMMAND_NAMES);
 
@@ -102,6 +114,7 @@ export default function Terminal() {
     return (
         <Window title="Terminal" width={800} height={400} contentClassName="p-2">
             <ScrollArea
+                ref={scrollAreaRef}
                 onClick={() => {
                     // Only focus if no text is being selected
                     if (!window.getSelection()?.toString()) {
@@ -137,6 +150,7 @@ export default function Terminal() {
                     </section>
                 }
                 <form
+                    ref={formRef}
                     onSubmit={(e) => handleSubmit(e)}
                 >
                     <fieldset className="flex items-center gap-0.5">
