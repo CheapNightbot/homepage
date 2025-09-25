@@ -24,8 +24,8 @@ export default function Terminal() {
         SHELL: "zsh-chan"
     });
 
-    // Refs for auto-scrolling
     const scrollAreaRef = useRef<HTMLDivElement>(null);
+    const promptRef = useRef<HTMLInputElement>(null);
 
     // Auto-scroll to bottom when terminal history changes
     useEffect(() => {
@@ -120,7 +120,7 @@ export default function Terminal() {
                 onClick={() => {
                     // Only focus if no text is being selected
                     if (!window.getSelection()?.toString()) {
-                        document.getElementById("cmd-inpt")?.focus();
+                        promptRef.current?.focus();
                     }
                 }}
                 className="w-full h-full">
@@ -157,8 +157,8 @@ export default function Terminal() {
                     <fieldset className="flex items-center gap-0.5">
                         <ChevronsRight />
                         <Input
+                            ref={promptRef}
                             onKeyDown={(e) => handleCmdHistoryNav(e)}
-                            id="cmd-inpt"
                             value={cmd}
                             onChange={(e) => setCmd(e.currentTarget.value)}
                             autoFocus
