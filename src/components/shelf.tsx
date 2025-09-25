@@ -6,6 +6,7 @@ import {
 } from "@/components/ui/tooltip";
 import {
     FolderCodeIcon,
+    ListTodoIcon,
     MessageCircleIcon,
     NotebookPenIcon,
     NotepadTextIcon,
@@ -59,6 +60,7 @@ function Shelf() {
         { name: "Friends", icon: UsersIcon },
         { name: "Terminal", icon: TerminalIcon },
         { name: "Contact", icon: MessageCircleIcon },
+        { name: "Todo", icon: ListTodoIcon },
     ];
 
     const handleAppClick = (appName: string) => {
