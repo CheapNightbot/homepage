@@ -41,7 +41,7 @@ function Window({
     const [posY, setPosY] = useState((window.innerHeight - (winHeight + 140)) / 2);
 
     const [maximized, setMaximized] = useState(false);
-    const [allowTransitions, setAllowTransitions] = useState(true);
+    const [allowTransitions, setAllowTransitions] = useState(false);
 
     const handleMaximize = () => {
         setAllowTransitions(true);
