@@ -1,12 +1,21 @@
 import { AppWindowIframe } from "@/components/app-iframe";
+import type { AppProps } from "@/types/app";
 
-export default function Blog() {
+export default function Blog({
+    windowId,
+    title = "Blog",
+    width,
+    height
+}: AppProps) {
     const info = {
-        id: "7d7cb976-b629-560e-b427-0d2f33602908",
-        name: "Blog",
         source: "https://github.com/CheapNightbot/Blog",
         live: "https://blog.cheapnightbot.me"
     }
 
-    return <AppWindowIframe info={info} />;
+    return <AppWindowIframe
+        windowId={windowId}
+        title={title}
+        width={width}
+        height={height}
+        info={info} />;
 }

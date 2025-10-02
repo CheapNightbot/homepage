@@ -1,11 +1,12 @@
 import { Progress } from "@/components/ui/progress";
+import Window from "@/components/window";
 import { cn } from "@/lib/utils";
+import type { AppProps } from "@/types/app";
 import { Loader2 } from "lucide-react";
 import { useEffect, useState } from "react";
-import Window from "@/components/window";
 
 interface AppWindowIframeProps {
-    info: { id: string, name: string, source: string, live: string }
+    info: { source: string, live: string }
 }
 
 function AppIframe({ src }: { src: string }) {
@@ -43,9 +44,20 @@ function AppIframe({ src }: { src: string }) {
     );
 }
 
-function AppWindowIframe({ info }: AppWindowIframeProps) {
+function AppWindowIframe({
+    info,
+    windowId,
+    title = "",
+    width,
+    height
+}: AppProps & AppWindowIframeProps) {
     return (
-        <Window title={info.name} contextMenu={{ source: info.source, live: info.live }}>
+        <Window
+            windowId={windowId}
+            title={title}
+            width={width}
+            height={height}
+            contextMenu={{ source: info.source, live: info.live }}>
             <AppIframe src={info.live} />
         </Window>
     );

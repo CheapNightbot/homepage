@@ -4,4 +4,10 @@ import Journal from "@/apps/journal";
 import Terminal from "@/apps/terminal";
 import Todo from "@/apps/todo";
 
-export { About, Blog, Journal, Terminal, Todo };
+export const AppList: Record<string, React.ComponentType<any>> = {
+    'About': About,
+    'Blog': Blog,
+    'Journal': Journal,
+    'Terminal': Terminal,
+    'Todo': Todo,
+}

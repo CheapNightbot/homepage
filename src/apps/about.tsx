@@ -3,11 +3,23 @@ import ProfileAvatar from "@/components/profile-avatar";
 import { Button } from "@/components/ui/button";
 import Window from "@/components/window";
 import { copyToClipboard } from "@/lib/utils";
+import type { AppProps } from "@/types/app";
 
-export default function About() {
+export default function About({
+    windowId,
+    title = "About",
+    width,
+    height
+}: AppProps) {
 
     return (
-        <Window title="About" contentClassName="flex flex-col items-center gap-4 p-12">
+        <Window
+            windowId={windowId}
+            title={title}
+            width={width}
+            height={height}
+            contentClassName="flex flex-col items-center gap-4 p-12"
+        >
             <section className="flex flex-col items-center gap-6">
                 <ProfileAvatar />
                 <div className="flex-1 flex flex-col items-center">

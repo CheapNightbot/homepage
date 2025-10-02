@@ -6,13 +6,19 @@ import { cn } from "@/lib/utils";
 import { PlusIcon, Square, SquareCheckBig } from "lucide-react";
 import { useRef, useState } from "react";
 import { Separator } from "@/components/ui/separator"
+import type { AppProps } from "@/types/app";
 
 interface TodoItem {
     item: string;
     status: "done" | "pending";
 }
 
-export default function Todo() {
+export default function Todo({
+    windowId,
+    title = "Todo",
+    width,
+    height
+}: AppProps) {
     const [todoInput, setTodoInput] = useState("");
     const [inputVisible, setInputVisible] = useState(false);
     const [todoList, setTodoList] = useState<TodoItem[]>([
@@ -46,7 +52,12 @@ export default function Todo() {
     }
 
     return (
-        <Window title="Todo" contentClassName="relative px-4 py-2 flex flex-col">
+        <Window
+            windowId={windowId}
+            title={title}
+            width={width}
+            height={height}
+            contentClassName="relative px-4 py-2 flex flex-col">
             <h2 className={cn(
                 "w-full left-0 absolute text-center duration-200 ease-in-out animate-[enter_.15s_ease_0s_1_normal_forwards] blur-in text-xl",
                 inputVisible && "animate-[exit_.15s_ease_0s_1_normal_forwards] blur-out")}>

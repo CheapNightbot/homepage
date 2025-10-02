@@ -8,9 +8,11 @@ import { cn } from '@/lib/utils';
 import { Circle, FileCode, Minus, Plus, SquareArrowOutUpRight, X } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { Rnd } from 'react-rnd';
-import { Button } from './ui/button';
+import { Button } from '@/components/ui/button';
+import { useWMContext } from "@/contexts/WindowManager";
 
 interface WindowProps {
+    windowId: string;
     title: string;
     children?: any;
     className?: string;
@@ -25,14 +27,29 @@ const INIT_WIDTH = 460;
 const INIT_HEIGHT = 540;
 
 function Window({
+    windowId,
     title,
     children,
     className = "",
     contentClassName = "",
     contextMenu,
     width = INIT_WIDTH,
-    height = INIT_HEIGHT
+    height = INIT_HEIGHT,
 }: WindowProps) {
+    const {
+        closeWindow,
+        minimizeWindow,
+        maximizeWindow,
+        restoreWindow,
+        focusWindow,
+        windows
+    } = useWMContext();
+
+    // Get the current window's state from the context
+    const windowState = windows.find(w => w.id === windowId);
+    const isMaximized = windowState?.maximized || false;
+    const isFocused = windowState?.focused || false;
+
     const mainElm = document.getElementById('main');
 
     const [winWidth, setWinWidth] = useState(width);
@@ -40,23 +57,14 @@ function Window({
     const [posX, setPosX] = useState((window.innerWidth - winWidth) / 2);
     const [posY, setPosY] = useState((window.innerHeight - (winHeight + 140)) / 2);
 
-    const [maximized, setMaximized] = useState(false);
     const [allowTransitions, setAllowTransitions] = useState(false);
 
     const handleMaximize = () => {
-        setAllowTransitions(true);
-        if (!maximized) {
-            setWinWidth(mainElm ? mainElm.clientWidth - 32 : window.innerWidth - 32);
-            setWinHeight(mainElm ? mainElm.clientHeight - 22 : window.innerHeight - BOTTOM_OFFSET);
-            setPosX(16);
-            setPosY(16);
+        if (isMaximized) {
+            restoreWindow(windowId);
         } else {
-            setWinWidth(width);
-            setWinHeight(height);
-            setPosX(mainElm ? (mainElm.clientWidth - width) / 2 : (window.innerWidth - width) / 2);
-            setPosY(mainElm ? (mainElm.clientHeight - height) / 2 : (window.innerHeight - height) / 2);
+            maximizeWindow(windowId);
         }
-        setMaximized(!maximized);
     }
 
     const handleBrowserResize = () => {
@@ -70,11 +78,33 @@ function Window({
         return () => { window.removeEventListener("resize", handleBrowserResize) };
     }, [winWidth, winHeight]);
 
+    // Update dimensions when window is maximized/restored
+    useEffect(() => {
+        if (mainElm && isMaximized) {
+            setWinWidth(mainElm.clientWidth - 32);
+            setWinHeight(mainElm.clientHeight - 22);
+            setPosX(16);
+            setPosY(16);
+        } else {
+            setWinWidth(width);
+            setWinHeight(height);
+            setPosX(mainElm ? (mainElm.clientWidth - width) / 2 : (window.innerWidth - width) / 2);
+            setPosY(mainElm ? (mainElm.clientHeight - height) / 2 : (window.innerHeight - BOTTOM_OFFSET) / 2);
+        }
+    }, [isMaximized, width, height, mainElm]);
+
     return (
         <Rnd
+            onClick={() => focusWindow(windowId)}
+            windowid={windowId}
             bounds="parent"
             cancel='.actions'
-            className={cn('overflow-clip flex flex-col rounded-2xl', allowTransitions && 'transition-all duration-300 ease-in-out', className)}
+            className={cn(
+                'overflow-clip flex flex-col rounded-2xl',
+                allowTransitions && 'transition-all duration-300 ease-in-out',
+                isFocused && 'z-10',
+                className
+            )}
             default={{
                 x: posX,
                 y: posY,
@@ -82,11 +112,11 @@ function Window({
                 height: winHeight,
             }}
             dragHandleClassName='nav-bar'
-            disableDragging={maximized}
-            enableResizing={!maximized}
+            disableDragging={isMaximized}
+            enableResizing={!isMaximized}
             onResizeStart={() => setAllowTransitions(false)}
             onResizeStop={(_, __, ___, delta, ____) => {
-                if (!maximized) {
+                if (!isMaximized) {
                     setWinWidth((prev) => prev + delta.width);
                     setWinHeight((prev) => prev + delta.height);
                     setAllowTransitions(true);
@@ -94,7 +124,7 @@ function Window({
             }}
             onDragStart={() => setAllowTransitions(false)}
             onDragStop={(_, data) => {
-                if (!maximized) {
+                if (!isMaximized) {
                     setPosX(data.x);
                     setPosY(data.y);
                     setAllowTransitions(true);
@@ -105,8 +135,20 @@ function Window({
             position={{ x: posX, y: posY }}
             size={{ width: winWidth, height: winHeight }}
         >
-            <header onContextMenu={(uwu) => uwu.preventDefault()} onDoubleClick={handleMaximize} className='nav-bar bg-card px-4 h-8 flex justify-between items-center select-none gap-2'>
-                <h2 className='text-sm'>{title || 'Title'}</h2>
+            <header
+                onContextMenu={(uwu) => uwu.preventDefault()} onDoubleClick={handleMaximize}
+                className={cn(
+                    'nav-bar bg-card px-4 h-8 flex justify-between items-center select-none gap-2',
+                    !isFocused && 'saturate-50'
+                )}
+            >
+                <h2 className={cn(
+                    'text-sm transition-all duration-300 ease-in-out',
+                    !isFocused && 'text-foreground/80'
+                )}
+                >
+                    {title || 'Title'}
+                </h2>
                 {
                     contextMenu &&
                     <ContextMenu >
@@ -125,23 +167,43 @@ function Window({
                 }
                 <nav className='actions group flex items-center gap-2 text-background'>
                     {/* maximize button */}
-                    <Button onClick={handleMaximize} variant="ghost" size="icon" className='relative rounded-full size-4 active:scale-95'>
-                        <Circle fill='green' stroke='none' />
+                    <Button
+                        onClick={handleMaximize}
+                        variant="ghost"
+                        size="icon"
+                        className='relative rounded-full size-4 active:scale-95'>
+                        {isFocused
+                            ? <Circle fill='green' stroke='none' className="transition-all duration-300 ease-in-out" />
+                            : <Circle fill='gray' stroke='none' className="transition-all duration-300 ease-in-out" />
+                        }
                         <Plus className='absolute size-2.5 left-1/2 top-1/2 -translate-1/2 border-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out ' />
                     </Button>
                     {/* minimize button */}
-                    <Button variant="ghost" size="icon" className='relative rounded-full size-4 active:scale-95'>
-                        <Circle fill='orange' stroke='none' />
+                    <Button
+                        onClick={() => minimizeWindow(windowId)}
+                        variant="ghost"
+                        size="icon"
+                        className='relative rounded-full size-4 active:scale-95'>
+                        {isFocused
+                            ? <Circle fill='orange' stroke='none' className="transition-all duration-300 ease-in-out" />
+                            : <Circle fill='gray' stroke='none' className="transition-all duration-300 ease-in-out" />
+                        }
                         <Minus className='absolute size-2.5 left-1/2 top-1/2 -translate-1/2 border-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out ' />
                     </Button>
                     {/* close button */}
-                    <Button variant="ghost" size="icon" className='relative rounded-full size-4 active:scale-95'>
-                        <Circle fill='red' stroke='none' />
+                    <Button onClick={() => closeWindow(windowId)}
+                        variant="ghost"
+                        size="icon"
+                        className='relative rounded-full size-4 active:scale-95'>
+                        {isFocused
+                            ? <Circle fill='red' stroke='none' className="transition-all duration-300 ease-in-out" />
+                            : <Circle fill='gray' stroke='none' className="transition-all duration-300 ease-in-out" />
+                        }
                         <X className='absolute size-2.5 left-1/2 top-1/2 -translate-1/2 border-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out ' />
                     </Button>
                 </nav>
             </header>
-            <div onContextMenu={(uwu) => uwu.preventDefault()} className={cn('w-full h-[calc(100%-32px)] rounded-b-2xl bg-card/50 text-card-foreground backdrop-blur-3xl', contentClassName)}>
+            <div onContextMenu={(uwu) => uwu.preventDefault()} className={cn('w-full h-[calc(100%-32px)] rounded-b-2xl text-card-foreground bg-card/50 backdrop-blur-3xl', contentClassName)}>
                 {children}
             </div>
         </Rnd>

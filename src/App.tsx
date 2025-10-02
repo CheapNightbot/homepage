@@ -1,4 +1,4 @@
-import { About } from "@/apps";
+import { AppList } from "@/apps";
 import LoadingScreen from "@/components/loading-screen";
 import Shelf from "@/components/shelf";
 import { ThemeProvider } from "@/components/theme-provider";
@@ -6,8 +6,10 @@ import TopBar from "@/components/top-bar";
 import { Toaster } from "@/components/ui/sonner";
 import { cn } from "@/lib/utils";
 import { useEffect, useState } from "react";
+import { WMProvider, useWMContext } from "./contexts/WindowManager";
 
-function App() {
+function AppContent() {
+    const { windows } = useWMContext();
     const [loading, setLoading] = useState(true);
     const [showContent, setShowContent] = useState(false);
 
@@ -33,7 +35,7 @@ function App() {
     }, []);
 
     return (
-        <ThemeProvider defaultTheme="dark" storageKey="potato-ui-theme">
+        <>
             {loading && <LoadingScreen />}
             {
                 showContent &&
@@ -42,11 +44,29 @@ function App() {
                     <TopBar />
                     <Toaster position="top-center" />
                     <main id="main" className="w-screen h-[calc(100dvh-140px)]">
-                        <About />
+                        {windows
+                            .filter(window => !window.minimized)
+                            .map(window => {
+                                const Component = AppList[window.type];
+                                if (Component) {
+                                    return <Component key={window.id} windowId={window.id} title={window.title} />;
+                                }
+                                return null
+                            })}
                     </main>
                     <Shelf />
                 </>
             }
+        </>
+    );
+}
+
+function App() {
+    return (
+        <ThemeProvider defaultTheme="dark" storageKey="potato-ui-theme">
+            <WMProvider>
+                <AppContent />
+            </WMProvider>
         </ThemeProvider>
     );
 }

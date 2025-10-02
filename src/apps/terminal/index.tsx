@@ -1,18 +1,26 @@
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import Window from "@/components/window";
+import { useWMContext } from "@/contexts/WindowManager";
 import { cn } from "@/lib/utils";
+import type { AppProps } from "@/types/app";
 import { ChevronsRight } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import { getCommandList, COMMAND_NAMES, parseArgs } from "./commands";
+import { COMMAND_NAMES, getCommandList, parseArgs } from "./commands";
 
 interface CommandHistory {
     command: string;
     output: string | string[] | null;
-    code: number;
+    code: number | null;
 }
 
-export default function Terminal() {
+export default function Terminal({
+    windowId,
+    title = "Terminal",
+    width = 800,
+    height = 400
+}: AppProps) {
+    const { closeWindow } = useWMContext();
     const [cmd, setCmd] = useState("");
     const [cmdHistory, setCmdHistory] = useState<string[]>([]);
     const [terminalHistory, setTerminalHistory] = useState<CommandHistory[]>([]);
@@ -23,6 +31,25 @@ export default function Terminal() {
         PWD: "/home/user",
         SHELL: "zsh-chan"
     });
+
+
+    // ---- Sync terminal command history ~
+    useEffect(() => {
+        const cmdHistoryDB = localStorage.getItem('cmdHistoryDB');
+        if (cmdHistoryDB) {
+            try {
+                setCmdHistory(JSON.parse(cmdHistoryDB));
+            } catch {
+                setCmdHistory([]);
+            }
+        }
+    }, []);
+
+    useEffect(() => {
+        localStorage.setItem('cmdHistoryDB', JSON.stringify(cmdHistory));
+    }, [cmdHistory]);
+
+    // ----
 
     const scrollAreaRef = useRef<HTMLDivElement>(null);
     const promptRef = useRef<HTMLInputElement>(null);
@@ -45,7 +72,7 @@ export default function Terminal() {
 
         // Empty string, still want to add to terminal history for new line !!
         if (!isCmd) {
-            setTerminalHistory((prev) => [...prev, { command: cmd, output: null, code: 0 }]);
+            setTerminalHistory((prev) => [...prev, { command: cmd, output: null, code: null }]);
             return;
         }
 
@@ -53,10 +80,13 @@ export default function Terminal() {
         const cmdHandler = CMD_LIST.find((c) => c.name === command);
 
         let output: string | string[] | null = null;
-        let code: number = 0;
+        let code: number | null = 0;
 
         if (cmdHandler) {
-            if (command === "history") {
+            if (command === "exit") {
+                closeWindow(windowId);
+                return;
+            } else if (command === "history") {
                 if (parseArgs(args) === "-c") {
                     setCmdHistory([]);
                 } else {
@@ -114,7 +144,13 @@ export default function Terminal() {
     }
 
     return (
-        <Window title="Terminal" width={800} height={400} contentClassName="p-2">
+        <Window
+            windowId={windowId}
+            title={title}
+            width={width}
+            height={height}
+            contentClassName="p-2"
+        >
             <ScrollArea
                 ref={scrollAreaRef}
                 onClick={() => {

@@ -4,6 +4,7 @@ import {
     TooltipContent,
     TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { useWMContext } from "@/contexts/WindowManager";
 import {
     FolderCodeIcon,
     ListTodoIcon,
@@ -15,15 +16,10 @@ import {
     UsersIcon
 } from "lucide-react";
 
-function App({
-    name,
-    icon: Icon,
-    isOpen,
-    onClick
-}: {
+function App({ name, icon: Icon, isOpen, onClick }: {
     name: string,
     icon: React.ComponentType<any>,
-    isOpen?: boolean,
+    isOpen: boolean,
     onClick: () => void
 }) {
     return (
@@ -52,6 +48,7 @@ function App({
 
 
 function Shelf() {
+    const { openWindow, isWindowOpen } = useWMContext();
     const apps = [
         { name: "About", icon: UserIcon },
         { name: "Projects", icon: FolderCodeIcon },
@@ -64,7 +61,7 @@ function Shelf() {
     ];
 
     const handleAppClick = (appName: string) => {
-        console.log(`Opening ${appName}`);
+        openWindow(appName, appName);
     }
 
     return (
@@ -74,7 +71,7 @@ function Shelf() {
                     key={app.name}
                     name={app.name}
                     icon={app.icon}
-                    isOpen={false}
+                    isOpen={isWindowOpen(app.name)}
                     onClick={() => handleAppClick(app.name)}
                 />
             ))}

@@ -166,6 +166,11 @@ const handleClear = (): null => {
     return null;
 }
 
+// `exit` command
+const handleExit = (): null => {
+    return null;
+}
+
 // `history` command
 const handleHistory = (): null => {
     return null;
@@ -180,6 +185,7 @@ export const getCommandList = (allCommands: string[]): CommandHandler[] => [
     { name: "date", execute: () => handleDate() },
     { name: "echo", execute: (args, env) => handleEcho(args, env) },
     { name: "env", execute: (_, env) => handleEnv(env) },
+    { name: "exit", execute: handleExit },
     { name: "help", execute: () => handleHelp(allCommands) },
     { name: "history", execute: handleHistory },
     { name: "ls", execute: (args, env) => handleLs(args, env) },
@@ -195,6 +201,7 @@ export const COMMAND_NAMES = [
     "date",
     "echo",
     "env",
+    "exit",
     "help",
     "history",
     "ls",
