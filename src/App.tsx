@@ -3,26 +3,25 @@ import LoadingScreen from "@/components/loading-screen";
 import Shelf from "@/components/shelf";
 import { ThemeProvider } from "@/components/theme-provider";
 import TopBar from "@/components/top-bar";
+import {
+    ContextMenu,
+    ContextMenuContent,
+    ContextMenuItem,
+    ContextMenuTrigger,
+} from "@/components/ui/context-menu";
 import { Toaster } from "@/components/ui/sonner";
 import { cn } from "@/lib/utils";
+import { FileCode, Image, RefreshCw } from "lucide-react";
 import { useEffect, useState } from "react";
-import { WMProvider, useWMContext } from "./contexts/WindowManager";
+import { SOURCE_CODE } from "./constants.ts";
+import { useWallpaperManager, WallpaperProvider } from "./contexts/WallpaperManager";
+import { useWMContext, WMProvider } from "./contexts/WindowManager";
 
 function AppContent() {
-    const { windows } = useWMContext();
+    const { windows, openWindow } = useWMContext();
+    const { currentWallpaper, changingWallpaper } = useWallpaperManager();
     const [loading, setLoading] = useState(true);
     const [showContent, setShowContent] = useState(false);
-    const [backgroundImg, setBackgroundImg] = useState('background.jpg');
-
-    useEffect(() => {
-        const background = localStorage.getItem('backgroundImg');
-        if (background) setBackgroundImg(background);
-        else setBackgroundImg('background.jpg');
-    }, []);
-
-    useEffect(() => {
-        localStorage.setItem('backgroundImg', backgroundImg);
-    }, [backgroundImg]);
 
     useEffect(() => {
         const handleLoad = () => {
@@ -50,26 +49,45 @@ function AppContent() {
             {loading && <LoadingScreen />}
             {
                 showContent &&
-                <>
-                    <div
-                        className={cn("wallpaper", !loading && "!transition-none")}
-                        style={{ backgroundImage: `url(${backgroundImg})` }}
-                    ></div>
-                    <TopBar />
-                    <Toaster position="top-center" />
-                    <main id="main" className="w-screen h-[calc(100dvh-140px)]">
-                        {windows
-                            .filter(window => !window.minimized)
-                            .map(window => {
-                                const Component = AppList[window.type];
-                                if (Component) {
-                                    return <Component key={window.id} windowId={window.id} title={window.title} />;
-                                }
-                                return null
-                            })}
-                    </main>
-                    <Shelf />
-                </>
+                <ContextMenu>
+                    <ContextMenuTrigger>
+                        <div
+                            className={cn(
+                                "wallpaper",
+                                !loading && !changingWallpaper ? "transition-none" : "transition-all"
+                            )}
+                            style={{ backgroundImage: `url(${currentWallpaper})` }}
+                        ></div>
+                        <TopBar />
+                        <Toaster position="top-center" />
+                        <main id="main" className="w-screen h-[calc(100dvh-140px)]">
+                            {windows
+                                .filter(window => !window.minimized)
+                                .map(window => {
+                                    const Component = AppList[window.type];
+                                    if (Component) {
+                                        return <Component key={window.id} windowId={window.id} title={window.title} />;
+                                    }
+                                    return null
+                                })}
+                        </main>
+                        <Shelf />
+                    </ContextMenuTrigger>
+                    <ContextMenuContent>
+                        <ContextMenuItem onClick={() => location.reload()}>
+                            <RefreshCw />
+                            Refresh
+                        </ContextMenuItem>
+                        <ContextMenuItem onClick={() => openWindow('Wallpepper')}>
+                            <Image />
+                            Wallpaper
+                        </ContextMenuItem>
+                        <ContextMenuItem onClick={() => window.open(SOURCE_CODE, "_blank")}>
+                            <FileCode />
+                            Source Code
+                        </ContextMenuItem>
+                    </ContextMenuContent>
+                </ContextMenu>
             }
         </>
     );
@@ -78,9 +96,11 @@ function AppContent() {
 function App() {
     return (
         <ThemeProvider defaultTheme="dark" storageKey="potato-ui-theme">
-            <WMProvider>
-                <AppContent />
-            </WMProvider>
+            <WallpaperProvider>
+                <WMProvider>
+                    <AppContent />
+                </WMProvider>
+            </WallpaperProvider>
         </ThemeProvider>
     );
 }

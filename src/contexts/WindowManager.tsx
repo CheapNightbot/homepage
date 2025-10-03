@@ -8,7 +8,7 @@ const WMContext = createContext<WindowManagerContextType | undefined>(undefined)
 export const useWMContext = () => {
     const context = useContext(WMContext);
     if (!context) {
-        throw new Error('useWMContext must be used within a WMProvide!');
+        throw new Error('useWMContext must be used within a WMProvider!');
     }
     return context;
 }
@@ -32,7 +32,7 @@ export const WMProvider = ({ children }: { children: React.ReactNode }) => {
     }, [windows]);
 
     // ---- Hwelpwer fwenctions ~ QwQ !
-    const openWindow = (type: string, title: string, width?: number, height?: number): string => {
+    const openWindow = (type: string, title?: string, width?: number, height?: number): string => {
         // Check if window of this type is already open and not minimized
         const existingWindow = windows.find(w => w.type === type && !w.minimized);
 

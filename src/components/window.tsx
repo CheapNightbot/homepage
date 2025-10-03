@@ -1,15 +1,16 @@
+import { Button } from '@/components/ui/button';
 import {
     ContextMenu,
     ContextMenuContent,
     ContextMenuItem,
     ContextMenuTrigger,
 } from "@/components/ui/context-menu";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { useWMContext } from "@/contexts/WindowManager";
 import { cn } from '@/lib/utils';
 import { Circle, FileCode, Minus, Plus, SquareArrowOutUpRight, X } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { Rnd } from 'react-rnd';
-import { Button } from '@/components/ui/button';
-import { useWMContext } from "@/contexts/WindowManager";
 
 interface WindowProps {
     windowId: string;
@@ -136,7 +137,8 @@ function Window({
             size={{ width: winWidth, height: winHeight }}
         >
             <header
-                onContextMenu={(uwu) => uwu.preventDefault()} onDoubleClick={handleMaximize}
+                onContextMenu={(uwu) => uwu.preventDefault()}
+                onDoubleClick={handleMaximize}
                 className={cn(
                     'nav-bar bg-card px-4 h-8 flex justify-between items-center select-none gap-2',
                     !isFocused && 'saturate-50'
@@ -203,9 +205,9 @@ function Window({
                     </Button>
                 </nav>
             </header>
-            <div onContextMenu={(uwu) => uwu.preventDefault()} className={cn('w-full h-[calc(100%-32px)] rounded-b-2xl text-card-foreground bg-card/50 backdrop-blur-3xl', contentClassName)}>
+            <ScrollArea onContextMenu={(uwu) => uwu.preventDefault()} className={cn('w-full h-[calc(100%-32px)] rounded-b-2xl text-card-foreground bg-card/50 backdrop-blur-3xl', contentClassName)}>
                 {children}
-            </div>
+            </ScrollArea>
         </Rnd>
     );
 }

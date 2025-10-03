@@ -1,7 +1,7 @@
 export interface WindowState {
     id: string;
     type: string; // e.g., "Terminal", "Todo", "About"
-    title: string;
+    title?: string;
     minimized: boolean;
     maximized: boolean;
     focused: boolean;
@@ -12,7 +12,7 @@ export interface WindowState {
 
 export interface WindowManagerContextType {
     windows: WindowState[];
-    openWindow: (type: string, title: string, width?: number, height?: number) => string;
+    openWindow: (type: string, title?: string, width?: number, height?: number) => string;
     closeWindow: (id: string) => void;
     minimizeWindow: (id: string) => void;
     maximizeWindow: (id: string) => void;
