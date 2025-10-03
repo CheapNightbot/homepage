@@ -5,7 +5,8 @@ export default function Blog({
     windowId,
     title = "Blog",
     width,
-    height
+    height,
+    className = ""
 }: AppProps) {
     const info = {
         source: "https://github.com/CheapNightbot/Blog",
@@ -17,5 +18,6 @@ export default function Blog({
         title={title}
         width={width}
         height={height}
+        className={className}
         info={info} />;
 }

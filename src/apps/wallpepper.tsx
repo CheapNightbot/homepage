@@ -10,6 +10,7 @@ export default function Wallpepper({
     title = "Wallpaper Manager",
     width = 700,
     height = 600,
+    className = ""
 }: AppProps) {
     const { wallpapers, currentWallpaper, changeWallpaper } = useWallpaperManager();
 
@@ -20,6 +21,7 @@ export default function Wallpepper({
             width={width}
             height={height}
             canMinimize={false}
+            className={className}
             contentClassName="flex flex-col items-center justify-center gap-4 p-10"
         >
             <section className="flex flex-col items-center gap-6">

@@ -20,7 +20,8 @@ export default function Todo({
     windowId,
     title = "Todo",
     width,
-    height
+    height,
+    className = ""
 }: AppProps) {
     const [todoInput, setTodoInput] = useState("");
     const [inputVisible, setInputVisible] = useState(false);
@@ -113,6 +114,7 @@ export default function Todo({
             title={title}
             width={width}
             height={height}
+            className={className}
             contentClassName="relative px-4 py-2 flex flex-col">
             <h2 className={cn(
                 "font-bold w-full left-0 absolute text-center duration-200 ease-in-out animate-[enter_.15s_ease_0s_1_normal_forwards] blur-in text-xl",

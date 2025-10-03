@@ -5,7 +5,8 @@ export default function Journal({
     windowId,
     title = "Journal",
     width,
-    height
+    height,
+    className = ""
 }: AppProps) {
     const info = {
         source: "https://github.com/CheapNightbot/Journal",
@@ -17,5 +18,6 @@ export default function Journal({
         title={title}
         width={width}
         height={height}
+        className={className}
         info={info} />;
 }

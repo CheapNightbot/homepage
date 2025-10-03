@@ -18,7 +18,8 @@ export default function Terminal({
     windowId,
     title = "Terminal",
     width = 800,
-    height = 400
+    height = 400,
+    className = ""
 }: AppProps) {
     const { closeWindow } = useWMContext();
     const [cmd, setCmd] = useState("");
@@ -149,6 +150,7 @@ export default function Terminal({
             title={title}
             width={width}
             height={height}
+            className={className}
             contentClassName="p-2"
         >
             <ScrollArea

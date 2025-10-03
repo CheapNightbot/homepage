@@ -49,7 +49,8 @@ function AppWindowIframe({
     windowId,
     title = "",
     width,
-    height
+    height,
+    className = ""
 }: AppProps & AppWindowIframeProps) {
     return (
         <Window
@@ -57,6 +58,7 @@ function AppWindowIframe({
             title={title}
             width={width}
             height={height}
+            className={className}
             contextMenu={{ source: info.source, live: info.live }}>
             <AppIframe src={info.live} />
         </Window>

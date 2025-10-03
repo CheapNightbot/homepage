@@ -9,7 +9,8 @@ export default function About({
     windowId,
     title = "About",
     width,
-    height
+    height,
+    className = "",
 }: AppProps) {
 
     return (
@@ -18,6 +19,7 @@ export default function About({
             title={title}
             width={width}
             height={height}
+            className={className}
             contentClassName="flex flex-col items-center gap-4 p-12"
         >
             <section className="flex flex-col items-center gap-6">
