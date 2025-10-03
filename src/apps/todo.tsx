@@ -57,7 +57,7 @@ export default function Todo({
             title={title}
             width={width}
             height={height}
-            contentClassName="relative px-4 py-2 flex flex-col">
+            contentClassName="relative px-4 py-2">
             <h2 className={cn(
                 "w-full left-0 absolute text-center duration-200 ease-in-out animate-[enter_.15s_ease_0s_1_normal_forwards] blur-in text-xl",
                 inputVisible && "animate-[exit_.15s_ease_0s_1_normal_forwards] blur-out")}>
@@ -77,7 +77,7 @@ export default function Todo({
                     />
                 </form>
             </div>
-            <ScrollArea className="p-2 flex-1">
+            <ScrollArea className="p-2">
                 <ul>
                     {todoList.map((todo, index) => {
                         return (
@@ -99,7 +99,7 @@ export default function Todo({
             >
                 <PlusIcon className={cn("size-full transition-all duration-300 ease-in-out", inputVisible ? "rotate-45" : "rotate-0")} />
             </Button>
-            <div className="flex items-center justify-evenly max-w-[calc(100%-2rem)] gap-2 text-sm">
+            <div className="flex items-center justify-evenly max-w-[calc(100%-4rem)] gap-2 text-sm fixed w-full bottom-0 -translate-y-1/2">
                 <p>Pending: {todoList.filter((todo) => todo.status === "pending").length}</p>
                 <Separator orientation="vertical" className="bg-foreground/80" />
                 <p>Total Todos: {todoList.length}</p>
