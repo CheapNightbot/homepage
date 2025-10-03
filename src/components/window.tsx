@@ -205,13 +205,13 @@ function Window({
                     </Button>
                 </nav>
             </header>
-            <ScrollArea
+            <main
                 onContextMenu={(uwu) => uwu.preventDefault()}
                 className={cn(
                     'w-full h-[calc(100%-32px)] rounded-b-2xl text-card-foreground bg-card/50 backdrop-blur-3xl',
                     contentClassName)}>
                 {children}
-            </ScrollArea>
+            </main>
         </Rnd>
     );
 }
