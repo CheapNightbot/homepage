@@ -121,8 +121,6 @@ function Window({
                     'overflow-clip flex flex-col rounded-2xl',
                     allowTransitions && 'transition-all duration-300 ease-in-out',
                     isFocused && 'z-10',
-                    // showOpenAnim && 'animate-in duration-300 slide-in-from-bottom zoom-in fade-in blur-in ease-in',
-                    // isMinimized || windowClosing ? 'animate-out duration-300 slide-out-to-bottom-160 zoom-out fade-out blur-out ease-out animate-stay' : '',
                     className
                 )}
                 default={{
