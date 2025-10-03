@@ -62,7 +62,7 @@ function AppContent() {
                         <Toaster position="top-center" />
                         <main id="main" className="w-screen h-[calc(100dvh-140px)]">
                             {windows
-                                .filter(window => !window.minimized)
+                                // .filter(window => !window.minimized)
                                 .map(window => {
                                     const Component = AppList[window.type];
                                     if (Component) {

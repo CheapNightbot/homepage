@@ -44,11 +44,12 @@ function Window({
         maximizeWindow,
         restoreWindow,
         focusWindow,
-        windows
+        windows,
     } = useWMContext();
 
     // Get the current window's state from the context
     const windowState = windows.find(w => w.id === windowId);
+    const isMinimized = windowState?.minimized || false;
     const isMaximized = windowState?.maximized || false;
     const isFocused = windowState?.focused || false;
 
@@ -60,7 +61,9 @@ function Window({
     const [posY, setPosY] = useState((window.innerHeight - (winHeight + 140)) / 2);
 
     const [allowTransitions, setAllowTransitions] = useState(false);
+    const [windowClosing, setWindowClosing] = useState(false);
 
+    // Action Buttons on the window
     const handleMaximize = () => {
         if (isMaximized) {
             restoreWindow(windowId);
@@ -68,6 +71,16 @@ function Window({
             maximizeWindow(windowId);
         }
     }
+
+    const handleClose = () => {
+        setWindowClosing(true);
+        setTimeout(() => {
+            closeWindow(windowId);
+            setWindowClosing(false);
+        }, 300);
+    }
+
+    // -----
 
     const handleBrowserResize = () => {
         const mainElment = document.getElementById('main');
@@ -99,12 +112,14 @@ function Window({
         <Rnd
             onClick={() => focusWindow(windowId)}
             windowid={windowId}
-            bounds="parent"
+            bounds="#main"
             cancel='.actions'
             className={cn(
                 'overflow-clip flex flex-col rounded-2xl',
                 allowTransitions && 'transition-all duration-300 ease-in-out',
                 isFocused && 'z-10',
+                // showOpenAnim && 'animate-in duration-300 slide-in-from-bottom zoom-in fade-in blur-in ease-in',
+                isMinimized || windowClosing ? 'animate-out duration-300 slide-out-to-bottom-160 zoom-out fade-out blur-out ease-out animate-stay' : '',
                 className
             )}
             default={{
@@ -196,7 +211,7 @@ function Window({
                         </Button>
                     }
                     {/* close button */}
-                    <Button onClick={() => closeWindow(windowId)}
+                    <Button onClick={handleClose}
                         variant="ghost"
                         size="icon"
                         className='relative rounded-full size-4 active:scale-95'>
