@@ -66,7 +66,11 @@ function AppContent() {
                                 .map(window => {
                                     const Component = AppList[window.type];
                                     if (Component) {
-                                        return <Component key={window.id} windowId={window.id} title={window.title} />;
+                                        return <Component
+                                            key={window.id}
+                                            windowId={window.id}
+                                            title={window.title}
+                                        />
                                     }
                                     return null
                                 })}
