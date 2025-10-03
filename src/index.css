@@ -211,6 +211,10 @@ body {
   @apply min-h-screen min-w-screen bg-cover bg-center bg-no-repeat absolute overflow-hidden animate-in fade-in zoom-in-105 scale-110 duration-1000 ease-in-out;
 }
 
+.animate-stay {
+  animation-fill-mode: forwards;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50 scrollbar-none selection:bg-[#F7A8B8] selection:text-white;
