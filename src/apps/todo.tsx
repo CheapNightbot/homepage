@@ -1,12 +1,12 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { Separator } from "@/components/ui/separator";
 import Window from "@/components/window";
 import { cn } from "@/lib/utils";
+import type { AppProps } from "@/types/app";
 import { Plus, PlusIcon, Square, SquareCheckBig, Trash2 } from "lucide-react";
 import { useRef, useState } from "react";
-import { Separator } from "@/components/ui/separator"
-import type { AppProps } from "@/types/app";
 import { v4 as uuidv4 } from 'uuid';
 
 interface TodoItem {
@@ -66,13 +66,13 @@ export default function Todo({
         e.preventDefault();
         if (todoInput.length > 0) {
             setTodoList((prev) => [
-                ...prev,
                 {
                     id: uuidv4(),
                     content: todoInput,
                     createdOn: new Date(),
                     status: "pending"
-                }
+                },
+                ...prev,
             ]);
         }
         setInputVisible(!inputVisible);
@@ -115,7 +115,7 @@ export default function Todo({
             title={title}
             width={width}
             height={height}
-            contentClassName="relative px-4 py-2">
+            contentClassName="relative px-4 py-2 flex flex-col">
             <h2 className={cn(
                 "font-bold w-full left-0 absolute text-center duration-200 ease-in-out animate-[enter_.15s_ease_0s_1_normal_forwards] blur-in text-xl",
                 inputVisible && "animate-[exit_.15s_ease_0s_1_normal_forwards] blur-out")}>
@@ -136,14 +136,14 @@ export default function Todo({
                 </form>
             </div>
             {todoList.length > 0 ?
-                <ScrollArea className="p-2 min-h-96">
+                <ScrollArea scrollbarVisible={false} className="p-2 flex-1 max-h-[calc(100%-6rem)]">
                     <ul className="flex flex-col gap-0.5">
                         {todoList.map((todo) => {
                             return (
                                 <li
                                     key={todo.id}
                                     className={cn(
-                                        "flex gap-2 items-center animate-in fade-in duration-300 ease-in-out transition-colors pl-2 pr-0.5 py-0.5 rounded",
+                                        "flex gap-2 items-center animate-in fade-in zoom-in-95 duration-300 ease-in-out transition-colors pl-2 pr-0.5 py-0.5 rounded",
                                         todo.status === "done" && "line-through text-primary",
                                         hoverId === todo.id && "text-destructive bg-accent/50",
                                         deletingId === todo.id && "animate-out slide-out-to-left ease-out duration-300"
@@ -206,11 +206,11 @@ export default function Todo({
             <Button
                 onClick={handleNewTodoBtnClick}
                 size="icon"
-                className="rounded-full p-2 absolute bottom-0 right-0 -translate-1/2 active:scale-95"
+                className="rounded-full p-2 absolute bottom-0 right-0 -translate-1/2 active:scale-95 z-2"
             >
                 <PlusIcon className={cn("size-full transition-all duration-300 ease-in-out", inputVisible ? "rotate-45" : "rotate-0")} />
             </Button>
-            <div className="flex items-center justify-evenly max-w-[calc(100%-4rem)] gap-2 text-sm fixed w-full bottom-0 -translate-y-1/2">
+            <div className="flex items-center justify-evenly gap-2 text-sm fixed w-full left-0 bottom-0 py-2 bg-accent/20 backdrop-blur z-1 px-10">
                 <p>Pending: {todoList.filter((todo) => todo.status === "pending").length}</p>
                 <Separator orientation="vertical" className="bg-foreground/80" />
                 <p>Total Todos: {todoList.length}</p>
