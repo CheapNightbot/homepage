@@ -5,7 +5,6 @@ import {
     ContextMenuItem,
     ContextMenuTrigger,
 } from "@/components/ui/context-menu";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { useWMContext } from "@/contexts/WindowManager";
 import { cn } from '@/lib/utils';
 import { Circle, FileCode, Minus, Plus, SquareArrowOutUpRight, X } from 'lucide-react';
