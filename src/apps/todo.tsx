@@ -3,7 +3,7 @@ import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import Window from "@/components/window";
 import { cn } from "@/lib/utils";
-import { PlusIcon, Square, SquareCheckBig, Trash2 } from "lucide-react";
+import { Plus, PlusIcon, Square, SquareCheckBig, Trash2 } from "lucide-react";
 import { useRef, useState } from "react";
 import { Separator } from "@/components/ui/separator"
 import type { AppProps } from "@/types/app";
@@ -43,6 +43,7 @@ export default function Todo({
     const [hoverId, setHoverId] = useState<string | null>(null);
     const [editingId, setEditingId] = useState<string | null>(null);
     const [editText, setEditText] = useState("");
+    const [deletingId, setDeletingId] = useState<string | null>(null);
 
     const todoInputRef = useRef<HTMLInputElement>(null);
 
@@ -74,6 +75,7 @@ export default function Todo({
                 }
             ]);
         }
+        setInputVisible(!inputVisible);
         setTodoInput("");
     }
 
@@ -98,8 +100,14 @@ export default function Todo({
     }
 
     const deleteTodo = (todoID: string) => {
-        setTodoList(prev => prev.filter(todo => todo.id !== todoID));
-    }
+        setDeletingId(todoID);
+        setTimeout(() => {
+            setTodoList(prev => prev.filter(todo => todo.id !== todoID));
+            if (deletingId === todoID) {
+                setDeletingId(null);
+            }
+        }, 300);
+    };
 
     return (
         <Window
@@ -109,7 +117,7 @@ export default function Todo({
             height={height}
             contentClassName="relative px-4 py-2">
             <h2 className={cn(
-                "w-full left-0 absolute text-center duration-200 ease-in-out animate-[enter_.15s_ease_0s_1_normal_forwards] blur-in text-xl",
+                "font-bold w-full left-0 absolute text-center duration-200 ease-in-out animate-[enter_.15s_ease_0s_1_normal_forwards] blur-in text-xl",
                 inputVisible && "animate-[exit_.15s_ease_0s_1_normal_forwards] blur-out")}>
                 Todo ☆⌒(ゝ。∂)
             </h2>
@@ -127,62 +135,74 @@ export default function Todo({
                     />
                 </form>
             </div>
-            <ScrollArea className="p-2">
-                <ul className="flex flex-col gap-0.5">
-                    {todoList.map((todo) => {
-                        return (
-                            <li
-                                key={todo.id}
-                                className={cn(
-                                    "flex gap-2 items-center animate-in fade-in duration-300 ease-in-out transition-colors pl-2 pr-0.5 py-0.5 rounded",
-                                    todo.status === "done" && "line-through text-primary",
-                                    hoverId === todo.id && "text-destructive bg-accent/50"
-                                )}
-                            >
-                                {todo.status === "done"
-                                    ? <SquareCheckBig onClick={() => toggleTodoComplete(todo.id)} size={18} />
-                                    : <Square onClick={() => toggleTodoComplete(todo.id)} size={18} />
-                                }
-                                <span
-                                    onBlur={(e) => {
-                                        const target = e.currentTarget;
-                                        setEditingId(null);
-                                        handleUpdateTodo(todo.id)
-                                        target.contentEditable = "false";
-                                    }}
-                                    onDoubleClick={(e) => {
-                                        const target = e.currentTarget;
-                                        setEditingId(todo.id);
-                                        setEditText(todo.content);
-                                        target.contentEditable = "true";
-                                        target.focus();
-                                    }}
-                                    onKeyDown={(e) => {
-                                        if (e.key === "Enter") {
-                                            e.preventDefault();
+            {todoList.length > 0 ?
+                <ScrollArea className="p-2 min-h-96">
+                    <ul className="flex flex-col gap-0.5">
+                        {todoList.map((todo) => {
+                            return (
+                                <li
+                                    key={todo.id}
+                                    className={cn(
+                                        "flex gap-2 items-center animate-in fade-in duration-300 ease-in-out transition-colors pl-2 pr-0.5 py-0.5 rounded",
+                                        todo.status === "done" && "line-through text-primary",
+                                        hoverId === todo.id && "text-destructive bg-accent/50",
+                                        deletingId === todo.id && "animate-out slide-out-to-left ease-out duration-300"
+                                    )}
+                                >
+                                    {todo.status === "done"
+                                        ? <SquareCheckBig onClick={() => toggleTodoComplete(todo.id)} size={18} />
+                                        : <Square onClick={() => toggleTodoComplete(todo.id)} size={18} />
+                                    }
+                                    <span
+                                        onBlur={(e) => {
                                             const target = e.currentTarget;
                                             setEditingId(null);
                                             handleUpdateTodo(todo.id)
                                             target.contentEditable = "false";
-                                        }
-                                    }}
-                                    className="flex-1"
-                                    suppressContentEditableWarning={true}
-                                >
-                                    {editingId === todo.id ? editText : todo.content}
-                                </span>
-                                <Trash2
-                                    size={26}
-                                    className="text-destructive p-1 active:scale-90"
-                                    onClick={() => deleteTodo(todo.id)}
-                                    onMouseEnter={() => setHoverId(todo.id)}
-                                    onMouseLeave={() => setHoverId(null)}
-                                />
-                            </li>
-                        );
-                    })}
-                </ul>
-            </ScrollArea>
+                                        }}
+                                        onDoubleClick={(e) => {
+                                            const target = e.currentTarget;
+                                            setEditingId(todo.id);
+                                            setEditText(todo.content);
+                                            target.contentEditable = "true";
+                                            target.focus();
+                                        }}
+                                        onKeyDown={(e) => {
+                                            if (e.key === "Enter") {
+                                                e.preventDefault();
+                                                const target = e.currentTarget;
+                                                setEditingId(null);
+                                                handleUpdateTodo(todo.id)
+                                                target.contentEditable = "false";
+                                            }
+                                        }}
+                                        className="flex-1"
+                                        suppressContentEditableWarning={true}
+                                    >
+                                        {editingId === todo.id ? editText : todo.content}
+                                    </span>
+                                    <Trash2
+                                        size={26}
+                                        className="text-destructive p-1 active:scale-90"
+                                        onClick={() => deleteTodo(todo.id)}
+                                        onMouseEnter={() => setHoverId(todo.id)}
+                                        onMouseLeave={() => setHoverId(null)}
+                                    />
+                                </li>
+                            );
+                        })}
+                    </ul>
+                </ScrollArea>
+                :
+                <div className="animate-in fade-in duration-300 ease-in-out min-h-96 flex flex-col items-center justify-center">
+                    <h2 className="font-semibold text-xl">Not even a potato ??</h2>
+                    <p className="inline-flex items-center gap-1.5">
+                        Click on
+                        <Plus size={18} className="bg-primary text-primary-foreground shadow-xs rounded-full p-px" />
+                        icon below to add something ~
+                    </p>
+                </div>
+            }
             <Button
                 onClick={handleNewTodoBtnClick}
                 size="icon"
