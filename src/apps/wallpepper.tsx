@@ -19,6 +19,7 @@ export default function Wallpepper({
             title={title}
             width={width}
             height={height}
+            canMinimize={false}
             contentClassName="flex flex-col items-center justify-center gap-4 p-10"
         >
             <section className="flex flex-col items-center gap-6">

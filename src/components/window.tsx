@@ -20,6 +20,7 @@ interface WindowProps {
     contextMenu?: { source: string, live: string };
     width?: number;
     height?: number;
+    canMinimize?: boolean;
 };
 
 const BOTTOM_OFFSET = 160;
@@ -35,6 +36,7 @@ function Window({
     contextMenu,
     width = INIT_WIDTH,
     height = INIT_HEIGHT,
+    canMinimize,
 }: WindowProps) {
     const {
         closeWindow,
@@ -180,17 +182,19 @@ function Window({
                         <Plus className='absolute size-2.5 left-1/2 top-1/2 -translate-1/2 border-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out ' />
                     </Button>
                     {/* minimize button */}
-                    <Button
-                        onClick={() => minimizeWindow(windowId)}
-                        variant="ghost"
-                        size="icon"
-                        className='relative rounded-full size-4 active:scale-95'>
-                        {isFocused
-                            ? <Circle fill='orange' stroke='none' className="transition-all duration-300 ease-in-out" />
-                            : <Circle fill='gray' stroke='none' className="transition-all duration-300 ease-in-out" />
-                        }
-                        <Minus className='absolute size-2.5 left-1/2 top-1/2 -translate-1/2 border-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out ' />
-                    </Button>
+                    {canMinimize &&
+                        <Button
+                            onClick={() => minimizeWindow(windowId)}
+                            variant="ghost"
+                            size="icon"
+                            className='relative rounded-full size-4 active:scale-95'>
+                            {isFocused
+                                ? <Circle fill='orange' stroke='none' className="transition-all duration-300 ease-in-out" />
+                                : <Circle fill='gray' stroke='none' className="transition-all duration-300 ease-in-out" />
+                            }
+                            <Minus className='absolute size-2.5 left-1/2 top-1/2 -translate-1/2 border-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out ' />
+                        </Button>
+                    }
                     {/* close button */}
                     <Button onClick={() => closeWindow(windowId)}
                         variant="ghost"
