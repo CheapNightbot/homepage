@@ -1,3 +1,4 @@
+import { AppList } from "@/apps";
 import { Button } from "@/components/ui/button";
 import {
     Tooltip,
@@ -15,6 +16,7 @@ import {
     UserIcon,
     UsersIcon
 } from "lucide-react";
+import { toast } from "sonner";
 
 function App({ name, icon: Icon, isOpen, onClick }: {
     name: string,
@@ -74,7 +76,11 @@ function Shelf() {
                     name={app.name}
                     icon={app.icon}
                     isOpen={isWindowOpen(app.name)}
-                    onClick={() => handleAppClick(app.name)}
+                    onClick={() => {
+                        AppList[app.name]
+                            ? handleAppClick(app.name)
+                            : toast.error("App is under-construction ~")
+                    }}
                 />
             ))}
         </div>
