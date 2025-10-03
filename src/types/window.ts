@@ -18,5 +18,4 @@ export interface WindowManagerContextType {
     focusWindow: (id: string) => void;
     restoreWindow: (id: string) => void;
     isWindowOpen: (type: string) => boolean;
-    closingWindID: string | null;
 }
