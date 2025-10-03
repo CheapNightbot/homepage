@@ -24,20 +24,7 @@ export default function Todo({
 }: AppProps) {
     const [todoInput, setTodoInput] = useState("");
     const [inputVisible, setInputVisible] = useState(false);
-    const [todoList, setTodoList] = useState<TodoItem[]>([
-        {
-            id: "abc",
-            content: "Complete this app!",
-            createdOn: new Date(),
-            status: "pending"
-        },
-        {
-            id: "xyz",
-            content: "Commit the partial changes ~",
-            createdOn: new Date(),
-            status: "done"
-        }
-    ]);
+    const [todoList, setTodoList] = useState<TodoItem[]>([]);
     // const uniqueCreationDates = todoList.
 
     const [hoverId, setHoverId] = useState<string | null>(null);
@@ -194,8 +181,8 @@ export default function Todo({
                     </ul>
                 </ScrollArea>
                 :
-                <div className="animate-in fade-in duration-300 ease-in-out min-h-96 flex flex-col items-center justify-center">
-                    <h2 className="font-semibold text-xl">Not even a potato ??</h2>
+                <div className="animate-in fade-in duration-300 ease-in-out gap-2 p-2 flex-1 max-h-[calc(100%-8rem)] flex flex-col items-center justify-center">
+                    <h2 className="font-semibold text-2xl">Not even a potato ??</h2>
                     <p className="inline-flex items-center gap-1.5">
                         Click on
                         <Plus size={18} className="bg-primary text-primary-foreground shadow-xs rounded-full p-px" />
