@@ -7,7 +7,6 @@ export interface WindowState {
     focused: boolean;
     width?: number;
     height?: number;
-    // Add other window properties as needed
 }
 
 export interface WindowManagerContextType {
@@ -19,4 +18,5 @@ export interface WindowManagerContextType {
     focusWindow: (id: string) => void;
     restoreWindow: (id: string) => void;
     isWindowOpen: (type: string) => boolean;
+    closingWindID: string | null;
 }
