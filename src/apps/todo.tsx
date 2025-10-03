@@ -6,7 +6,7 @@ import Window from "@/components/window";
 import { cn } from "@/lib/utils";
 import type { AppProps } from "@/types/app";
 import { Plus, PlusIcon, Square, SquareCheckBig, Trash2 } from "lucide-react";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
 
 interface TodoItem {
@@ -33,6 +33,17 @@ export default function Todo({
     const [deletingId, setDeletingId] = useState<string | null>(null);
 
     const todoInputRef = useRef<HTMLInputElement>(null);
+
+    useEffect(() => {
+        const todoDB = localStorage.getItem('todoDB');
+        if (todoDB) setTodoList(JSON.parse(todoDB));
+    }, []);
+
+    useEffect(() => {
+        if (todoList) {
+            localStorage.setItem('todoDB', JSON.stringify(todoList));
+        }
+    }, [todoList]);
 
     const handleTodoInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setTodoInput(e.currentTarget.value);
