@@ -12,6 +12,17 @@ function AppContent() {
     const { windows } = useWMContext();
     const [loading, setLoading] = useState(true);
     const [showContent, setShowContent] = useState(false);
+    const [backgroundImg, setBackgroundImg] = useState('background.jpg');
+
+    useEffect(() => {
+        const background = localStorage.getItem('backgroundImg');
+        if (background) setBackgroundImg(background);
+        else setBackgroundImg('background.jpg');
+    }, []);
+
+    useEffect(() => {
+        localStorage.setItem('backgroundImg', backgroundImg);
+    }, [backgroundImg]);
 
     useEffect(() => {
         const handleLoad = () => {
@@ -40,7 +51,10 @@ function AppContent() {
             {
                 showContent &&
                 <>
-                    <div className={cn("wallpaper", !loading && "!transition-none")}></div>
+                    <div
+                        className={cn("wallpaper", !loading && "!transition-none")}
+                        style={{ backgroundImage: `url(${backgroundImg})` }}
+                    ></div>
                     <TopBar />
                     <Toaster position="top-center" />
                     <main id="main" className="w-screen h-[calc(100dvh-140px)]">
