@@ -36,7 +36,7 @@ function Window({
     contextMenu,
     width = INIT_WIDTH,
     height = INIT_HEIGHT,
-    canMinimize,
+    canMinimize = true,
 }: WindowProps) {
     const {
         closeWindow,
