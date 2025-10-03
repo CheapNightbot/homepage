@@ -11,7 +11,8 @@ import { v4 as uuidv4 } from 'uuid';
 
 interface TodoItem {
     id: string;
-    item: string;
+    content: string;
+    createdOn: Date;
     status: "done" | "pending";
 }
 
@@ -24,10 +25,24 @@ export default function Todo({
     const [todoInput, setTodoInput] = useState("");
     const [inputVisible, setInputVisible] = useState(false);
     const [todoList, setTodoList] = useState<TodoItem[]>([
-        { id: "abc", item: "Complete this app!", status: "pending" },
-        { id: "xyz", item: "Commit the partial changes ~", status: "done" }
+        {
+            id: "abc",
+            content: "Complete this app!",
+            createdOn: new Date(),
+            status: "pending"
+        },
+        {
+            id: "xyz",
+            content: "Commit the partial changes ~",
+            createdOn: new Date(),
+            status: "done"
+        }
     ]);
+    // const uniqueCreationDates = todoList.
+
     const [hoverId, setHoverId] = useState<string | null>(null);
+    const [editingId, setEditingId] = useState<string | null>(null);
+    const [editText, setEditText] = useState("");
 
     const todoInputRef = useRef<HTMLInputElement>(null);
 
@@ -49,9 +64,27 @@ export default function Todo({
     const handleNewTodoSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (todoInput.length > 0) {
-            setTodoList((prev) => [...prev, { id: uuidv4(), item: todoInput, status: "pending" }]);
+            setTodoList((prev) => [
+                ...prev,
+                {
+                    id: uuidv4(),
+                    content: todoInput,
+                    createdOn: new Date(),
+                    status: "pending"
+                }
+            ]);
         }
         setTodoInput("");
+    }
+
+    const handleUpdateTodo = (todoID: string) => {
+        setTodoList(prev =>
+            prev.map(todo =>
+                todo.id === todoID
+                    ? { ...todo, content: editText }
+                    : todo
+            )
+        );
     }
 
     const toggleTodoComplete = (todoID: string) => {
@@ -110,12 +143,37 @@ export default function Todo({
                                     ? <SquareCheckBig onClick={() => toggleTodoComplete(todo.id)} size={18} />
                                     : <Square onClick={() => toggleTodoComplete(todo.id)} size={18} />
                                 }
-                                <span className="flex-1">
-                                    {todo.item}
+                                <span
+                                    onBlur={(e) => {
+                                        const target = e.currentTarget;
+                                        setEditingId(null);
+                                        handleUpdateTodo(todo.id)
+                                        target.contentEditable = "false";
+                                    }}
+                                    onDoubleClick={(e) => {
+                                        const target = e.currentTarget;
+                                        setEditingId(todo.id);
+                                        setEditText(todo.content);
+                                        target.contentEditable = "true";
+                                        target.focus();
+                                    }}
+                                    onKeyDown={(e) => {
+                                        if (e.key === "Enter") {
+                                            e.preventDefault();
+                                            const target = e.currentTarget;
+                                            setEditingId(null);
+                                            handleUpdateTodo(todo.id)
+                                            target.contentEditable = "false";
+                                        }
+                                    }}
+                                    className="flex-1"
+                                    suppressContentEditableWarning={true}
+                                >
+                                    {editingId === todo.id ? editText : todo.content}
                                 </span>
                                 <Trash2
                                     size={26}
-                                    className="text-destructive p-1"
+                                    className="text-destructive p-1 active:scale-90"
                                     onClick={() => deleteTodo(todo.id)}
                                     onMouseEnter={() => setHoverId(todo.id)}
                                     onMouseLeave={() => setHoverId(null)}
