@@ -90,11 +90,11 @@ export const WMProvider = ({ children }: { children: React.ReactNode }) => {
     };
 
     const maximizeWindow = (id: string) => {
-        setWindows(prev => prev.map(w => w.id === id ? { ...w, maximized: true } : w));
+        setWindows(prev => prev.map(w => w.id === id ? { ...w, maximized: true, focused: true} : w));
     };
 
     const restoreWindow = (id: string) => {
-        setWindows(prev => prev.map(w => w.id === id ? { ...w, maximized: false } : w));
+        setWindows(prev => prev.map(w => w.id === id ? { ...w, maximized: false, focused: true } : w));
     };
 
     const focusWindow = (id: string) => {
