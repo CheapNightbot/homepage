@@ -3,12 +3,14 @@ import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import Window from "@/components/window";
 import { cn } from "@/lib/utils";
-import { PlusIcon, Square, SquareCheckBig } from "lucide-react";
+import { PlusIcon, Square, SquareCheckBig, Trash2 } from "lucide-react";
 import { useRef, useState } from "react";
 import { Separator } from "@/components/ui/separator"
 import type { AppProps } from "@/types/app";
+import { v4 as uuidv4 } from 'uuid';
 
 interface TodoItem {
+    id: string;
     item: string;
     status: "done" | "pending";
 }
@@ -22,9 +24,10 @@ export default function Todo({
     const [todoInput, setTodoInput] = useState("");
     const [inputVisible, setInputVisible] = useState(false);
     const [todoList, setTodoList] = useState<TodoItem[]>([
-        { item: "Complete this app!", status: "pending" },
-        { item: "Commit the partial changes ~", status: "done" }
+        { id: "abc", item: "Complete this app!", status: "pending" },
+        { id: "xyz", item: "Commit the partial changes ~", status: "done" }
     ]);
+    const [hoverId, setHoverId] = useState<string | null>(null);
 
     const todoInputRef = useRef<HTMLInputElement>(null);
 
@@ -46,9 +49,23 @@ export default function Todo({
     const handleNewTodoSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (todoInput.length > 0) {
-            setTodoList((prev) => [...prev, { item: todoInput, status: "pending" }]);
+            setTodoList((prev) => [...prev, { id: uuidv4(), item: todoInput, status: "pending" }]);
         }
         setTodoInput("");
+    }
+
+    const toggleTodoComplete = (todoID: string) => {
+        setTodoList(prev =>
+            prev.map(todo =>
+                todo.id === todoID
+                    ? { ...todo, status: todo.status === "pending" ? "done" : "pending" }
+                    : todo
+            )
+        );
+    }
+
+    const deleteTodo = (todoID: string) => {
+        setTodoList(prev => prev.filter(todo => todo.id !== todoID));
     }
 
     return (
@@ -78,15 +95,31 @@ export default function Todo({
                 </form>
             </div>
             <ScrollArea className="p-2">
-                <ul>
-                    {todoList.map((todo, index) => {
+                <ul className="flex flex-col gap-0.5">
+                    {todoList.map((todo) => {
                         return (
                             <li
-                                key={index}
-                                className={cn("flex gap-2 items-center", todo.status === "done" && "line-through text-primary")}
+                                key={todo.id}
+                                className={cn(
+                                    "flex gap-2 items-center animate-in fade-in duration-300 ease-in-out transition-colors pl-2 pr-0.5 py-0.5 rounded",
+                                    todo.status === "done" && "line-through text-primary",
+                                    hoverId === todo.id && "text-destructive bg-accent/50"
+                                )}
                             >
-                                {todo.status === "done" ? <SquareCheckBig size={18} /> : <Square size={18} />}
-                                {todo.item}
+                                {todo.status === "done"
+                                    ? <SquareCheckBig onClick={() => toggleTodoComplete(todo.id)} size={18} />
+                                    : <Square onClick={() => toggleTodoComplete(todo.id)} size={18} />
+                                }
+                                <span className="flex-1">
+                                    {todo.item}
+                                </span>
+                                <Trash2
+                                    size={26}
+                                    className="text-destructive p-1"
+                                    onClick={() => deleteTodo(todo.id)}
+                                    onMouseEnter={() => setHoverId(todo.id)}
+                                    onMouseLeave={() => setHoverId(null)}
+                                />
                             </li>
                         );
                     })}
