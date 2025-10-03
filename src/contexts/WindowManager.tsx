@@ -33,15 +33,34 @@ export const WMProvider = ({ children }: { children: React.ReactNode }) => {
 
     // ---- Hwelpwer fwenctions ~ QwQ !
     const openWindow = (type: string, title?: string, width?: number, height?: number): string => {
-        // Check if window of this type is already open and not minimized
-        const existingWindow = windows.find(w => w.type === type && !w.minimized);
+        // Check if window of this type exists (either open or minimized)
+        const existingWindow = windows.find(w => w.type === type);
 
         if (existingWindow) {
-            // Just focus the existing window
-            focusWindow(existingWindow.id);
-            return existingWindow.id;
+            if (existingWindow.minimized) {
+                // If it's minimized, restore it
+                setWindows(prev =>
+                    prev.map(w =>
+                        w.id === existingWindow.id
+                            ? { ...w, minimized: false, focused: true }
+                            : { ...w, focused: false } // Unfocus other windows
+                    )
+                );
+                return existingWindow.id;
+            } else {
+                // If it's already open and focused, minimize it
+                setWindows(prev =>
+                    prev.map(w =>
+                        w.id === existingWindow.id
+                            ? { ...w, minimized: true, focused: false }
+                            : w
+                    )
+                );
+                return existingWindow.id;
+            }
         }
 
+        // If no existing window, create a new one
         const newWindow: WindowState = {
             id: uuidv4(),
             type,
