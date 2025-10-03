@@ -20,3 +20,11 @@ export async function copyToClipboard(
     toast.error(errorMsg);
   }
 }
+
+export function formatDate(date: Date) {
+  return Intl.DateTimeFormat('en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: '2-digit'
+  }).format(date);
+}
