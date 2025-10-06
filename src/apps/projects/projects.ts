@@ -1,3 +1,4 @@
+import calculator from "@/assets/imgs/projects/calculator.svg";
 import sos from "@/assets/imgs/projects/sos.svg";
 import yutify from "@/assets/imgs/projects/yutify.svg";
 import yutipy from "@/assets/imgs/projects/yutipy.svg";
@@ -13,6 +14,18 @@ export interface ProjectsList {
 }
 
 export const projects: ProjectsList[] = [
+  {
+    id: "70fe6cd1-fa0d-5613-b7fa-7c4e93a4be3c",
+    name: "Cheap Calculator ~",
+    description: "A simple and stumid command-line calculator to perform basic arithmetic operations such as addition, subtraction, multiplication, and division. ♡(>ᴗ•)",
+    techStack: [
+      "C",
+      "Makefile"
+    ],
+    image: calculator,
+    github: "https://github.com/CheapNightbot/calc",
+    live: "#"
+  },
   {
     id: "9644fe7a-9534-5306-af3a-8b366ac5b4f7",
     name: "soulofswords",
