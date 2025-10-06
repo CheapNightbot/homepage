@@ -29,8 +29,12 @@ export default function Projects({
       width={width}
       height={height}
       className={className}
-      contentClassName="flex flex-col items-center gap-4 p-12"
+      contentClassName="flex flex-col items-center gap-4 px-12 py-6"
     >
+      <div className="flex flex-col items-center">
+        <h2 className="text-2xl font-bold">Projects</h2>
+        <p>not all projects are listed (e.g. the one where you are right now !!!) ~</p>
+      </div>
       <ItemGroup className="gap-4">
         {projects.map((project: ProjectsList) => (
           <Item key={project.id} variant="outline" asChild role="listitem" className="bg-secondary/40 text-secondary-foreground rounded-lg">
