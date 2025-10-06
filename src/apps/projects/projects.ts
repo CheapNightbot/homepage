@@ -33,7 +33,10 @@ export const projects: ProjectsList[] = [
     techStack: [
       "HTML",
       "CSS",
-      "JavaScript"
+      "Tailwindcss",
+      "JavaScript",
+      "Svelte",
+      "Sveltekit",
     ],
     image: sos,
     github: "https://github.com/CheapNightbot/soulofswords",
