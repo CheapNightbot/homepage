@@ -4,8 +4,8 @@ import type { AppProps } from "@/types/app";
 export default function Blog({
     windowId,
     title = "Blog",
-    width,
-    height,
+    width = 800,
+    height = 600,
     className = ""
 }: AppProps) {
     const info = {
