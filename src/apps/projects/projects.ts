@@ -1,8 +1,31 @@
-import sos from "@/assets/imgs/projects/sos.svg"
-import yutify from "@/assets/imgs/projects/yutify.svg"
-import yutipy from "@/assets/imgs/projects/yutipy.svg"
+import sos from "@/assets/imgs/projects/sos.svg";
+import yutify from "@/assets/imgs/projects/yutify.svg";
+import yutipy from "@/assets/imgs/projects/yutipy.svg";
 
-export const projects = [
+export interface ProjectsList {
+  id: string;
+  name: string;
+  description: string;
+  techStack: string[];
+  image: string;
+  github: string;
+  live: string;
+}
+
+export const projects: ProjectsList[] = [
+  {
+    id: "9644fe7a-9534-5306-af3a-8b366ac5b4f7",
+    name: "soulofswords",
+    description: "Static Website for VTuber 'soulofswords' aka SOS.",
+    techStack: [
+      "HTML",
+      "CSS",
+      "JavaScript"
+    ],
+    image: sos,
+    github: "https://github.com/CheapNightbot/soulofswords",
+    live: "https://soulofswords.github.io"
+  },
   {
     id: "ed7a6c09-3413-57bd-9c25-18fb72af3bda",
     name: "yutify",
@@ -28,18 +51,5 @@ export const projects = [
     image: yutipy,
     github: "https://github.com/CheapNightbot/yutipy",
     live: "https://yutipy.readthedocs.io"
-  },
-  {
-    id: "9644fe7a-9534-5306-af3a-8b366ac5b4f7",
-    name: "soulofswords",
-    description: "Static Website for VTuber 'soulofswords' aka SOS.",
-    techStack: [
-      "HTML",
-      "CSS",
-      "JavaScript"
-    ],
-    image: sos,
-    github: "https://github.com/CheapNightbot/soulofswords",
-    live: "https://soulofswords.github.io"
   }
 ]
