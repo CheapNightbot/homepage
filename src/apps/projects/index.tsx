@@ -13,6 +13,7 @@ import type { AppProps } from "@/types/app";
 import { ExternalLink } from "lucide-react";
 import type { ProjectsList } from "./projects";
 import { projects } from "./projects";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 export default function Projects({
   windowId,
@@ -35,42 +36,44 @@ export default function Projects({
         <h2 className="text-2xl font-bold">Projects</h2>
         <p>not all projects are listed (e.g. the one where you are right now !!!) ~</p>
       </div>
-      <ItemGroup className="gap-4">
-        {projects.map((project: ProjectsList) => (
-          <Item key={project.id} variant="outline" asChild role="listitem" className="bg-secondary/40 text-secondary-foreground rounded-lg">
-            <div>
-              <ItemMedia variant="image" className="pointer-events-none select-none">
-                <img
-                  src={project.image}
-                  alt={project.name}
-                  width={32}
-                  height={32}
-                  className="object-cover"
-                />
-              </ItemMedia>
-              <ItemContent>
-                <ItemTitle className="line-clamp-1 font-semibold text-lg">
-                  {project.name}
-                </ItemTitle>
-                <ItemDescription className="text-foreground">
-                  {project.description}
-                </ItemDescription>
-                <ItemFooter className="justify-start select-none">
-                  {project.techStack.map(name => (
-                    <p className="rounded px-2 bg-accent text-accent-foreground shadow">
-                      {name}
-                    </p>
-                  ))}
-                </ItemFooter>
-              </ItemContent>
-              <ItemContent className="gap-2">
-                <ExternalLink className="active:scale-90" onClick={() => window.open(project.live, "_blank")} />
-                <Github className="active:scale-90" onClick={() => window.open(project.github, "_blank")} />
-              </ItemContent>
-            </div>
-          </Item>
-        ))}
-      </ItemGroup>
+      <ScrollArea scrollbarVisible={false} className="overflow-scroll">
+        <ItemGroup className="gap-4">
+          {projects.map((project: ProjectsList) => (
+            <Item key={project.id} variant="outline" asChild role="listitem" className="bg-secondary/40 text-secondary-foreground rounded-lg">
+              <div>
+                <ItemMedia variant="image" className="pointer-events-none select-none">
+                  <img
+                    src={project.image}
+                    alt={project.name}
+                    width={32}
+                    height={32}
+                    className="object-cover"
+                  />
+                </ItemMedia>
+                <ItemContent>
+                  <ItemTitle className="line-clamp-1 font-semibold text-lg">
+                    {project.name}
+                  </ItemTitle>
+                  <ItemDescription className="text-foreground">
+                    {project.description}
+                  </ItemDescription>
+                  <ItemFooter className="justify-start select-none">
+                    {project.techStack.map(name => (
+                      <p className="rounded px-2 bg-accent text-accent-foreground shadow">
+                        {name}
+                      </p>
+                    ))}
+                  </ItemFooter>
+                </ItemContent>
+                <ItemContent className="gap-2">
+                  <ExternalLink className="active:scale-90" onClick={() => window.open(project.live, "_blank")} />
+                  <Github className="active:scale-90" onClick={() => window.open(project.github, "_blank")} />
+                </ItemContent>
+              </div>
+            </Item>
+          ))}
+        </ItemGroup>
+      </ScrollArea>
     </Window>
   );
 }
