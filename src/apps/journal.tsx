@@ -4,8 +4,8 @@ import type { AppProps } from "@/types/app";
 export default function Journal({
     windowId,
     title = "Journal",
-    width,
-    height,
+    width = 800,
+    height = 600,
     className = ""
 }: AppProps) {
     const info = {
