@@ -19,7 +19,7 @@ export default function Projects({
   windowId,
   title = "Projects",
   width = 800,
-  height,
+  height = 600,
   className = "",
 }: AppProps) {
 
@@ -30,11 +30,17 @@ export default function Projects({
       width={width}
       height={height}
       className={className}
-      contentClassName="flex flex-col items-center gap-4 px-12 py-6"
+      contentClassName="flex flex-col items-center gap-6 px-12 py-6"
     >
       <div className="flex flex-col items-center">
-        <h2 className="text-2xl font-bold">Projects</h2>
-        <p>not all projects are listed (e.g. the one where you are right now !!!) ~</p>
+        <h2 className="text-2xl font-bold mb-2">Projects</h2>
+        <p>not all projects are listed here (e.g. the one where you are right now !!!) ~</p>
+        <p>see my <span
+          className="text-accent-foreground underline"
+          onClick={() => window.open("https://github.com/CheapNightbot?tab=repositories", "_blank")}
+        >
+          github
+        </span> profile for a list of all (excluding private) projects !</p>
       </div>
       <ScrollArea scrollbarVisible={false} className="overflow-scroll">
         <ItemGroup className="gap-4">
@@ -57,7 +63,7 @@ export default function Projects({
                   <ItemDescription className="text-foreground">
                     {project.description}
                   </ItemDescription>
-                  <ItemFooter className="justify-start select-none">
+                  <ItemFooter className="justify-start select-none py-0.5">
                     {project.techStack.map(name => (
                       <p className="rounded px-2 bg-accent text-accent-foreground shadow">
                         {name}
