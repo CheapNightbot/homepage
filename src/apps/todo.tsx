@@ -25,7 +25,10 @@ export default function Todo({
 }: AppProps) {
     const [todoInput, setTodoInput] = useState("");
     const [inputVisible, setInputVisible] = useState(false);
-    const [todoList, setTodoList] = useState<TodoItem[]>([]);
+    const [todoList, setTodoList] = useState<TodoItem[]>(() => {
+        const todoDB = localStorage.getItem('todoDB');
+        return todoDB ? JSON.parse(todoDB) : [];
+    });
     // const uniqueCreationDates = todoList.
 
     const [hoverId, setHoverId] = useState<string | null>(null);
@@ -36,14 +39,7 @@ export default function Todo({
     const todoInputRef = useRef<HTMLInputElement>(null);
 
     useEffect(() => {
-        const todoDB = localStorage.getItem('todoDB');
-        if (todoDB) setTodoList(JSON.parse(todoDB));
-    }, []);
-
-    useEffect(() => {
-        if (todoList) {
-            localStorage.setItem('todoDB', JSON.stringify(todoList));
-        }
+        localStorage.setItem('todoDB', JSON.stringify(todoList));
     }, [todoList]);
 
     const handleTodoInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
