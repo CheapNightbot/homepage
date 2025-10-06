@@ -14,18 +14,10 @@ export const useWMContext = () => {
 }
 
 export const WMProvider = ({ children }: { children: React.ReactNode }) => {
-    const [windows, setWindows] = useState<WindowState[]>([]);
-
-    useEffect(() => {
+    const [windows, setWindows] = useState<WindowState[]>(() => {
         const storedWindows = localStorage.getItem('windows');
-        if (storedWindows) {
-            try {
-                setWindows(JSON.parse(storedWindows));
-            } catch {
-                setWindows([]);
-            }
-        }
-    }, []);
+        return storedWindows ? JSON.parse(storedWindows) : [];
+    });
 
     useEffect(() => {
         localStorage.setItem('windows', JSON.stringify(windows));
@@ -90,7 +82,7 @@ export const WMProvider = ({ children }: { children: React.ReactNode }) => {
     };
 
     const maximizeWindow = (id: string) => {
-        setWindows(prev => prev.map(w => w.id === id ? { ...w, maximized: true, focused: true} : w));
+        setWindows(prev => prev.map(w => w.id === id ? { ...w, maximized: true, focused: true } : w));
     };
 
     const restoreWindow = (id: string) => {

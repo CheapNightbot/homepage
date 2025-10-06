@@ -24,19 +24,11 @@ export const WallpaperProvider = ({ children }: { children: React.ReactNode }) =
         dir + '1.jpg',
         dir + '2.jpg',
     ];
-    const [currentWallpaper, setCurrentWallpaper] = useState("");
-    const [changingWallpaper, setChangingWallpaper] = useState(false);
-
-    useEffect(() => {
+    const [currentWallpaper, setCurrentWallpaper] = useState(() => {
         const wallpaper = localStorage.getItem('wallpaper');
-        if (wallpaper && wallpapers.includes(wallpaper)) {
-            setCurrentWallpaper(wallpaper);
-        } else {
-            const defaultWallpaper = wallpapers[0];
-            setCurrentWallpaper(defaultWallpaper);
-            localStorage.setItem('wallpaper', defaultWallpaper);
-        }
-    }, []);
+        return wallpaper ? wallpaper : wallpapers[0];
+    });
+    const [changingWallpaper, setChangingWallpaper] = useState(false);
 
     useEffect(() => {
         if (currentWallpaper) {
