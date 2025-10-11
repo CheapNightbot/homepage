@@ -5,6 +5,8 @@ interface WallpaperManagerType {
     currentWallpaper: string;
     changingWallpaper: boolean;
     changeWallpaper: (wallpaper: string) => void;
+    defaultWallpaper: () => void;
+    noWallpaper: () => void;
 }
 
 const WallpaperManager = createContext<WallpaperManagerType | undefined>(undefined);
@@ -45,11 +47,25 @@ export const WallpaperProvider = ({ children }: { children: React.ReactNode }) =
         setTimeout(() => setChangingWallpaper(false), 1200);
     }
 
+    const defaultWallpaper = () => {
+        setChangingWallpaper(true);
+        setCurrentWallpaper(wallpapers[0]);
+        setTimeout(() => setChangingWallpaper(false), 1200);
+    }
+
+    const noWallpaper = () => {
+        setChangingWallpaper(true);
+        setCurrentWallpaper("#");
+        setTimeout(() => setChangingWallpaper(false), 1200);
+    }
+
     const value = {
         wallpapers,
         currentWallpaper,
         changingWallpaper,
-        changeWallpaper
+        changeWallpaper,
+        defaultWallpaper,
+        noWallpaper
     }
 
     return (

@@ -1,10 +1,12 @@
 import { Button } from "@/components/ui/button";
+import { useWallpaperManager } from "@/contexts/WallpaperManager";
 import { cn } from "@/lib/utils";
 import { Expand, Shrink } from "lucide-react";
 import { useEffect, useState } from "react";
 
 export function FullScreenToggle() {
     const [isFullscreen, setIsFullscreen] = useState(false);
+    const { currentWallpaper } = useWallpaperManager();
 
     const handleToggleFullscreen = () => {
         if (isFullscreen) {
@@ -30,7 +32,11 @@ export function FullScreenToggle() {
             onClick={handleToggleFullscreen}
             variant="default"
             size="icon"
-            className={cn("text-white/85 hover:text-white !bg-transparent w-fit h-fit", isFullscreen ? "active:scale-95" : "active:scale-105")}>
+            className={cn(
+                "!bg-transparent w-fit h-fit",
+                isFullscreen ? "active:scale-95" : "active:scale-105",
+                currentWallpaper === '#' ? 'text-foreground/85 hover:text-foreground' : 'text-white/85 hover:text-white'
+            )}>
             {
                 isFullscreen ? <Shrink className="transition-all" /> : <Expand className="transition-all" />
             }

@@ -1,4 +1,5 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import Window from "@/components/window";
 import { useWallpaperManager } from "@/contexts/WallpaperManager";
@@ -9,10 +10,16 @@ export default function Wallpepper({
     windowId,
     title = "Wallpaper Manager",
     width = 700,
-    height = 600,
+    height = 640,
     className = ""
 }: AppProps) {
-    const { wallpapers, currentWallpaper, changeWallpaper } = useWallpaperManager();
+    const {
+        wallpapers,
+        currentWallpaper,
+        changeWallpaper,
+        defaultWallpaper,
+        noWallpaper
+    } = useWallpaperManager();
 
     return (
         <Window
@@ -25,13 +32,24 @@ export default function Wallpepper({
             contentClassName="flex flex-col items-center justify-center gap-4 p-10"
         >
             <section className="flex flex-col items-center gap-6">
-                <Avatar className="rounded-md w-sm h-65 border-2 border-primary relative shadow">
-                    <AvatarImage src={currentWallpaper} className="animate-in fade-in duration-700 ease-in-out" />
-                    <AvatarFallback className="size-full rounded-md">
-                        <Skeleton className="size-full" />
-                    </AvatarFallback>
-                    <CircleCheck className="absolute text-green-300 bottom-0 right-0 -translate-1/4 rounded-full" />
-                </Avatar>
+                <div className="grid grid-cols-2 gap-4">
+                    <Button onClick={defaultWallpaper}>
+                        Default Wallpaper
+                    </Button>
+                    <Button onClick={noWallpaper} variant="destructive">
+                        No Wallpaper
+                    </Button>
+                </div>
+
+                {currentWallpaper && currentWallpaper !== "#" &&
+                    <Avatar className="rounded-md w-sm h-65 border-2 border-primary relative shadow">
+                        <AvatarImage src={currentWallpaper} className="animate-in fade-in duration-700 ease-in-out" />
+                        <AvatarFallback className="size-full rounded-md">
+                            <Skeleton className="size-full" />
+                        </AvatarFallback>
+                        <CircleCheck className="absolute text-green-300 bottom-0 right-0 -translate-1/4 rounded-full" />
+                    </Avatar>
+                }
 
                 <div className="grid grid-cols-2 gap-6">
                     {wallpapers.filter(wallpaper => wallpaper !== currentWallpaper).map(wallpaper => {
