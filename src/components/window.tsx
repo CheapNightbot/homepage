@@ -5,6 +5,7 @@ import {
     ContextMenuItem,
     ContextMenuTrigger,
 } from "@/components/ui/context-menu";
+import { useWallpaperManager } from '@/contexts/WallpaperManager';
 import { useWMContext } from "@/contexts/WindowManager";
 import { cn } from '@/lib/utils';
 import { Circle, FileCode, Minus, Plus, SquareArrowOutUpRight, X } from 'lucide-react';
@@ -46,6 +47,8 @@ function Window({
         focusWindow,
         windows,
     } = useWMContext();
+
+    const { currentWallpaper } = useWallpaperManager();
 
     // Get the current window's state from the context
     const windowState = windows.find(w => w.id === windowId);
@@ -121,6 +124,7 @@ function Window({
                     'overflow-clip flex flex-col rounded-2xl',
                     allowTransitions && 'transition-all duration-300 ease-in-out',
                     isFocused && 'z-10',
+                    currentWallpaper === "#" && 'border',
                     className
                 )}
                 default={{
@@ -157,7 +161,7 @@ function Window({
                     onContextMenu={(uwu) => uwu.preventDefault()}
                     onDoubleClick={handleMaximize}
                     className={cn(
-                        'nav-bar bg-card px-4 h-8 flex justify-between items-center select-none gap-2',
+                        'border-b-2 rounded-t-2xl nav-bar bg-card px-4 h-8 flex justify-between items-center select-none gap-2',
                         !isFocused && 'saturate-50'
                     )}
                 >
