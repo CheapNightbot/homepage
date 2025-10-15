@@ -13,8 +13,7 @@ import {
     NotebookPenIcon,
     NotepadTextIcon,
     TerminalIcon,
-    UserIcon,
-    UsersIcon
+    UserIcon
 } from "lucide-react";
 import { toast } from "sonner";
 
@@ -56,7 +55,6 @@ function Shelf() {
         { name: "Projects", icon: FolderCodeIcon },
         { name: "Blog", icon: NotebookPenIcon },
         { name: "Journal", icon: NotepadTextIcon },
-        { name: "Friends", icon: UsersIcon },
         { name: "Terminal", icon: TerminalIcon },
         { name: "Contact", icon: MessageCircleIcon },
         { name: "Todo", icon: ListTodoIcon },
