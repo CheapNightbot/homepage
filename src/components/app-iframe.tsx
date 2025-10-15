@@ -16,15 +16,19 @@ function AppIframe({ src }: { src: string }) {
     useEffect(() => {
         if (loadingIframe) {
             const intervalId = setInterval(() => {
-                setProgress((prev) => (prev < 90 ? prev + 10 : prev));
-            }, 100);
+                setProgress((prev) => {
+                    if (prev < 50) return prev + 1.5;
+                    else if (prev < 90) return prev + 0.1;
+                    else return prev;
+                });
+            }, 20);
             return () => clearInterval(intervalId);
         }
     }, [loadingIframe]);
 
     const handleLoad = () => {
         setProgress(100);
-        setTimeout(() => setLoadingIframe(false), 500);
+        setTimeout(() => setLoadingIframe(false), 200);
     }
 
     return (
