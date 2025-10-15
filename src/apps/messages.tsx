@@ -8,7 +8,6 @@ export default function About({
     height,
     className = "",
 }: AppProps) {
-
     return (
         <Window
             windowId={windowId}
@@ -18,7 +17,6 @@ export default function About({
             className={className}
             contentClassName="flex flex-col items-center gap-4 p-12"
         >
-            NOT FINSIH ~
         </Window>
     );
 }

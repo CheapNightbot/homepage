@@ -56,7 +56,7 @@ function Shelf() {
         { name: "Blog", icon: NotebookPenIcon },
         { name: "Journal", icon: NotepadTextIcon },
         { name: "Terminal", icon: TerminalIcon },
-        { name: "Contact", icon: MessageCircleIcon },
+        { name: "Messages", icon: MessageCircleIcon },
         { name: "Todo", icon: ListTodoIcon },
     ];
 
