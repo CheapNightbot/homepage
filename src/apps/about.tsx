@@ -1,4 +1,4 @@
-import { Bluesky, Discord, Github, Mastodon, TwitterX } from "@/components/icons";
+import { Bluesky, Discord, Github, Mastodon, TwitterX, YouTube } from "@/components/icons";
 import ProfileAvatar from "@/components/profile-avatar";
 import { Button } from "@/components/ui/button";
 import Window from "@/components/window";
@@ -46,6 +46,10 @@ export default function About({
                         </Button>
                         <Button onClick={() => window.open("https://x.com/CheapNightbot", "_blank")} variant="ghost" size="icon" className="active:scale-95 bg-transparent">
                             <TwitterX />
+                            <small className="sr-only">X (Formerly Twitter)</small>
+                        </Button>
+                        <Button onClick={() => window.open("https://youtube.com/@CheapNightbot", "_blank")} variant="ghost" size="icon" className="active:scale-95 bg-transparent">
+                            <YouTube />
                             <small className="sr-only">X (Formerly Twitter)</small>
                         </Button>
                     </div>
