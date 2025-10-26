@@ -2,6 +2,8 @@
 
 my personal website. it will contain blog, journal and portfolio.
 
+<img width="740" height="460" alt="Screenshot of version 0 home page" src="https://github.com/user-attachments/assets/03b219c6-f9d4-4bc3-b611-54d7638a3edb" />
+
 ## Tech Stack
 
 - [Astro](https://astro.build/) 🚀️
