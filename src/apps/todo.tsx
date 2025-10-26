@@ -5,7 +5,7 @@ import { Separator } from "@/components/ui/separator";
 import Window from "@/components/window";
 import { cn } from "@/lib/utils";
 import type { AppProps } from "@/types/app";
-import { Plus, PlusIcon, Square, SquareCheckBig, Trash2 } from "lucide-react";
+import { BadgeInfo, Plus, PlusIcon, Square, SquareCheckBig, Trash2 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import { v4 as uuidv4 } from 'uuid';
@@ -212,6 +212,12 @@ export default function Todo({
                         icon below to add something ~
                     </p>
                 </div>
+            }
+            {todoList.length > 0
+                &&
+                <small className="inline-flex px-2 items-center justify-center gap-1 text-card-foreground animate-in blur-in duration-500">
+                    <BadgeInfo size={16} /> You can double click on a todo to edit it!
+                </small>
             }
             <Button
                 onClick={handleNewTodoBtnClick}
