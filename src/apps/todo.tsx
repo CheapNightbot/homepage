@@ -34,10 +34,10 @@ export default function Todo({
 
     const [hoverId, setHoverId] = useState<string | null>(null);
     const [editingId, setEditingId] = useState<string | null>(null);
-    const [editText, setEditText] = useState("");
     const [deletingId, setDeletingId] = useState<string | null>(null);
 
     const todoInputRef = useRef<HTMLInputElement>(null);
+    const originalContentRef = useRef<string>("");
 
     useEffect(() => {
         localStorage.setItem('todoDB', JSON.stringify(todoList));
@@ -78,16 +78,6 @@ export default function Todo({
         setTodoInput("");
     }
 
-    const handleUpdateTodo = (todoID: string) => {
-        setTodoList(prev =>
-            prev.map(todo =>
-                todo.id === todoID
-                    ? { ...todo, content: editText }
-                    : todo
-            )
-        );
-    }
-
     const toggleTodoComplete = (todoID: string) => {
         setTodoList(prev =>
             prev.map(todo =>
@@ -107,6 +97,34 @@ export default function Todo({
             }
         }, 300);
     };
+
+    const startEditing = (todo: TodoItem, el: HTMLElement) => {
+        setEditingId(todo.id);
+        originalContentRef.current = todo.content;
+        el.contentEditable = "true";
+        el.focus();
+    };
+
+    const commitEdit = (todoID: string, el: HTMLElement) => {
+        const newContent = el.innerText.trim();
+
+        // Validate new content
+        if (newContent.length === 0) {
+            // Empty, restore the original value
+            el.innerText = originalContentRef.current;
+        } else if (newContent !== originalContentRef.current) {
+            setTodoList(prev =>
+                prev.map(todo =>
+                    todo.id === todoID
+                        ? { ...todo, content: newContent }
+                        : todo
+                )
+            );
+        }
+
+        el.contentEditable = "false";
+        setEditingId(null);
+    }
 
     return (
         <Window
@@ -154,32 +172,24 @@ export default function Todo({
                                         : <Square onClick={() => toggleTodoComplete(todo.id)} size={18} />
                                     }
                                     <span
+                                        role="textbox"
+                                        aria-multiline="false"
+                                        className="flex-1"
+                                        onDoubleClick={(e) => startEditing(todo, e.currentTarget)}
                                         onBlur={(e) => {
-                                            const target = e.currentTarget;
-                                            setEditingId(null);
-                                            handleUpdateTodo(todo.id)
-                                            target.contentEditable = "false";
-                                        }}
-                                        onDoubleClick={(e) => {
-                                            const target = e.currentTarget;
-                                            setEditingId(todo.id);
-                                            setEditText(todo.content);
-                                            target.contentEditable = "true";
-                                            target.focus();
+                                            if (editingId === todo.id) {
+                                                commitEdit(todo.id, e.currentTarget);
+                                            }
                                         }}
                                         onKeyDown={(e) => {
                                             if (e.key === "Enter") {
                                                 e.preventDefault();
-                                                const target = e.currentTarget;
-                                                setEditingId(null);
-                                                handleUpdateTodo(todo.id)
-                                                target.contentEditable = "false";
+                                                commitEdit(todo.id, e.currentTarget);
                                             }
                                         }}
-                                        className="flex-1"
                                         suppressContentEditableWarning={true}
                                     >
-                                        {editingId === todo.id ? editText : todo.content}
+                                        {todo.content}
                                     </span>
                                     <Trash2
                                         size={26}
