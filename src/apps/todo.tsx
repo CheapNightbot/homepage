@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 import type { AppProps } from "@/types/app";
 import { Plus, PlusIcon, Square, SquareCheckBig, Trash2 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import { toast } from "sonner";
 import { v4 as uuidv4 } from 'uuid';
 
 interface TodoItem {
@@ -69,6 +70,9 @@ export default function Todo({
                 },
                 ...prev,
             ]);
+        } else {
+            toast.error("Todo item can not be empty!");
+            return;
         }
         setInputVisible(!inputVisible);
         setTodoInput("");
@@ -140,7 +144,7 @@ export default function Todo({
                                     key={todo.id}
                                     className={cn(
                                         "flex gap-2 items-center animate-in fade-in zoom-in-95 duration-300 ease-in-out transition-colors pl-2 pr-0.5 py-0.5 rounded",
-                                        todo.status === "done" && "line-through text-primary",
+                                        todo.status === "done" && editingId !== todo.id ? "line-through text-primary" : "",
                                         hoverId === todo.id && "text-destructive bg-accent/50",
                                         deletingId === todo.id && "animate-out slide-out-to-left ease-out duration-300"
                                     )}
