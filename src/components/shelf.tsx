@@ -9,7 +9,6 @@ import { useWMContext } from "@/contexts/WindowManager";
 import {
     FolderCodeIcon,
     ListTodoIcon,
-    MessageCircleIcon,
     NotebookPenIcon,
     NotepadTextIcon,
     TerminalIcon,
@@ -56,7 +55,6 @@ function Shelf() {
         { name: "Blog", icon: NotebookPenIcon },
         { name: "Journal", icon: NotepadTextIcon },
         { name: "Terminal", icon: TerminalIcon },
-        { name: "Messages", icon: MessageCircleIcon },
         { name: "Todo", icon: ListTodoIcon },
     ];
 
