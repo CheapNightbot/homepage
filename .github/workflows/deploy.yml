@@ -1,0 +1,58 @@
+name: Build and Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: 'pages'
+  cancel-in-progress: true
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout homepage repo
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@6044e13b5dc448c55e2357c09f80417699197238 # v6.2.0
+        with:
+          node-version: lts/*
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Checkout GitHub Pages repo
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          repository: CheapNightbot/cheapnightbot.github.io
+          token: ${{ secrets.TOKEN_GITHUB_PAGES }}
+          path: deploy
+
+      - name: Copy built files to deploy directory
+        run: |
+          rm -rf deploy/*
+          cp -r dist/* deploy/
+          cp dist/.* deploy/ 2>/dev/null || true
+
+      - name: Commit and push to GitHub Pages repo
+        working-directory: deploy
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add -A
+          git commit -m "Deploy from homepage: $(date)" || echo "No changes to commit"
+          git push

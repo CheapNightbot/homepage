@@ -10,4 +10,4 @@ my personal website ando homepage !!!
 - Typescript
 - Shadcn UI
 - Tailwindcss
-- Cloudflare Workers
+- GitHub Pages
