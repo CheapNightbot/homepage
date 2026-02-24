@@ -215,6 +215,14 @@ body {
   animation-fill-mode: forwards;
 }
 
+.link {
+  @apply transition-all duration-200 ease-in-out;
+}
+
+.link:hover {
+  @apply bg-accent-foreground text-accent no-underline p-1 rounded-sm;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50 scrollbar-none selection:bg-[#F7A8B8] selection:text-white scroll-smooth;
