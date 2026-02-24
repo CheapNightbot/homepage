@@ -1,4 +1,4 @@
-import { Bluesky, Discord, Github, Mastodon, TwitterX, YouTube } from "@/components/icons";
+import { Bluesky, Discord, Github, TwitterX } from "@/components/icons";
 import ProfileAvatar from "@/components/profile-avatar";
 import { Button } from "@/components/ui/button";
 import Window from "@/components/window";
@@ -26,7 +26,7 @@ export default function About({
                 <ProfileAvatar />
                 <div className="flex-1 flex flex-col items-center">
                     <p>yoho, me a boiled potato ~</p>
-                    <h2 className="text-3xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-fuchsia-400  dark:from-[#92a4ff] dark:to-[#ffa9d3]">Cheap Nightbot</h2>
+                    <h2 className="text-3xl font-semibold text-transparent bg-clip-text bg-linear-to-r from-indigo-500 to-fuchsia-400  dark:from-[#92a4ff] dark:to-[#ffa9d3]">Cheap Nightbot</h2>
                     <div>
                         <Button onClick={() => window.open("https://bsky.app/profile/cheapnightbot.me", "_blank")} variant="ghost" size="icon" className="active:scale-95 bg-transparent">
                             <Bluesky />
@@ -40,16 +40,8 @@ export default function About({
                             <Github />
                             <small className="sr-only">GitHub</small>
                         </Button>
-                        <Button onClick={() => window.open("https://mastodon.social/@CheapNightbot", "_blank")} variant="ghost" size="icon" className="active:scale-95 bg-transparent">
-                            <Mastodon />
-                            <small className="sr-only">Mastodon</small>
-                        </Button>
                         <Button onClick={() => window.open("https://x.com/CheapNightbot", "_blank")} variant="ghost" size="icon" className="active:scale-95 bg-transparent">
                             <TwitterX />
-                            <small className="sr-only">X (Formerly Twitter)</small>
-                        </Button>
-                        <Button onClick={() => window.open("https://youtube.com/@CheapNightbot", "_blank")} variant="ghost" size="icon" className="active:scale-95 bg-transparent">
-                            <YouTube />
                             <small className="sr-only">X (Formerly Twitter)</small>
                         </Button>
                     </div>
