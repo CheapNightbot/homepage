@@ -33,13 +33,12 @@ export default function Projects({
       contentClassName="flex flex-col items-center gap-6 px-12 py-6"
     >
       <div className="flex flex-col items-center">
-        <h2 className="text-2xl font-bold mb-2">Projects</h2>
         <p>not all projects are listed here (e.g. the one where you are right now !!!) ~</p>
         <p>see my <span
-          className="text-accent-foreground underline"
+          className="text-accent-foreground underline link"
           onClick={() => window.open("https://github.com/CheapNightbot?tab=repositories", "_blank")}
         >
-          github
+          GitHub
         </span> profile for a list of all (excluding private) projects !</p>
       </div>
       <ScrollArea scrollbarVisible={false} className="overflow-scroll">
@@ -72,8 +71,8 @@ export default function Projects({
                   </ItemFooter>
                 </ItemContent>
                 <ItemContent className="gap-2">
-                  <ExternalLink className="active:scale-90" onClick={() => window.open(project.live, "_blank")} />
-                  <Github className="active:scale-90" onClick={() => window.open(project.github, "_blank")} />
+                  <ExternalLink className="hover:scale-105 active:scale-90 transition-all duration-200 ease-in-out" onClick={() => window.open(project.live, "_blank")} />
+                  <Github className="hover:scale-105 active:scale-90 transition-all duration-200 ease-in-out" onClick={() => window.open(project.github, "_blank")} />
                 </ItemContent>
               </div>
             </Item>

@@ -1,4 +1,5 @@
 import calculator from "@/assets/imgs/projects/calculator.svg";
+import shortiepy from "@/assets/imgs/projects/shortiepy.svg";
 import sos from "@/assets/imgs/projects/sos.svg";
 import yutify from "@/assets/imgs/projects/yutify.svg";
 import yutipy from "@/assets/imgs/projects/yutipy.svg";
@@ -25,6 +26,19 @@ export const projects: ProjectsList[] = [
     image: calculator,
     github: "https://github.com/CheapNightbot/calc",
     live: "#"
+  },
+  {
+    id: "d0862ec0-db73-560e-94de-4e549b3bd3bf",
+    name: "shortiepy",
+    description: "Your local URL shortener (˶˘ ³˘)♡",
+    techStack: [
+      "Python",
+      "Flask",
+      "SQLite",
+    ],
+    image: shortiepy,
+    github: "https://github.com/CheapNightbot/shortiepy",
+    live: "https://pypi.org/project/shortiepy"
   },
   {
     id: "9644fe7a-9534-5306-af3a-8b366ac5b4f7",
@@ -54,7 +68,7 @@ export const projects: ProjectsList[] = [
     ],
     image: yutify,
     github: "https://github.com/CheapNightbot/yutify",
-    live: "https://yutify.cheapnightbot.me"
+    live: "#"
   },
   {
     id: "d0862ec0-db73-560e-94de-4e549b3bd3bf",
