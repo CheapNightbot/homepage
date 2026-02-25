@@ -1,8 +1,10 @@
 import calculator from "@/assets/imgs/projects/calculator.svg";
 import shortiepy from "@/assets/imgs/projects/shortiepy.svg";
 import sos from "@/assets/imgs/projects/sos.svg";
+import window from "@/assets/imgs/projects/window.svg";
 import yutify from "@/assets/imgs/projects/yutify.svg";
 import yutipy from "@/assets/imgs/projects/yutipy.svg";
+import homepage from "@/assets/imgs/ポテト.svg";
 
 export interface ProjectsList {
   id: string;
@@ -16,7 +18,7 @@ export interface ProjectsList {
 
 export const projects: ProjectsList[] = [
   {
-    id: "70fe6cd1-fa0d-5613-b7fa-7c4e93a4be3c",
+    id: "ZmDaeYiD",
     name: "Cheap Calculator ~",
     description: "A simple and stumid command-line calculator to perform basic arithmetic operations such as addition, subtraction, multiplication, and division. ♡(>ᴗ•)",
     techStack: [
@@ -28,7 +30,34 @@ export const projects: ProjectsList[] = [
     live: "#"
   },
   {
-    id: "d0862ec0-db73-560e-94de-4e549b3bd3bf",
+    id: "Z0z5rfjF",
+    name: "Doors-11",
+    description: "i created better operating system, except it doesn't work... :)",
+    techStack: [
+      "HTML",
+      "CSS",
+      "JavaScript"
+    ],
+    image: window,
+    github: "https://github.com/CheapNightbot/Doors-11",
+    live: "https://cheapnightbot.github.io/Doors-11"
+  },
+  {
+    id: "aR9Vaait",
+    name: "homepage",
+    description: "my personal website ando homepage !!! (this one you are currently on) ~",
+    techStack: [
+      "TypeScript",
+      "React",
+      "Tailwindcss",
+      "Vite"
+    ],
+    image: homepage,
+    github: "https://github.com/CheapNightbot/homepage",
+    live: "https://cheapnightbot.github.io"
+  },
+  {
+    id: "_nrkhltH",
     name: "shortiepy",
     description: "Your local URL shortener (˶˘ ³˘)♡",
     techStack: [
@@ -41,23 +70,22 @@ export const projects: ProjectsList[] = [
     live: "https://pypi.org/project/shortiepy"
   },
   {
-    id: "9644fe7a-9534-5306-af3a-8b366ac5b4f7",
+    id: "VnPflCXp",
     name: "soulofswords",
     description: "Static Website for VTuber 'soulofswords' aka SOS.",
     techStack: [
-      "HTML",
-      "CSS",
       "Tailwindcss",
-      "JavaScript",
+      "TypeScript",
       "Svelte",
       "Sveltekit",
+      "Vite"
     ],
     image: sos,
     github: "https://github.com/CheapNightbot/soulofswords",
     live: "https://soulofswords.github.io"
   },
   {
-    id: "ed7a6c09-3413-57bd-9c25-18fb72af3bda",
+    id: "Ku0WKl5O",
     name: "yutify",
     description: "Simple RESTful API and full-stack web application for retrieving music info, streaming links, and user activity from various platforms.",
     techStack: [
@@ -71,7 +99,7 @@ export const projects: ProjectsList[] = [
     live: "#"
   },
   {
-    id: "d0862ec0-db73-560e-94de-4e549b3bd3bf",
+    id: "9pReTTtc",
     name: "yutipy",
     description: "A simple Python package to interact with various music platforms APIs.",
     techStack: [

@@ -1,5 +1,5 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import CheapNightbot from "../assets/imgs/Cheap Nightbot.svg";
+import CheapNightbot from "../assets/imgs/ポテト.svg";
 import { useState } from "react";
 import { VenusMarsFlip } from "./VenusMarsFlip";
 

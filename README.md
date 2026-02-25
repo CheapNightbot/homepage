@@ -11,3 +11,11 @@ my personal website ando homepage !!!
 - Shadcn UI
 - Tailwindcss
 - GitHub Pages
+
+***
+
+Using this command for generating project IDs in `src/apps/projects/projects.ts`:
+
+```bash
+python -c "import secrets; print(secrets.token_urlsafe(6))"
+```

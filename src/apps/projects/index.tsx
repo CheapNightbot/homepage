@@ -33,13 +33,13 @@ export default function Projects({
       contentClassName="flex flex-col items-center gap-6 px-12 py-6"
     >
       <div className="flex flex-col items-center">
-        <p>not all projects are listed here (e.g. the one where you are right now !!!) ~</p>
-        <p>see my <span
-          className="text-accent-foreground underline link"
-          onClick={() => window.open("https://github.com/CheapNightbot?tab=repositories", "_blank")}
-        >
-          GitHub
-        </span> profile for a list of all (excluding private) projects !</p>
+        <p>not all projects are listed here ~
+          see my <span
+            className="text-accent-foreground underline link"
+            onClick={() => window.open("https://github.com/CheapNightbot?tab=repositories", "_blank")}
+          >
+            GitHub
+          </span> profile for a list of all (excluding private) projects !</p>
       </div>
       <ScrollArea scrollbarVisible={false} className="overflow-scroll">
         <ItemGroup className="gap-4">
@@ -64,7 +64,7 @@ export default function Projects({
                   </ItemDescription>
                   <ItemFooter className="justify-start select-none py-0.5">
                     {project.techStack.map(name => (
-                      <p className="rounded px-2 bg-accent text-accent-foreground shadow">
+                      <p className="rounded px-2 bg-accent text-accent-foreground shadow hover:shadow-xl transition-all duration-200 ease-in-out" key={name}>
                         {name}
                       </p>
                     ))}
