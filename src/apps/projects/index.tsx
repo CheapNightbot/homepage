@@ -1,4 +1,5 @@
 import { Github } from "@/components/icons";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   Item,
   ItemContent,
@@ -8,12 +9,13 @@ import {
   ItemMedia,
   ItemTitle,
 } from "@/components/ui/item";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Skeleton } from "@/components/ui/skeleton";
 import Window from "@/components/window";
 import type { AppProps } from "@/types/app";
 import { ExternalLink } from "lucide-react";
 import type { ProjectsList } from "./projects";
 import { projects } from "./projects";
-import { ScrollArea } from "@/components/ui/scroll-area";
 
 export default function Projects({
   windowId,
@@ -47,13 +49,10 @@ export default function Projects({
             <Item key={project.id} variant="outline" asChild role="listitem" className="bg-secondary/40 text-secondary-foreground rounded-lg">
               <div>
                 <ItemMedia variant="image" className="pointer-events-none select-none">
-                  <img
-                    src={project.image}
-                    alt={project.name}
-                    width={32}
-                    height={32}
-                    className="object-cover"
-                  />
+                  <Avatar className="rounded-md">
+                    <AvatarImage src={project.image} alt={project.name} />
+                    <AvatarFallback className="rounded-md animate-pulse"><Skeleton /></AvatarFallback>
+                  </Avatar>
                 </ItemMedia>
                 <ItemContent>
                   <ItemTitle className="line-clamp-1 font-semibold text-lg">
