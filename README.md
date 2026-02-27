@@ -30,7 +30,7 @@ deno i
 deno task dev
 ```
 
-- Using this command for generating project IDs in `src/apps/projects/projects.ts`:
+- Use this command for generating project IDs in `src/apps/projects/projects.ts`:
 
 ```bash
 python -c "import secrets; print(secrets.token_urlsafe(6))"
