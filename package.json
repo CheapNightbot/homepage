@@ -40,7 +40,7 @@
 		"vaul": "^1.1.2"
 	},
 	"devDependencies": {
-		"@eslint/js": "^9.32.0",
+		"@eslint/js": "^10.0.1",
 		"@types/node": "^25.3.0",
 		"@types/react": "^19.1.9",
 		"@types/react-dom": "^19.1.7",
