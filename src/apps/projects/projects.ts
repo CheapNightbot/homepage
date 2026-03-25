@@ -1,4 +1,5 @@
 import calculator from "@/assets/imgs/projects/calculator.svg";
+import quiz_app from "@/assets/imgs/projects/quiz-app.svg";
 import shortiepy from "@/assets/imgs/projects/shortiepy.svg";
 import sos from "@/assets/imgs/projects/sos.svg";
 import window from "@/assets/imgs/projects/window.svg";
@@ -55,6 +56,20 @@ export const projects: ProjectsList[] = [
     image: homepage,
     github: "https://github.com/CheapNightbot/homepage",
     live: "https://cheapnightbot.github.io"
+  },
+  {
+    id: "RZa_GIOa",
+    name: "Quiz App",
+    description: "A fun and interactive quiz buit with React. Made for learning & fun, so might not be perfect. But me hope you enjoy it! ᓚ₍⑅^..^₎♡",
+    techStack: [
+      "TypeScript",
+      "React",
+      "Vite",
+      "Deno"
+    ],
+    image: quiz_app,
+    github: "https://github.com/CheapNightbot/quiz-app",
+    live: "https://cheapnightbot.github.io/quiz-app"
   },
   {
     id: "_nrkhltH",
