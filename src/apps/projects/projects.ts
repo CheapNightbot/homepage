@@ -1,4 +1,5 @@
 import calculator from "@/assets/imgs/projects/calculator.svg";
+import our_days from "@/assets/imgs/projects/our-days.svg";
 import quiz_app from "@/assets/imgs/projects/quiz-app.svg";
 import shortiepy from "@/assets/imgs/projects/shortiepy.svg";
 import sos from "@/assets/imgs/projects/sos.svg";
@@ -56,6 +57,22 @@ export const projects: ProjectsList[] = [
     image: homepage,
     github: "https://github.com/CheapNightbot/homepage",
     live: "https://cheapnightbot.github.io"
+  },
+  {
+    id: "uCTk9TFx",
+    name: "Our Days",
+    description: "A social mood tracking calendar where you can share your daily emotions with emojis. See how others feel, track your mood trends, and discover the collective vibe of each day!",
+    techStack: [
+      "React",
+      "Hono",
+      "TypeScript",
+      "TailwindCSS",
+      "Cloudflare Workers",
+      "Cloudflare D1"
+    ],
+    image: our_days,
+    github: "https://github.com/CheapNightbot/our-days",
+    live: "https://our-days.poteto-chan.workers.dev"
   },
   {
     id: "RZa_GIOa",
