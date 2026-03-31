@@ -1,4 +1,4 @@
-import { Bluesky, Discord, Github, TwitterX } from "@/components/icons";
+import { Discord, Github } from "@/components/icons";
 import ProfileAvatar from "@/components/profile-avatar";
 import { Button } from "@/components/ui/button";
 import Window from "@/components/window";
@@ -44,10 +44,8 @@ export default function About({
                     <p>yoho, me a boiled potato ~</p>
                     <h2 className="text-3xl font-semibold text-transparent bg-clip-text bg-linear-to-r from-indigo-500 to-fuchsia-400  dark:from-[#92a4ff] dark:to-[#ffa9d3]">{AUTHOR}</h2>
                     <div>
-                        <SocialButton url="https://bsky.app/profile/cheapnightbot.me" Icon={Bluesky} label="Bluesky" />
                         <SocialButton onClick={async () => await copyToClipboard("cheapnightbot", "Discord username copied to the clipboard!")} Icon={Discord} label="Discord" />
                         <SocialButton url="https://github.com/CheapNightbot" Icon={Github} label="GitHub" />
-                        <SocialButton url="https://x.com/CheapNightbot" Icon={TwitterX} label="X (Formerly Twitter)" />
                     </div>
                 </div>
             </section>
