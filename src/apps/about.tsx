@@ -38,16 +38,20 @@ export default function About({
             className={className}
             contentClassName="flex flex-col items-center gap-4 p-12"
         >
-            <section className="flex flex-col items-center gap-6">
+            <section className="flex flex-col items-center gap-6 h-full">
                 <ProfileAvatar />
                 <div className="flex-1 flex flex-col items-center">
                     <p>yoho, me a boiled potato ~</p>
-                    <h2 className="text-3xl font-semibold text-transparent bg-clip-text bg-linear-to-r from-indigo-500 to-fuchsia-400  dark:from-[#92a4ff] dark:to-[#ffa9d3]">{AUTHOR}</h2>
+                    <h2 className="text-3xl font-semibold text-transparent bg-clip-text bg-linear-to-r from-indigo-500 to-fuchsia-400  dark:from-[#92a4ff] dark:to-[#ffa9d3] mb-1">{AUTHOR}</h2>
                     <div>
                         <SocialButton onClick={async () => await copyToClipboard("cheapnightbot", "Discord username copied to the clipboard!")} Icon={Discord} label="Discord" />
                         <SocialButton url="https://github.com/CheapNightbot" Icon={Github} label="GitHub" />
                     </div>
                 </div>
+                <footer className="italic text-center">
+                    <p>Not sure what to write meow ~</p>
+                    <p>Feel free to be friends with me !! QwQ</p>
+                </footer>
             </section>
         </Window>
     );
