@@ -16,6 +16,7 @@ import { useEffect, useState } from "react";
 import { SOURCE_CODE } from "./constants.ts";
 import { useWallpaperManager, WallpaperProvider } from "./contexts/WallpaperManager";
 import { useWMContext, WMProvider } from "./contexts/WindowManager";
+import { TooltipProvider } from "@/components/ui/tooltip.tsx";
 
 function AppContent() {
     const { windows, openWindow } = useWMContext();
@@ -98,7 +99,9 @@ function App() {
         <ThemeProvider defaultTheme="dark" storageKey="potato-ui-theme">
             <WallpaperProvider>
                 <WMProvider>
+                  <TooltipProvider>
                     <AppContent />
+                  </TooltipProvider>
                 </WMProvider>
             </WallpaperProvider>
         </ThemeProvider>
