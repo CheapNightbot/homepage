@@ -1,4 +1,5 @@
 import { Discord, Github } from "@/components/icons";
+import { Gist } from "@/components/icons/gist";
 import ProfileAvatar from "@/components/profile-avatar";
 import { Button } from "@/components/ui/button";
 import Window from "@/components/window";
@@ -46,6 +47,7 @@ export default function About({
                     <div>
                         <SocialButton onClick={async () => await copyToClipboard("cheapnightbot", "Discord username copied to the clipboard!")} Icon={Discord} label="Discord" />
                         <SocialButton url="https://github.com/CheapNightbot" Icon={Github} label="GitHub" />
+                        <SocialButton url="https://gist.github.com/CheapNightbot" Icon={Gist} label="GitHub Gist" />
                     </div>
                 </div>
                 <footer className="italic text-center">
