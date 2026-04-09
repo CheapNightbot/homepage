@@ -145,9 +145,9 @@ export default function Todo({
                         ref={todoInputRef}
                         value={todoInput}
                         onChange={(e) => handleTodoInputChange(e)}
-                        className={cn("border-none focus-visible:ring-0 transition-all duration-500 ease-in-out",
+                        className={cn("focus-visible:ring-0 transition-all duration-500 ease-in-out",
                             inputVisible ? "animate-[enter_.15s_ease_0s_1_normal_forwards] slide-in-from-top" :
-                                "animate-[exit_.15s_ease_0s_1_normal_forwards] slide-out-to-top"
+                                "animate-[exit_.15s_ease_0s_1_normal_forwards] slide-out-to-top border-none invisible"
                         )}
                         placeholder="maybe buy potatoes ?"
                     />
