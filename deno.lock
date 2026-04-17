@@ -26,7 +26,7 @@
     "npm:eslint-plugin-react-refresh@~0.5.2": "0.5.2_eslint@10.0.2",
     "npm:eslint@^10.0.2": "10.0.2",
     "npm:globals@^17.3.0": "17.3.0",
-    "npm:lucide-react@0.577": "0.577.0_react@19.2.4",
+    "npm:lucide-react@^1.8.0": "1.8.0_react@19.2.4",
     "npm:next-themes@~0.4.6": "0.4.6_react@19.2.4_react-dom@19.2.4__react@19.2.4",
     "npm:react-day-picker@^9.9.0": "9.13.2_react@19.2.4",
     "npm:react-dom@^19.1.1": "19.2.4_react@19.2.4",
@@ -38,7 +38,7 @@
     "npm:tailwindcss@^4.1.12": "4.2.1",
     "npm:tw-animate-css@^1.3.7": "1.4.0",
     "npm:typescript-eslint@^8.39.0": "8.56.1_eslint@10.0.2_typescript@5.9.3_@typescript-eslint+parser@8.56.1__eslint@10.0.2__typescript@5.9.3",
-    "npm:typescript@~5.9.3": "5.9.3",
+    "npm:typescript@~6.0.2": "6.0.3",
     "npm:uuid@13": "13.0.0",
     "npm:vaul@^1.1.2": "1.1.2_react@19.2.4_react-dom@19.2.4__react@19.2.4_@types+react@19.2.14_@types+react-dom@19.2.3__@types+react@19.2.14",
     "npm:vite@8": "8.0.0_@types+node@25.3.0"
@@ -1161,7 +1161,7 @@
         "ignore@7.0.5",
         "natural-compare",
         "ts-api-utils",
-        "typescript"
+        "typescript@5.9.3"
       ]
     },
     "@typescript-eslint/parser@8.56.1_eslint@10.0.2_typescript@5.9.3": {
@@ -1173,7 +1173,7 @@
         "@typescript-eslint/visitor-keys",
         "debug",
         "eslint",
-        "typescript"
+        "typescript@5.9.3"
       ]
     },
     "@typescript-eslint/project-service@8.56.1_typescript@5.9.3": {
@@ -1182,7 +1182,7 @@
         "@typescript-eslint/tsconfig-utils",
         "@typescript-eslint/types",
         "debug",
-        "typescript"
+        "typescript@5.9.3"
       ]
     },
     "@typescript-eslint/scope-manager@8.56.1": {
@@ -1195,7 +1195,7 @@
     "@typescript-eslint/tsconfig-utils@8.56.1_typescript@5.9.3": {
       "integrity": "sha512-qOtCYzKEeyr3aR9f28mPJqBty7+DBqsdd63eO0yyDwc6vgThj2UjWfJIcsFeSucYydqcuudMOprZ+x1SpF3ZuQ==",
       "dependencies": [
-        "typescript"
+        "typescript@5.9.3"
       ]
     },
     "@typescript-eslint/type-utils@8.56.1_eslint@10.0.2_typescript@5.9.3": {
@@ -1207,7 +1207,7 @@
         "debug",
         "eslint",
         "ts-api-utils",
-        "typescript"
+        "typescript@5.9.3"
       ]
     },
     "@typescript-eslint/types@8.56.1": {
@@ -1225,7 +1225,7 @@
         "semver@7.7.4",
         "tinyglobby",
         "ts-api-utils",
-        "typescript"
+        "typescript@5.9.3"
       ]
     },
     "@typescript-eslint/utils@8.56.1_eslint@10.0.2_typescript@5.9.3": {
@@ -1236,7 +1236,7 @@
         "@typescript-eslint/types",
         "@typescript-eslint/typescript-estree",
         "eslint",
-        "typescript"
+        "typescript@5.9.3"
       ]
     },
     "@typescript-eslint/visitor-keys@8.56.1": {
@@ -1760,8 +1760,8 @@
         "yallist"
       ]
     },
-    "lucide-react@0.577.0_react@19.2.4": {
-      "integrity": "sha512-4LjoFv2eEPwYDPg/CUdBJQSDfPyzXCRrVW1X7jrx/trgxnxkHFjnVZINbzvzxjN70dxychOfg+FTYwBiS3pQ5A==",
+    "lucide-react@1.8.0_react@19.2.4": {
+      "integrity": "sha512-WuvlsjngSk7TnTBJ1hsCy3ql9V9VOdcPkd3PKcSmM34vJD8KG6molxz7m7zbYFgICwsanQWmJ13JlYs4Zp7Arw==",
       "dependencies": [
         "react"
       ]
@@ -2034,7 +2034,7 @@
     "ts-api-utils@2.4.0_typescript@5.9.3": {
       "integrity": "sha512-3TaVTaAv2gTiMB35i3FiGJaRfwb3Pyn/j3m/bfAvGe8FB7CF6u+LMYqYlDh7reQf7UNvoTvdfAqHGmPGOSsPmA==",
       "dependencies": [
-        "typescript"
+        "typescript@5.9.3"
       ]
     },
     "tslib@2.6.2": {
@@ -2057,11 +2057,15 @@
         "@typescript-eslint/typescript-estree",
         "@typescript-eslint/utils",
         "eslint",
-        "typescript"
+        "typescript@5.9.3"
       ]
     },
     "typescript@5.9.3": {
       "integrity": "sha512-jl1vZzPDinLr9eUt3J/t7V6FgNEw9QjvBPdysz9KfQDD41fQrC2Y4vKQdiaUpFT4bXlb1RHhLpp8wtm6M5TgSw==",
+      "bin": true
+    },
+    "typescript@6.0.3": {
+      "integrity": "sha512-y2TvuxSZPDyQakkFRPZHKFm+KKVqIisdg9/CZwm9ftvKXLP8NRWj38/ODjNbr43SsoXqNuAisEf1GdCxqWcdBw==",
       "bin": true
     },
     "undici-types@7.18.2": {
@@ -2196,7 +2200,7 @@
         "npm:eslint-plugin-react-refresh@~0.5.2",
         "npm:eslint@^10.0.2",
         "npm:globals@^17.3.0",
-        "npm:lucide-react@0.577",
+        "npm:lucide-react@^1.8.0",
         "npm:next-themes@~0.4.6",
         "npm:react-day-picker@^9.9.0",
         "npm:react-dom@^19.1.1",
@@ -2208,7 +2212,7 @@
         "npm:tailwindcss@^4.1.12",
         "npm:tw-animate-css@^1.3.7",
         "npm:typescript-eslint@^8.39.0",
-        "npm:typescript@~5.9.3",
+        "npm:typescript@~6.0.2",
         "npm:uuid@13",
         "npm:vaul@^1.1.2",
         "npm:vite@8"
