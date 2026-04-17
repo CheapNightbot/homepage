@@ -51,14 +51,16 @@ export default function Todo({
         setInputVisible(!inputVisible);
 
         if (!inputVisible) {
-            todoInputRef.current?.focus();
+            setTimeout(() => {
+                todoInputRef.current?.focus();
+            }, 300);
         } else {
             todoInputRef.current?.blur();
             setTodoInput("");
         }
     }
 
-    const handleNewTodoSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleNewTodoSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (todoInput.length > 0) {
             setTodoList((prev) => [
