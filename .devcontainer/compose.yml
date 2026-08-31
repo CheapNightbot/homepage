@@ -1,0 +1,29 @@
+services:
+  app:
+    build:
+      context: ..
+      dockerfile: .devcontainer/Dockerfile
+    hostname: moe-dev
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    volumes:
+      # Mount project code
+      - ..:/workspace:cached,z
+      # Overlay a named volume on `node_modules` to prevent host writes
+      - node_modules:/workspace/node_modules
+    networks:
+      - devnet
+    # Uncomment below and add the ports you want.
+    # ports:
+    #   - "4321:4321"
+    environment:
+      DENO_DIR: "/home/moe/.cache/deno"
+
+networks:
+  devnet:
+    driver: bridge
+
+volumes:
+  node_modules:
