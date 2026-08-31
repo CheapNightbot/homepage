@@ -27,3 +27,6 @@ dist-ssr
 !.dev.vars.example
 .env*
 !.env.example
+
+.stignore
+.stfolder
