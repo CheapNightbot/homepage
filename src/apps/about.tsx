@@ -16,7 +16,7 @@ import {
 function SocialButton({ url, Icon, label, onClick }: { url?: string; Icon: React.ComponentType; label: string; onClick?: () => void }) {
   return (
     <Tooltip>
-      <TooltipTrigger>
+      <TooltipTrigger asChild>
         <Button
           className="active:scale-95 bg-transparent hover:scale-105 transition-all duration-200 ease-in-out"
           onClick={onClick || (() => window.open(url, "_blank", "noreferrer noopener"))}
