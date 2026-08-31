@@ -17,7 +17,9 @@
             // "Add to devcontainer.json" or select "Copy Extension ID" and pase here ~
             "extensions": [
                 "bradlc.vscode-tailwindcss",
-                "denoland.vscode-deno"
+                "denoland.vscode-deno",
+                "SonarSource.sonarlint-vscode",
+                "usernamehw.errorlens"
             ]
         }
     },
