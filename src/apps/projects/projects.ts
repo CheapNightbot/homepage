@@ -6,7 +6,6 @@ import sos from "@/assets/imgs/projects/sos.svg";
 import window from "@/assets/imgs/projects/window.svg";
 import yutify from "@/assets/imgs/projects/yutify.svg";
 import yutipy from "@/assets/imgs/projects/yutipy.svg";
-import homepage from "@/assets/imgs/ポテト.svg";
 
 export interface ProjectsList {
   id: string;
@@ -54,7 +53,7 @@ export const projects: ProjectsList[] = [
       "Tailwindcss",
       "Vite"
     ],
-    image: homepage,
+    image: "/pfp.jpeg",
     github: "https://github.com/CheapNightbot/homepage",
     live: "https://cheapnightbot.github.io"
   },
