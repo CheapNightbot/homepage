@@ -16,18 +16,31 @@ my personal website ando homepage !!!
 
 ## Development
 
-> Note: This project uses Deno for development. Please make sure you have Deno installed on your machine. However, you can also use node/npm for development if you prefer. Just make sure to change the commands accordingly. (e.g., `npm i` instead of `deno i`, and `npm run dev` instead of `deno task dev`)
+Requirements: Node.js 22.12 or later and pnpm 12.16.1.
 
 - Install dependencies:
 
 ```bash
-deno i
+pnpm install
 ```
 
 - Run development server:
 
 ```bash
-deno task dev
+pnpm dev
+```
+
+- Build and preview the production site:
+
+```bash
+pnpm build
+pnpm preview
+```
+
+- Run lint:
+
+```bash
+pnpm lint
 ```
 
 - Use this command for generating project IDs in `src/apps/projects/projects.ts`:

@@ -24,17 +24,15 @@ jobs:
       - name: Checkout homepage repo
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
-      - name: Setup Deno
-        uses: denoland/setup-deno@22d081ff2d3a40755e97629de92e3bcbfa7cf2ed # v2.0.5
+      - name: Setup pnpm
+        uses: pnpm/setup@fbda4c85fc2e1e08721cd8763afea8f48d60f024 # v3
         with:
-          deno-version: latest
+          version: ^12.0.0
           cache: true
-
-      - name: Install dependencies
-        run: deno install
+          require-lockfile: true
 
       - name: Build
-        run: deno task build
+        run: pnpm build
 
       - name: Checkout GitHub Pages repo
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
