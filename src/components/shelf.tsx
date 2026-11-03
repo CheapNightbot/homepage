@@ -5,20 +5,21 @@ import {
     TooltipContent,
     TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { useWMContext } from "@/contexts/WindowManager";
+import { useWMContext } from "@/contexts/WindowManagerContext";
 import {
     FolderCodeIcon,
     ListTodoIcon,
     NotebookPenIcon,
     NotepadTextIcon,
     TerminalIcon,
-    UserIcon
+    UserIcon,
+    type LucideIcon
 } from "lucide-react";
 import { toast } from "sonner";
 
 function App({ name, icon: Icon, isOpen, onClick }: {
     name: string,
-    icon: React.ComponentType<any>,
+    icon: LucideIcon,
     isOpen: boolean,
     onClick: () => void
 }) {
@@ -73,9 +74,11 @@ function Shelf() {
                     icon={app.icon}
                     isOpen={isWindowOpen(app.name)}
                     onClick={() => {
-                        AppList[app.name]
-                            ? handleAppClick(app.name)
-                            : toast.error("App is under-construction ~")
+                        if (AppList[app.name]) {
+                            handleAppClick(app.name);
+                        } else {
+                            toast.error("App is under-construction ~");
+                        }
                     }}
                 />
             ))}

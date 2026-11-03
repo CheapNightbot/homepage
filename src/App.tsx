@@ -14,8 +14,10 @@ import { cn } from "@/lib/utils";
 import { FileCode, Image, RefreshCw } from "lucide-react";
 import { useEffect, useState } from "react";
 import { SOURCE_CODE } from "./constants.ts";
-import { useWallpaperManager, WallpaperProvider } from "./contexts/WallpaperManager";
-import { useWMContext, WMProvider } from "./contexts/WindowManager";
+import { WallpaperProvider } from "./contexts/WallpaperManager";
+import { useWallpaperManager } from "./contexts/WallpaperManagerContext";
+import { WMProvider } from "./contexts/WindowManager";
+import { useWMContext } from "./contexts/WindowManagerContext";
 import { TooltipProvider } from "@/components/ui/tooltip.tsx";
 
 function AppContent() {
@@ -66,13 +68,12 @@ function AppContent() {
 }
 
 function App() {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(
+    () => window.sessionStorage.getItem("hasShownLoading") !== "true"
+  );
 
   useEffect(() => {
-    if (window.sessionStorage.getItem("hasShownLoading") === "true") {
-      setLoading(false);
-      return;
-    }
+    if (!loading) return;
 
     const timer = setTimeout(() => {
       setLoading(false);
@@ -80,7 +81,7 @@ function App() {
     }, 2000);
 
     return () => clearTimeout(timer);
-  }, []);
+  }, [loading]);
 
   return (
     <ThemeProvider defaultTheme="dark" storageKey="potato-ui-theme">

@@ -3,7 +3,7 @@ import { SITE_TITLE } from "@/constants";
 import { FullScreenToggle } from "./full-screen-toggle";
 import { Shell } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { useWallpaperManager } from "@/contexts/WallpaperManager";
+import { useWallpaperManager } from "@/contexts/WallpaperManagerContext";
 
 function TopBar() {
     const { currentWallpaper } = useWallpaperManager();

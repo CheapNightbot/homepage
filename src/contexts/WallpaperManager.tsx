@@ -1,23 +1,5 @@
-import { createContext, useContext, useEffect, useState } from "react";
-
-interface WallpaperManagerType {
-    wallpapers: string[];
-    currentWallpaper: string;
-    changingWallpaper: boolean;
-    changeWallpaper: (wallpaper: string) => void;
-    defaultWallpaper: () => void;
-    noWallpaper: () => void;
-}
-
-const WallpaperManager = createContext<WallpaperManagerType | undefined>(undefined);
-
-export const useWallpaperManager = () => {
-    const context = useContext(WallpaperManager);
-    if (!context) {
-        throw new Error('useWallpaperManager must be used within a WallpaperProvider!');
-    }
-    return context;
-}
+import { useEffect, useState } from "react";
+import { WallpaperManagerContext } from "./WallpaperManagerContext";
 
 export const WallpaperProvider = ({ children }: { children: React.ReactNode }) => {
     const dir = "/wallpapers/";
@@ -69,8 +51,8 @@ export const WallpaperProvider = ({ children }: { children: React.ReactNode }) =
     }
 
     return (
-        <WallpaperManager.Provider value={value}>
+        <WallpaperManagerContext.Provider value={value}>
             {children}
-        </WallpaperManager.Provider>
+        </WallpaperManagerContext.Provider>
     );
 }

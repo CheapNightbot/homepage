@@ -3,5 +3,5 @@ export interface AppProps {
     title?: string;
     width?: number;
     height?: number;
-    className: string | undefined;
+    className?: string;
 }

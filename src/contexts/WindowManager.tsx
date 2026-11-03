@@ -1,17 +1,7 @@
-import { type WindowManagerContextType, type WindowState } from "@/types/window";
-import { createContext, useContext, useEffect, useState } from "react";
+import { type WindowState } from "@/types/window";
+import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
-
-
-const WMContext = createContext<WindowManagerContextType | undefined>(undefined);
-
-export const useWMContext = () => {
-    const context = useContext(WMContext);
-    if (!context) {
-        throw new Error('useWMContext must be used within a WMProvider!');
-    }
-    return context;
-}
+import { WMContext } from "./WindowManagerContext";
 
 export const WMProvider = ({ children }: { children: React.ReactNode }) => {
     const [windows, setWindows] = useState<WindowState[]>(() => {

@@ -2,7 +2,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import Window from "@/components/window";
-import { useWallpaperManager } from "@/contexts/WallpaperManager";
+import { useWallpaperManager } from "@/contexts/WallpaperManagerContext";
 import type { AppProps } from "@/types/app";
 import { CircleCheck } from "lucide-react";
 

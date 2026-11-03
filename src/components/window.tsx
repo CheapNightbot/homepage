@@ -5,17 +5,17 @@ import {
     ContextMenuItem,
     ContextMenuTrigger,
 } from "@/components/ui/context-menu";
-import { useWallpaperManager } from '@/contexts/WallpaperManager';
-import { useWMContext } from "@/contexts/WindowManager";
+import { useWallpaperManager } from '@/contexts/WallpaperManagerContext';
+import { useWMContext } from "@/contexts/WindowManagerContext";
 import { cn } from '@/lib/utils';
 import { Circle, FileCode, Minus, Plus, SquareArrowOutUpRight, X } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useEffect, useEffectEvent, useState } from 'react';
 import { Rnd } from 'react-rnd';
 
 interface WindowProps {
     windowId: string;
     title: string;
-    children?: any;
+    children?: React.ReactNode;
     className?: string;
     contentClassName?: string;
     contextMenu?: { source: string, live: string };
@@ -58,10 +58,10 @@ function Window({
 
     const mainElm = document.getElementById('main');
 
-    const [winWidth, setWinWidth] = useState(width);
-    const [winHeight, setWinHeight] = useState(height);
-    const [posX, setPosX] = useState((window.innerWidth - winWidth) / 2);
-    const [posY, setPosY] = useState((window.innerHeight - (winHeight + 140)) / 2);
+    const [winWidth, setWinWidth] = useState(isMaximized && mainElm ? mainElm.clientWidth - 32 : width);
+    const [winHeight, setWinHeight] = useState(isMaximized && mainElm ? mainElm.clientHeight - 22 : height);
+    const [posX, setPosX] = useState(isMaximized ? 16 : (window.innerWidth - winWidth) / 2);
+    const [posY, setPosY] = useState(isMaximized ? 16 : (window.innerHeight - (winHeight + 140)) / 2);
 
     const [allowTransitions, setAllowTransitions] = useState(false);
     const [windowClosing, setWindowClosing] = useState(false);
@@ -70,8 +70,18 @@ function Window({
     const handleMaximize = () => {
         if (isMaximized) {
             restoreWindow(windowId);
+            setWinWidth(width);
+            setWinHeight(height);
+            setPosX(mainElm ? (mainElm.clientWidth - width) / 2 : (window.innerWidth - width) / 2);
+            setPosY(mainElm ? (mainElm.clientHeight - height) / 2 : (window.innerHeight - BOTTOM_OFFSET) / 2);
         } else {
             maximizeWindow(windowId);
+            if (mainElm) {
+                setWinWidth(mainElm.clientWidth - 32);
+                setWinHeight(mainElm.clientHeight - 22);
+                setPosX(16);
+                setPosY(16);
+            }
         }
     }
 
@@ -85,31 +95,16 @@ function Window({
 
     // -----
 
-    const handleBrowserResize = () => {
+    const handleBrowserResize = useEffectEvent(() => {
         const mainElment = document.getElementById('main');
         setPosX(mainElment ? (mainElment.clientWidth - winWidth) / 2 : (window.innerWidth - winWidth) / 2);
         setPosY(mainElment ? (mainElment.clientHeight - winHeight) / 2 : (window.innerHeight - winHeight) / 2);
-    }
+    });
 
     useEffect(() => {
         window.addEventListener("resize", handleBrowserResize);
         return () => { window.removeEventListener("resize", handleBrowserResize) };
-    }, [winWidth, winHeight]);
-
-    // Update dimensions when window is maximized/restored
-    useEffect(() => {
-        if (mainElm && isMaximized) {
-            setWinWidth(mainElm.clientWidth - 32);
-            setWinHeight(mainElm.clientHeight - 22);
-            setPosX(16);
-            setPosY(16);
-        } else {
-            setWinWidth(width);
-            setWinHeight(height);
-            setPosX(mainElm ? (mainElm.clientWidth - width) / 2 : (window.innerWidth - width) / 2);
-            setPosY(mainElm ? (mainElm.clientHeight - height) / 2 : (window.innerHeight - BOTTOM_OFFSET) / 2);
-        }
-    }, [isMaximized, width, height, mainElm]);
+    }, []);
 
     return (
         <div className={cn(

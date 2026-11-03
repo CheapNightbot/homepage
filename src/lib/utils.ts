@@ -16,7 +16,7 @@ export async function copyToClipboard(
       .then(() => {
         toast.success(successMsg);
       });
-  } catch (error) {
+  } catch {
     toast.error(errorMsg);
   }
 }

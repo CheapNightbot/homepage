@@ -1,7 +1,7 @@
 import { Moon, Sun } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { useTheme } from "@/components/theme-provider"
-import { useWallpaperManager } from "@/contexts/WallpaperManager";
+import { useTheme } from "@/components/theme-context"
+import { useWallpaperManager } from "@/contexts/WallpaperManagerContext";
 import { cn } from "@/lib/utils";
 
 export function ModeToggle() {

@@ -1,7 +1,7 @@
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import Window from "@/components/window";
-import { useWMContext } from "@/contexts/WindowManager";
+import { useWMContext } from "@/contexts/WindowManagerContext";
 import { cn } from "@/lib/utils";
 import type { AppProps } from "@/types/app";
 import { ChevronsRight } from "lucide-react";
@@ -23,7 +23,19 @@ export default function Terminal({
 }: AppProps) {
     const { closeWindow } = useWMContext();
     const [cmd, setCmd] = useState("");
-    const [cmdHistory, setCmdHistory] = useState<string[]>([]);
+    const [cmdHistory, setCmdHistory] = useState<string[]>(() => {
+        const storedHistory = localStorage.getItem('cmdHistoryDB');
+        if (!storedHistory) return [];
+
+        try {
+            const parsedHistory: unknown = JSON.parse(storedHistory);
+            return Array.isArray(parsedHistory) && parsedHistory.every((entry) => typeof entry === 'string')
+                ? parsedHistory
+                : [];
+        } catch {
+            return [];
+        }
+    });
     const [terminalHistory, setTerminalHistory] = useState<CommandHistory[]>([]);
     const [historyIndex, setHistoryIndex] = useState(-1);
     const [env, setEnv] = useState({
@@ -33,18 +45,6 @@ export default function Terminal({
         SHELL: "zsh-chan"
     });
 
-
-    // ---- Sync terminal command history ~
-    useEffect(() => {
-        const cmdHistoryDB = localStorage.getItem('cmdHistoryDB');
-        if (cmdHistoryDB) {
-            try {
-                setCmdHistory(JSON.parse(cmdHistoryDB));
-            } catch {
-                setCmdHistory([]);
-            }
-        }
-    }, []);
 
     useEffect(() => {
         localStorage.setItem('cmdHistoryDB', JSON.stringify(cmdHistory));
@@ -69,7 +69,7 @@ export default function Terminal({
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const isCmd = cmd.trim().length > 0;
-        isCmd && setCmdHistory((prev) => [...prev, cmd]);
+        if (isCmd) setCmdHistory((prev) => [...prev, cmd]);
 
         // Empty string, still want to add to terminal history for new line !!
         if (!isCmd) {
@@ -97,8 +97,8 @@ export default function Terminal({
                 try {
                     const newDir = cmdHandler.execute(args, env);
                     setEnv({ ...env, PWD: newDir as string });
-                } catch (error: any) {
-                    output = error.message;
+                } catch (error) {
+                    output = error instanceof Error ? error.message : String(error);
                     code = -1;
                 }
             } else {
@@ -112,7 +112,11 @@ export default function Terminal({
             code = -1;
         }
 
-        command === "clear" ? setTerminalHistory([]) : setTerminalHistory(prev => [...prev, { command: cmd, output: output, code: code }]);
+        if (command === "clear") {
+            setTerminalHistory([]);
+        } else {
+            setTerminalHistory(prev => [...prev, { command: cmd, output, code }]);
+        }
         setHistoryIndex(-1); // reset history index to the last command ~
         setCmd("");
     }

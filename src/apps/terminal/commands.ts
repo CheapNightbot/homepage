@@ -43,9 +43,9 @@ const handleCat = (args: string[], env: Record<string, string>) => {
     const content = getContentAtPath(filePath);
 
     if (content === null) {
-        return `/ᐠﹷ ‸ ﹷ ᐟ\ﾉ cat: ${fileName}: No such file or directory`;
+        return `/ᐠﹷ ‸ ﹷ ᐟﾉ cat: ${fileName}: No such file or directory`;
     } else if (content === 'directory') {
-        return `/ᐠﹷ ‸ ﹷ ᐟ\ﾉ cat: ${fileName}: Is a directory`;
+        return `/ᐠﹷ ‸ ﹷ ᐟﾉ cat: ${fileName}: Is a directory`;
     }
 
     return content.split('\n');

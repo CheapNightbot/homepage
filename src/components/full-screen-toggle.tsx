@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { useWallpaperManager } from "@/contexts/WallpaperManager";
+import { useWallpaperManager } from "@/contexts/WallpaperManagerContext";
 import { cn } from "@/lib/utils";
 import { Expand, Shrink } from "lucide-react";
 import { useEffect, useState } from "react";
